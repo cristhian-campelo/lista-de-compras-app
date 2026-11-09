@@ -2,7 +2,7 @@
 
 Aplicativo web instalável (PWA) para fazer a lista de compras do mercado e saber o **total exato** enquanto você compra. Funciona no celular e no PC, offline, sem cadastro e sem enviar nenhum dado para servidores.
 
-**Acesse:** https://SEU-USUARIO.github.io/lista-de-compras/
+**Acesse:** https://cristhian-campelo.github.io/lista-de-compras-app/
 
 ## Funcionalidades
 
