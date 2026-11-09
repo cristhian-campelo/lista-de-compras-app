@@ -15,6 +15,7 @@ Aplicativo web instalável (PWA) para fazer a lista de compras do mercado e sabe
 - **Exportar:** copiar a lista como texto, baixar **CSV** ou **planilha Excel (.xlsx)**.
 - **Backup:** salve a lista em um arquivo `.json` e restaure quando quiser.
 - **Tema claro e escuro** automáticos, desenhado primeiro para o celular.
+- **Instalação com um toque:** botão **Instalar** dentro do próprio app (no iPhone, mostra o passo a passo).
 - **Funciona offline** depois do primeiro acesso.
 
 ## Como usar
@@ -27,7 +28,7 @@ Aplicativo web instalável (PWA) para fazer a lista de compras do mercado e sabe
 
 ## Instalar como app
 
-Abra o endereço acima e instale:
+Abra o endereço acima e toque em **Instalar** (aviso no topo do app ou em **⋯ → Instalar app**). Se o navegador não mostrar a janela de instalação, siga o caminho manual:
 
 | Dispositivo | Como instalar |
 | --- | --- |

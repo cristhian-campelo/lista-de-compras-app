@@ -73,7 +73,8 @@ footer{flex:none;position:relative;background:var(--surface);border-top:1px soli
 .opt{display:flex;align-items:center;gap:10px;width:100%;min-height:50px;padding:0 14px;margin-top:8px;border-radius:12px;text-align:left;font-weight:600;background:hsl(var(--h) var(--cs) var(--cl));border:1px solid color-mix(in srgb,var(--ink) 10%,transparent)}
 .opt.on{outline:2px solid var(--accent)}.opt .e{font-size:20px}.opt em{margin-left:auto;font-style:normal;color:var(--muted);font-weight:500;font-size:14px}
 .lst{max-height:min(60vh,420px);overflow-y:auto}
-#prev:empty{display:none}dialog h3:focus{outline:none}
+#prev:empty{display:none}
+.inst{display:flex;align-items:center;gap:8px;margin-top:12px;padding:8px 8px 8px 14px;border-radius:12px;background:var(--soft);font-size:14px;font-weight:600}.inst[hidden],.menu button[hidden]{display:none}.inst span{flex:1}.inst button{height:36px;padding:0 14px;border-radius:10px}#instGo{background:var(--accent);color:var(--accent-ink);font-weight:800}#instX{width:36px;padding:0;color:var(--muted)}dialog h3:focus{outline:none}
 .sec{background:hsl(var(--h) var(--cs) var(--cl));border:1px solid color-mix(in srgb,var(--ink) 10%,transparent);border-radius:14px;padding:12px;margin-top:10px}.sec h4{margin:0 0 8px;font-size:14px}.sg{display:flex;flex-wrap:wrap;gap:8px}
 .chip{padding:9px 13px;border-radius:999px;background:var(--surface);border:1px solid color-mix(in srgb,var(--ink) 12%,transparent);font-weight:600;font-size:14px}.chip:active{transform:scale(.97)}#hsl{max-height:70vh}
 .step{display:flex;align-items:center;border:1px solid var(--line);border-radius:12px;background:var(--bg);height:46px}
@@ -101,6 +102,7 @@ dialog label{display:block;font-size:13px;color:var(--muted);margin:12px 0 4px}
   <div class="top"><span>Total da lista</span><button class="icon-btn" id="menuBtn" aria-label="Mais opções">⋯</button></div>
   <div class="total" id="total">R$ 0,00</div>
   <div class="sub"><span>No carrinho <b id="cart">R$ 0,00</b></span><span>Falta <b id="rest">R$ 0,00</b></span></div>
+  <div class="inst" id="inst" hidden><span>📲 Instale o app no seu aparelho</span><button id="instGo">Instalar</button><button id="instX" aria-label="Fechar aviso">✕</button></div>
   <div class="bud" id="bud" hidden><div class="bar" id="bar"><i></i></div><p id="budTxt"></p></div>
 </div></header>
 
@@ -130,12 +132,13 @@ dialog label{display:block;font-size:13px;color:var(--muted);margin:12px 0 4px}
 <dialog id="cp"><h3 tabindex="-1" autofocus>Escolher categoria</h3><div class="lst" id="cpl"></div></dialog>
 <dialog id="hs"><h3 tabindex="-1" autofocus>Sugestões de itens</h3><div class="lst" id="hsl"></div></dialog>
 <dialog id="ex"><h3 tabindex="-1" autofocus>Exportar lista</h3><div class="menu"><button id="xCopy">Copiar lista</button><button id="xCsv">Baixar CSV</button><button id="xXls">Baixar planilha (Excel)</button><button id="xBak">Salvar backup (.json)</button><button id="xRes">Restaurar backup</button><input type="file" id="xFile" accept=".json,application/json" hidden></div><div class="acts"><button class="pri" id="xOk" onclick="document.getElementById('ex').close()">Fechar</button></div></dialog>
+<dialog id="ih"><h3 tabindex="-1" autofocus id="ihT"></h3><p id="ihP" style="margin:0;line-height:1.5"></p><div class="acts"><button class="pri" onclick="document.getElementById('ih').close()">Entendi</button></div></dialog>
 <dialog id="mn">
   <h3 tabindex="-1" autofocus>Opções</h3>
   <label for="bd">Orçamento do mercado (deixe vazio para desativar)</label>
   <input id="bd" inputmode="numeric" placeholder="0,00">
   <div class="menu" style="margin-top:14px">
-    <button id="mExp">Exportar lista</button>
+    <button id="mInst">Instalar app</button><button id="mExp">Exportar lista</button>
     <button id="mDone" class="w">Remover itens marcados</button>
     <button id="mAll" class="w">Limpar a lista inteira</button>
   </div>
@@ -243,7 +246,19 @@ $("xCopy").onclick=async()=>{
   $("ex").close();
   try{await navigator.clipboard.writeText(tx);toast("Lista copiada")}catch(e){const a=document.createElement("textarea");a.value=tx;document.body.appendChild(a);a.select();try{document.execCommand("copy");toast("Lista copiada")}catch(x){toast("Não foi possível copiar")}a.remove()}
 };
-["ed","mn","cp","hs","ex"].forEach(i=>$(i).addEventListener("click",e=>{if(e.target===$(i))$(i).close()}));
+["ed","mn","cp","hs","ex","ih"].forEach(i=>$(i).addEventListener("click",e=>{if(e.target===$(i))$(i).close()}));
+let DP=null;
+const standalone=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
+const ios=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+function instUI(){const on=!standalone();$("mInst").hidden=!on;let x=false;try{x=localStorage.getItem("inst-x")==="1"}catch(e){}$("inst").hidden=!(on&&!x&&(DP||ios))}
+addEventListener("beforeinstallprompt",e=>{e.preventDefault();DP=e;instUI()});
+addEventListener("appinstalled",()=>{DP=null;instUI();toast("App instalado")});
+async function install(){$("mn").close();if(DP){DP.prompt();try{await DP.userChoice}catch(x){}DP=null;instUI();return}
+  $("ihT").textContent=ios?"Instalar no iPhone":"Instalar o app";
+  $("ihP").innerHTML=ios?"Toque em <b>Compartilhar</b> (o quadrado com a seta) na barra do navegador e escolha <b>Adicionar à Tela de Início</b>.":"No menu do navegador (⋮), escolha <b>Instalar app</b> ou <b>Adicionar à tela inicial</b>.";$("ih").showModal()}
+$("mInst").onclick=install;$("instGo").onclick=install;
+$("instX").onclick=()=>{try{localStorage.setItem("inst-x","1")}catch(e){}instUI()};
+instUI();
 render();
 try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
 if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
