@@ -6,25 +6,31 @@ Aplicativo web instalável (PWA) para fazer a lista de compras do mercado e sabe
 
 ## Funcionalidades
 
-- **Total em tempo real:** total da lista, valor já no carrinho e quanto falta.
+- **Total em tempo real:** total da lista, valor já no carrinho, quanto falta e quantos itens já foram pegos (ex.: `7/12`).
+- **Várias listas:** Mercado, Farmácia, Churrasco… Toque no nome da lista no topo para trocar, criar, renomear ou excluir.
 - **Item, quantidade e preço:** o preço é obrigatório; itens com valor R$ 0,00 ficam destacados em laranja com um alerta ⚠️.
+- **Itens por peso (kg):** toque em **/un** no campo de preço para mudar para **/kg** e informe o peso (ex.: `750` vira `0,750 kg`).
+- **Lembra o último preço:** ao digitar um item já comprado, o preço, a unidade e a categoria são preenchidos sozinhos. Na lista aparece ▲ ou ▼ quando o preço subiu ou caiu em relação à última compra.
+- **Itens repetidos:** ao adicionar um item que já está na lista, o app pergunta se quer somar à quantidade existente.
 - **Categorias coloridas:** Hortifruti, Padaria, Açougue, Laticínios, Frios e Ovos, Mercearia, Bebidas, Limpeza, Higiene, Congelados, Snacks e Doces, Pets e Outros. A categoria usada por último sobe para o topo da lista.
-- **Sugestões de itens:** a seta ▾ ao lado do nome abre sugestões por categoria, com os itens mais comprados no topo.
-- **Modo mercado:** toque no círculo para marcar o item como colocado no carrinho; os marcados vão para o fim da categoria.
-- **Orçamento:** defina um limite e acompanhe quanto ainda pode gastar.
-- **Exportar:** copiar a lista como texto, baixar **CSV** ou **planilha Excel (.xlsx)**.
-- **Backup:** salve a lista em um arquivo `.json` e restaure quando quiser.
-- **Tema claro e escuro** automáticos, desenhado primeiro para o celular.
+- **Sugestões de itens:** a seta ▾ ao lado do nome abre os itens comprados recentemente e sugestões por categoria.
+- **Modo mercado:** toque no círculo para marcar o item como colocado no carrinho; os marcados vão para o fim da categoria e podem ser ocultados.
+- **Excluir com desfazer:** pela lixeira 🗑️, deslizando o item para a esquerda ou pela tela de edição.
+- **Orçamento:** defina um limite por lista e acompanhe quanto ainda pode gastar.
+- **Compartilhar e exportar:** enviar pelo WhatsApp/Telegram, copiar como texto, baixar **CSV** ou **planilha Excel (.xlsx)**.
+- **Backup:** salve todas as listas em um arquivo `.json` e restaure quando quiser.
+- **Tema claro, escuro ou automático**, desenhado primeiro para o celular.
 - **Instalação com um toque:** botão **Instalar** dentro do próprio app (no iPhone, mostra o passo a passo).
-- **Funciona offline** depois do primeiro acesso.
+- **Funciona offline** e abre na hora, mesmo com sinal fraco dentro do mercado.
 
 ## Como usar
 
-1. Digite o nome do item, ajuste a quantidade, informe o **preço unitário** (digite só os números: `450` vira `4,50`) e toque em **Adicionar**.
+1. Digite o nome do item, ajuste a quantidade, informe o **preço unitário** (digite só os números: `450` vira `4,50`) e toque em **Adicionar**. Para itens vendidos por peso, toque em **/un** para mudar para **/kg**.
 2. Toque no botão da categoria para escolher outra; a última escolhida é mantida para o próximo item.
 3. No mercado, toque no círculo ao lado do item para marcá-lo.
-4. Toque no item para editar ou excluir. Exclusões podem ser desfeitas na hora.
-5. No menu **⋯**: defina o orçamento, exporte a lista, remova os itens marcados ou limpe a lista.
+4. Toque no item para editar. Para excluir, toque na lixeira 🗑️ ou deslize o item para a esquerda. Exclusões podem ser desfeitas na hora pelo botão **Desfazer**.
+5. Toque no nome da lista (no topo, à esquerda) para trocar de lista ou criar outra.
+6. No menu **⋯**: defina o orçamento, escolha o tema, compartilhe ou exporte a lista, oculte ou remova os itens marcados ou limpe a lista.
 
 ## Instalar como app
 
@@ -39,7 +45,7 @@ Abra o endereço acima e toque em **Instalar** (aviso no topo do app ou em **⋯
 ## Seus dados
 
 - A lista fica salva **apenas no navegador do seu aparelho** (`localStorage`). Cada pessoa tem a sua, e o desenvolvedor não tem acesso a ela.
-- Limpar os dados do navegador ou desinstalar o app apaga a lista. Faça backup de vez em quando em **⋯ → Exportar lista → Salvar backup (.json)**.
+- Limpar os dados do navegador ou desinstalar o app apaga as listas. Faça backup de vez em quando em **⋯ → Exportar e compartilhar → Salvar backup**.
 - Não há sincronização entre aparelhos. Para levar a lista de um aparelho a outro, use o backup.
 
 ## Rodar localmente
@@ -79,7 +85,9 @@ git commit -m "Descreva a mudança"
 git push
 ```
 
-O `index.html` é sempre buscado na internet quando há conexão, então as mudanças nele aparecem na próxima abertura. Se você mudar **outros arquivos** (fontes, ícones, biblioteca), troque a versão do cache em `sw.js` (`compras-v1` para `compras-v2`, e assim por diante).
+O app abre sempre pela cópia guardada no aparelho (para ser rápido no mercado) e baixa a versão nova do `index.html` em segundo plano. Por isso, depois de publicar, as mudanças aparecem a partir da **segunda** abertura do app. Se você mudar **outros arquivos** (fontes, ícones, biblioteca), troque a versão do cache em `sw.js` (`compras-v3` para `compras-v4`, e assim por diante).
+
+> As listas salvas na versão antiga do app (uma lista só) são convertidas automaticamente para a lista **Mercado** na primeira abertura.
 
 ## Tecnologias
 
