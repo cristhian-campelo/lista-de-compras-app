@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lista de compras</title>
+<meta name="theme-color" content="#0e7c66">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Compras">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<style>
+@font-face{font-family:Manrope;font-weight:500;font-style:normal;font-display:swap;src:url(fonts/manrope-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:Manrope;font-weight:600;font-style:normal;font-display:swap;src:url(fonts/manrope-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:Manrope;font-weight:800;font-style:normal;font-display:swap;src:url(fonts/manrope-latin-800-normal.woff2) format("woff2")}
+:root{--bg:#f5f6f7;--surface:#fff;--ink:#16191c;--muted:#5f676e;--line:#e6e8ea;--accent:#0e7c66;--accent-ink:#fff;--soft:#e4f2ee;--warn:#c2410c;--shadow:0 -8px 24px rgba(0,0,0,.06);--cs:75%;--cl:92%;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111314;--surface:#1a1d1f;--ink:#eef0f1;--muted:#8b949b;--line:#2a2e31;--accent:#3ecfae;--accent-ink:#06231c;--soft:#173a32;--warn:#fb923c;--shadow:0 -8px 24px rgba(0,0,0,.4);--cs:32%;--cl:19%;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#111314;--surface:#1a1d1f;--ink:#eef0f1;--muted:#8b949b;--line:#2a2e31;--accent:#3ecfae;--accent-ink:#06231c;--soft:#173a32;--warn:#fb923c;--shadow:0 -8px 24px rgba(0,0,0,.4);--cs:32%;--cl:19%;color-scheme:dark}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;height:100%;display:flex;flex-direction:column;overflow:hidden;background:var(--bg);color:var(--ink);font:500 16px/1.4 Manrope,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:640px;margin:0 auto;padding:0 16px}
+header{flex:none;background:var(--bg);padding:14px 0 12px}
+.top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:14px}
+.icon-btn{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:20px;color:var(--ink)}
+.icon-btn:hover{background:var(--line)}
+.total{font-size:44px;font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:2px 0 6px;font-variant-numeric:tabular-nums}
+.sub{display:flex;gap:16px;color:var(--muted);font-size:14px;font-variant-numeric:tabular-nums}
+.sub b{color:var(--ink);font-weight:600}
+.bud{margin-top:12px}
+.bar{height:6px;border-radius:6px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);border-radius:6px;transition:width .3s}
+.bar.over i{background:var(--warn)}
+.bud p{margin:6px 0 0;font-size:13px;color:var(--muted)}
+.bud.over p{color:var(--warn)}
+main{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding-bottom:20px}
+.grp{margin-top:18px}
+.grp h2{display:flex;justify-content:space-between;margin:0 4px 8px;font-size:14px;font-weight:600;color:var(--muted)}
+.card{background:hsl(var(--h) var(--cs) var(--cl));border:1px solid color-mix(in srgb,var(--ink) 10%,transparent);border-radius:16px;overflow:hidden}
+.row{display:flex;align-items:center;gap:12px;padding:6px 14px 6px 6px;min-height:60px}
+.row+.row{border-top:1px solid color-mix(in srgb,var(--ink) 10%,transparent)}.row.zero{background:color-mix(in srgb,#f97316 34%,transparent);box-shadow:inset 4px 0 0 #ea580c}.zw{margin-right:6px}
+.chk{width:44px;height:44px;flex:none;display:grid;place-items:center}
+.chk span{width:24px;height:24px;border-radius:50%;border:2px solid color-mix(in srgb,var(--ink) 30%,transparent);display:grid;place-items:center;transition:.15s;color:transparent;font-size:14px;font-weight:800}
+.done .chk span{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.info{flex:1;min-width:0;text-align:left;padding:8px 0}
+.name{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.meta{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.line{font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.done .name,.done .line{text-decoration:line-through;color:var(--muted)}
+.empty{text-align:center;color:var(--muted);padding:64px 24px}
+.empty b{display:block;color:var(--ink);font-size:18px;margin-bottom:6px}
+footer{flex:none;position:relative;background:var(--surface);border-top:1px solid var(--line);box-shadow:var(--shadow);padding:12px 0 calc(12px + env(safe-area-inset-bottom,0px))}
+.f{display:grid;gap:8px}
+.f input,.f select,dialog input,dialog select{width:100%;height:46px;border:1px solid var(--line);border-radius:12px;background:var(--bg);padding:0 12px;min-width:0}
+.f .r2{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,1fr);gap:8px}
+.f .r3{display:grid;grid-template-columns:1fr auto;gap:8px}
+.add{height:46px;padding:0 20px;border-radius:12px;background:var(--accent);color:var(--accent-ink);font-weight:800}
+.add:active{transform:scale(.97)}
+.r1{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
+.nw{position:relative}.nw input{padding-right:44px}
+.hb{position:absolute;right:0;top:0;width:44px;height:46px;color:var(--muted);font-size:16px}
+.catb{width:100%;height:46px;border:1px solid var(--line);border-radius:12px;padding:0 10px;display:flex;align-items:center;gap:6px;min-width:0;font-weight:600;background:hsl(var(--h,0) var(--cs) var(--cl))}
+.catb span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.catb .e{flex:none;overflow:visible;font-size:18px;line-height:1.4;padding:0 1px}
+.bad{border-color:#ea580c!important;box-shadow:0 0 0 3px color-mix(in srgb,#f97316 30%,transparent)}
+.opt{display:flex;align-items:center;gap:10px;width:100%;min-height:50px;padding:0 14px;margin-top:8px;border-radius:12px;text-align:left;font-weight:600;background:hsl(var(--h) var(--cs) var(--cl));border:1px solid color-mix(in srgb,var(--ink) 10%,transparent)}
+.opt.on{outline:2px solid var(--accent)}.opt .e{font-size:20px}.opt em{margin-left:auto;font-style:normal;color:var(--muted);font-weight:500;font-size:14px}
+.lst{max-height:min(60vh,420px);overflow-y:auto}
+#prev:empty{display:none}dialog h3:focus{outline:none}
+.sec{background:hsl(var(--h) var(--cs) var(--cl));border:1px solid color-mix(in srgb,var(--ink) 10%,transparent);border-radius:14px;padding:12px;margin-top:10px}.sec h4{margin:0 0 8px;font-size:14px}.sg{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:9px 13px;border-radius:999px;background:var(--surface);border:1px solid color-mix(in srgb,var(--ink) 12%,transparent);font-weight:600;font-size:14px}.chip:active{transform:scale(.97)}#hsl{max-height:70vh}
+.step{display:flex;align-items:center;border:1px solid var(--line);border-radius:12px;background:var(--bg);height:46px}
+.step button{width:40px;height:100%;font-size:20px}
+.step output{min-width:24px;text-align:center;font-weight:600;font-variant-numeric:tabular-nums}
+dialog{border:0;border-radius:20px 20px 0 0;background:var(--surface);color:var(--ink);padding:20px 16px calc(20px + env(safe-area-inset-bottom,0px));width:100%;max-width:640px;margin:auto auto 0;box-shadow:0 -12px 40px rgba(0,0,0,.25)}
+dialog::backdrop{background:rgba(0,0,0,.4)}
+dialog h3{margin:0 0 14px;font-size:18px}
+dialog label{display:block;font-size:13px;color:var(--muted);margin:12px 0 4px}
+.acts{display:flex;gap:8px;margin-top:18px}
+.acts button{flex:1;height:46px;border-radius:12px;font-weight:600;background:var(--bg)}
+.acts .pri{background:var(--accent);color:var(--accent-ink);flex:2}
+.acts .del{color:var(--warn)}
+.menu button{display:block;width:100%;text-align:left;padding:14px 4px;border-top:1px solid var(--line)}
+.menu button.w{color:var(--warn)}
+#toast{position:absolute;left:50%;bottom:calc(100% + 10px);transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;display:flex;gap:14px;align-items:center;opacity:0;pointer-events:none;transition:.25s;z-index:20;font-size:14px;white-space:nowrap}
+#toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+#toast button{color:var(--accent);font-weight:800}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (min-width:700px){.total{font-size:56px}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="top"><span>Total da lista</span><button class="icon-btn" id="menuBtn" aria-label="Mais opções">⋯</button></div>
+  <div class="total" id="total">R$ 0,00</div>
+  <div class="sub"><span>No carrinho <b id="cart">R$ 0,00</b></span><span>Falta <b id="rest">R$ 0,00</b></span></div>
+  <div class="bud" id="bud" hidden><div class="bar" id="bar"><i></i></div><p id="budTxt"></p></div>
+</div></header>
+
+<main><div class="wrap" id="list"></div></main>
+
+<footer><div class="wrap f">
+  <div class="r1"><div class="nw"><input id="name" placeholder="Item (ex.: Arroz 5 kg)" autocomplete="off" enterkeyhint="next"><button class="hb" id="hBtn" aria-label="Sugestões de itens">▾</button></div><button class="add" id="addBtn">Adicionar</button></div>
+  
+  <div class="r2">
+    <div class="step"><button id="qm" aria-label="Diminuir">−</button><output id="qv">1</output><button id="qp" aria-label="Aumentar">+</button></div>
+    <input id="price" inputmode="numeric" placeholder="Preço un. 0,00" autocomplete="off" enterkeyhint="done">
+    <button class="catb" id="cat" aria-label="Categoria"></button>
+  </div>
+  <div class="meta" id="prev"></div><div id="toast"><span id="toastTxt"></span><button id="undo">Desfazer</button></div>
+</div></footer>
+
+<dialog id="ed">
+  <h3 tabindex="-1" autofocus>Editar item</h3>
+  <label for="en">Nome</label><input id="en">
+  <label>Quantidade</label>
+  <div class="step" style="width:140px"><button id="eqm" aria-label="Diminuir">−</button><output id="eqv">1</output><button id="eqp" aria-label="Aumentar">+</button></div>
+  <label for="ep">Preço unitário</label><input id="ep" inputmode="numeric">
+  <label for="ec">Categoria</label><button class="catb" id="ec" type="button"></button>
+  <div class="acts"><button class="del" id="edDel">Excluir</button><button class="pri" id="edSave">Salvar</button></div>
+</dialog>
+
+<dialog id="cp"><h3 tabindex="-1" autofocus>Escolher categoria</h3><div class="lst" id="cpl"></div></dialog>
+<dialog id="hs"><h3 tabindex="-1" autofocus>Sugestões de itens</h3><div class="lst" id="hsl"></div></dialog>
+<dialog id="ex"><h3 tabindex="-1" autofocus>Exportar lista</h3><div class="menu"><button id="xCopy">Copiar lista</button><button id="xCsv">Baixar CSV</button><button id="xXls">Baixar planilha (Excel)</button><button id="xBak">Salvar backup (.json)</button><button id="xRes">Restaurar backup</button><input type="file" id="xFile" accept=".json,application/json" hidden></div><div class="acts"><button class="pri" id="xOk" onclick="document.getElementById('ex').close()">Fechar</button></div></dialog>
+<dialog id="mn">
+  <h3 tabindex="-1" autofocus>Opções</h3>
+  <label for="bd">Orçamento do mercado (deixe vazio para desativar)</label>
+  <input id="bd" inputmode="numeric" placeholder="0,00">
+  <div class="menu" style="margin-top:14px">
+    <button id="mExp">Exportar lista</button>
+    <button id="mDone" class="w">Remover itens marcados</button>
+    <button id="mAll" class="w">Limpar a lista inteira</button>
+  </div>
+  <div class="acts"><button class="pri" id="mnOk">Pronto</button></div>
+</dialog>
+
+<script>
+const CATS=[["Hortifruti","🥬",125],["Padaria","🥖",42],["Açougue","🥩",355],["Laticínios","🧀",60],["Frios e Ovos","🥚",305],["Mercearia","🛒",270],["Bebidas","🥤",195],["Limpeza","🧹",160],["Higiene","🪥",250],["Congelados","❄️",220],["Snacks e Doces","🍪",335],["Pets","🐶",85],["Outros","📦",220,"6%"]].map(([n,e,h,s])=>({n,e,h,s}));
+const CAT=n=>CATS.find(c=>c.n===n)||CATS.find(c=>c.n==="Outros");
+const sty=c=>`--h:${c.h}${c.s?";--cs:"+c.s:""}`;
+const bump=c=>{S.order=[c,...S.order.filter(x=>x!==c)]};
+const KEY="lista-compras-v1";
+let S={items:[],budget:0,hist:{},cat:"Mercearia",order:[]};
+try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+const okc=n=>CATS.some(c=>c.n===n);S.items.forEach(i=>{if(!okc(i.cat))i.cat="Mercearia"});if(!okc(S.cat))S.cat="Mercearia";Object.values(S.hist).forEach(h=>{if(!okc(h.cat))h.cat="Mercearia"});
+const $=id=>document.getElementById(id);
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const brl=c=>(c/100).toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+const esc=s=>s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const cents=v=>parseInt(String(v).replace(/\D/g,"")||"0",10);
+const mask=el=>el.addEventListener("input",()=>{const d=el.value.replace(/\D/g,"").slice(0,9);el.value=d?(parseInt(d,10)/100).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}):""});
+const fromC=(c,z)=>(c||z)?(c/100).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}):"";
+const paint=(el,n)=>{const c=CAT(n);el.style.setProperty("--h",c.h);el.style.setProperty("--cs",c.s||"");el.innerHTML=`<span class="e">${c.e}</span><span>${c.n}</span>`;el.dataset.v=c.n};
+let pickCb=null;
+function pick(cur,cb){pickCb=cb;$("cpl").innerHTML=CATS.map(c=>`<button class="opt${c.n===cur?" on":""}" style="${sty(c)}" data-c="${c.n}"><span class="e">${c.e}</span>${c.n}</button>`).join("");$("cp").showModal()}
+$("cpl").addEventListener("click",e=>{const b=e.target.closest("[data-c]");if(b){$("cp").close();pickCb&&pickCb(b.dataset.c)}});
+paint($("cat"),S.cat);$("cat").onclick=()=>pick($("cat").dataset.v,n=>{S.cat=n;paint($("cat"),n);save()});$("ec").onclick=()=>pick($("ec").dataset.v,n=>paint($("ec"),n));
+
+["price","ep","bd"].forEach(i=>mask($(i)));
+
+let qty=1,editing=null,eq=1,undoFn=null,tt;
+function toast(msg,fn){$("toastTxt").textContent=msg;undoFn=fn;$("undo").style.display=fn?"":"none";$("toast").classList.add("on");clearTimeout(tt);tt=setTimeout(()=>$("toast").classList.remove("on"),5000)}
+$("undo").onclick=()=>{if(undoFn){undoFn();undoFn=null;render()}$("toast").classList.remove("on")};
+
+function render(){
+  const tot=S.items.reduce((a,i)=>a+i.qty*i.price,0);
+  const cart=S.items.filter(i=>i.done).reduce((a,i)=>a+i.qty*i.price,0);
+  $("total").textContent=brl(tot);$("cart").textContent=brl(cart);$("rest").textContent=brl(tot-cart);
+  const b=S.budget||0;$("bud").hidden=!b;
+  if(b){const over=tot>b;$("bud").classList.toggle("over",over);$("bar").classList.toggle("over",over);
+    $("bar").firstElementChild.style.width=Math.min(100,tot/b*100)+"%";
+    $("budTxt").textContent=over?`Passou ${brl(tot-b)} do orçamento de ${brl(b)}`:`Sobram ${brl(b-tot)} do orçamento de ${brl(b)}`}
+  const L=$("list");
+  if(!S.items.length){L.innerHTML='<div class="empty"><b>Sua lista está vazia</b>Digite um item abaixo, informe o preço e toque em Adicionar.</div>'}
+  else{const ord=[...S.order.filter(okc),...CATS.map(c=>c.n).filter(n=>!S.order.includes(n))];L.innerHTML=ord.map(n=>CAT(n)).map(cc=>{const c=cc.n;
+    const its=S.items.filter(i=>i.cat===c).sort((a,b)=>a.done-b.done);if(!its.length)return"";
+    const sub=its.reduce((a,i)=>a+i.qty*i.price,0);
+    return`<section class="grp"><h2><span>${cc.e} ${c}</span><span>${brl(sub)}</span></h2><div class="card" style="${sty(cc)}">${its.map(i=>`
+    <div class="row${i.done?" done":""}${i.price?"":" zero"}"><button class="chk" data-t="${i.id}" aria-label="Marcar ${esc(i.name)}"><span>✓</span></button>
+    <button class="info" data-e="${i.id}"><div class="name">${esc(i.name)}</div><div class="meta">${i.qty} × ${brl(i.price)}</div></button>
+    <div class="line">${i.price?"":'<span class="zw" role="img" aria-label="Valor zerado">⚠️</span>'}${brl(i.qty*i.price)}</div></div>`).join("")}</div></section>`}).join("")}
+  
+  save();
+}
+
+$("list").addEventListener("click",e=>{
+  const t=e.target.closest("[data-t]"),d=e.target.closest("[data-e]");
+  if(t){const i=S.items.find(x=>x.id==t.dataset.t);i.done=!i.done;navigator.vibrate&&navigator.vibrate(10);render()}
+  else if(d){editing=S.items.find(x=>x.id==d.dataset.e);$("en").value=editing.name;eq=editing.qty;$("eqv").textContent=eq;$("ep").value=fromC(editing.price,1);paint($("ec"),editing.cat);$("ed").showModal()}
+});
+$("eqm").onclick=()=>{eq=Math.max(1,eq-1);$("eqv").textContent=eq};
+$("eqp").onclick=()=>{eq=Math.min(99,eq+1);$("eqv").textContent=eq};
+$("edSave").onclick=()=>{const n=$("en").value.trim();if(!n){$("en").focus();return}if(!$("ep").value){$("ep").classList.add("bad");$("ep").focus();return}
+  const oc=editing.cat;Object.assign(editing,{name:n,qty:eq,price:cents($("ep").value),cat:$("ec").dataset.v});if(editing.cat!==oc)bump(editing.cat);$("ed").close();render()};
+$("edDel").onclick=()=>{const it=editing,idx=S.items.indexOf(it);S.items.splice(idx,1);$("ed").close();render();toast("Item excluído",()=>{S.items.splice(idx,0,it)})};
+
+$("qm").onclick=()=>{qty=Math.max(1,qty-1);$("qv").textContent=qty;prev()};
+$("qp").onclick=()=>{qty=Math.min(99,qty+1);$("qv").textContent=qty;prev()};
+function prev(){const c=cents($("price").value);$("prev").textContent=c&&qty>1?`= ${brl(c*qty)}`:""}
+$("price").addEventListener("input",()=>{prev();$("price").classList.remove("bad")});$("ep").addEventListener("input",()=>$("ep").classList.remove("bad"));$("name").addEventListener("input",()=>$("name").classList.remove("bad"));
+
+
+
+function add(){const n=$("name").value.trim();if(!n){$("name").classList.add("bad");$("name").focus();toast("Informe o nome do item");return}
+  if(!$("price").value){$("price").classList.add("bad");$("price").focus();toast("Informe o preço do item");return}const price=cents($("price").value),cat=$("cat").dataset.v;
+  S.items.push({id:Date.now()+Math.random(),name:n,qty,price,cat,done:false});bump(cat);
+  $("name").value="";$("price").value="";qty=1;$("qv").textContent=1;$("prev").textContent="";render();if(matchMedia("(pointer:coarse)").matches)document.activeElement.blur();else $("name").focus()}
+$("addBtn").onclick=add;
+$("name").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();$("price").focus()}});
+$("price").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();add()}});
+
+$("menuBtn").onclick=()=>{$("bd").value=fromC(S.budget||0);$("mn").showModal()};
+const SUG={"Hortifruti":["Banana","Maçã","Laranja","Limão","Mamão","Abacate","Manga","Alface","Couve","Rúcula","Tomate","Cebola","Alho","Batata","Cenoura","Pimentão","Pepino","Brócolis"],"Padaria":["Pão francês","Pão de forma","Pão integral","Pão de hambúrguer","Bolo de cenoura","Bolo de chocolate","Torrada integral","Croissant","Rosquinha","Pão de queijo"],"Açougue":["Carne moída","Patinho","Alcatra","Contrafilé","Costela","Peito de frango","Coxa de frango","Sobrecoxa","Filé de tilápia","Sardinha","Atum","Linguiça"],"Laticínios":["Leite integral","Leite desnatado","Queijo muçarela","Queijo prato","Requeijão","Iogurte natural","Iogurte grego","Manteiga","Margarina","Creme de leite"],"Frios e Ovos":["Ovos","Presunto","Muçarela","Peito de peru","Mortadela","Salame"],"Mercearia":["Arroz","Feijão carioca","Feijão preto","Macarrão espaguete","Macarrão parafuso","Café","Açúcar","Sal","Óleo de soja","Farinha de trigo","Farinha de mandioca","Molho de tomate","Milho em conserva","Ervilha","Aveia","Achocolatado"],"Bebidas":["Água mineral","Refrigerante cola","Refrigerante guaraná","Suco de laranja","Suco de uva","Água de coco","Cerveja","Energético","Chá gelado"],"Limpeza":["Detergente","Sabão em pó","Sabão líquido","Água sanitária","Desinfetante","Amaciante","Esponja","Limpador multiuso","Saco de lixo","Pano de chão"],"Higiene":["Papel higiênico","Creme dental","Escova de dentes","Shampoo","Condicionador","Sabonete","Desodorante","Fio dental","Absorvente","Lenço umedecido"],"Congelados":["Pizza congelada","Nuggets","Hambúrguer","Batata frita congelada","Lasanha congelada","Sorvete","Açaí"],"Snacks e Doces":["Biscoito recheado","Biscoito água e sal","Chocolate","Bombom","Barra de cereal","Salgadinho","Amendoim","Pipoca de micro-ondas"],"Pets":["Ração para cachorro","Ração para gato","Sachê para gato","Petisco para cachorro","Areia para gato","Tapete higiênico"]};
+const FAV=[["Arroz","Mercearia"],["Feijão","Mercearia"],["Leite","Laticínios"],["Pão francês","Padaria"],["Ovos","Frios e Ovos"],["Banana","Hortifruti"],["Tomate","Hortifruti"],["Cebola","Hortifruti"],["Café","Mercearia"],["Açúcar","Mercearia"],["Óleo","Mercearia"],["Papel higiênico","Higiene"],["Detergente","Limpeza"]];
+const chips=(a,c)=>a.map(n=>`<button class="chip" data-n="${esc(n)}" data-c="${c}">${esc(n)}</button>`).join("");
+$("hBtn").onclick=()=>{let h=`<section class="sec" style="--h:48"><h4>⭐ Mais comprados</h4><div class="sg">${FAV.map(([n,c])=>chips([n],c)).join("")}</div></section>`;CATS.forEach(c=>{if(SUG[c.n])h+=`<section class="sec" style="${sty(c)}"><h4>${c.e} ${c.n}</h4><div class="sg">${chips(SUG[c.n],c.n)}</div></section>`});$("hsl").innerHTML=h;$("hs").showModal();$("hsl").scrollTop=0};
+$("hsl").addEventListener("click",e=>{const b=e.target.closest("[data-n]");if(!b)return;$("name").value=b.dataset.n;$("name").classList.remove("bad");S.cat=b.dataset.c;paint($("cat"),S.cat);save();$("hs").close();$("price").focus()});
+$("mExp").onclick=()=>{S.budget=cents($("bd").value);$("mn").close();render();$("ex").showModal()};
+const HEAD=["Categoria","Item","Quantidade","Preço unitário","Subtotal","No carrinho"];
+const rows=()=>S.items.map(i=>[CAT(i.cat).n,i.name,i.qty,i.price/100,i.qty*i.price/100,i.done?"Sim":"Não"]);
+const totalC=()=>S.items.reduce((a,i)=>a+i.qty*i.price,0)/100;
+function dl(name,data){$("ex").close();try{const ty=name.endsWith(".csv")?"text/csv;charset=utf-8":name.endsWith(".json")?"application/json":"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";const b=new Blob([data],{type:ty}),u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),5000);toast("Arquivo exportado")}catch(e){toast("Não foi possível exportar")}}
+$("xCsv").onclick=()=>{const q=v=>`"${String(v).replace(/"/g,'""')}"`,f=n=>n.toFixed(2).replace(".",",");const L=[HEAD,...rows().map(r=>[r[0],r[1],r[2],f(r[3]),f(r[4]),r[5]]),["","","","Total",f(totalC()),""]].map(r=>r.map(q).join(";"));dl("lista-de-compras.csv","\ufeff"+L.join("\r\n"))};
+const loadX=()=>window.XLSX?Promise.resolve():new Promise((ok,no)=>{const s=document.createElement("script");s.src="xlsx.full.min.js";s.onload=ok;s.onerror=no;document.head.appendChild(s)});
+$("xXls").onclick=async()=>{try{await loadX()}catch(e){toast("Não foi possível gerar a planilha");return}const n=S.items.length,ws=XLSX.utils.aoa_to_sheet([HEAD,...rows(),["","","","Total",totalC(),""]]);ws["!cols"]=[{wch:16},{wch:30},{wch:11},{wch:14},{wch:12},{wch:12}];for(let r=2;r<=n+2;r++)["D","E"].forEach(c=>{if(ws[c+r])ws[c+r].z='"R$" #,##0.00'});const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,"Lista");dl("lista-de-compras.xlsx",XLSX.write(wb,{type:"array",bookType:"xlsx"}))};
+$("xBak").onclick=()=>dl("backup-lista-de-compras.json",JSON.stringify(S,null,1));
+$("xRes").onclick=()=>$("xFile").click();
+$("xFile").onchange=async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;try{const d=JSON.parse(await f.text());if(!Array.isArray(d.items))throw 0;S=Object.assign({items:[],budget:0,hist:{},cat:"Mercearia",order:[]},d);S.items.forEach(i=>{if(!okc(i.cat))i.cat="Mercearia"});$("ex").close();paint($("cat"),S.cat);render();toast("Backup restaurado")}catch(x){toast("Arquivo de backup inválido")}};
+$("mnOk").onclick=()=>{S.budget=cents($("bd").value);$("mn").close();render()};
+$("mDone").onclick=()=>{const old=S.items.slice();S.items=S.items.filter(i=>!i.done);S.budget=cents($("bd").value);$("mn").close();render();toast("Itens marcados removidos",()=>{S.items=old})};
+$("mAll").onclick=()=>{const old=S.items.slice();S.items=[];S.budget=cents($("bd").value);$("mn").close();render();toast("Lista limpa",()=>{S.items=old})};
+$("xCopy").onclick=async()=>{
+  const tx=CATS.map(cc=>{const c=cc.n,its=S.items.filter(i=>i.cat===c);return its.length?cc.e+" "+c+"\n"+its.map(i=>`${i.done?"[x]":"[ ]"} ${i.qty}x ${i.name} - ${brl(i.qty*i.price)}`).join("\n"):""}).filter(Boolean).join("\n\n")+"\n\nTotal: "+$("total").textContent;
+  $("mn").close();
+  $("ex").close();
+  try{await navigator.clipboard.writeText(tx);toast("Lista copiada")}catch(e){const a=document.createElement("textarea");a.value=tx;document.body.appendChild(a);a.select();try{document.execCommand("copy");toast("Lista copiada")}catch(x){toast("Não foi possível copiar")}a.remove()}
+};
+["ed","mn","cp","hs","ex"].forEach(i=>$(i).addEventListener("click",e=>{if(e.target===$(i))$(i).close()}));
+render();
+try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
+if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+</script>
+</body>
+</html>
