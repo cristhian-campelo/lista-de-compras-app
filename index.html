@@ -32,34 +32,41 @@ button,input,select{font:inherit;color:inherit}
 button{cursor:pointer;border:0;background:none}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 input::-webkit-calendar-picker-indicator{display:none!important}
+input[type="date"]::-webkit-calendar-picker-indicator{display:block!important;opacity:.6;cursor:pointer}
 .wrap{max-width:640px;margin:0 auto;padding:0 16px}
 
-/* ---------- Cabeçalho ---------- */
-header{flex:none;background:var(--bg);padding:14px 0 12px}
-.top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:14px}
-.lsb{display:flex;align-items:center;gap:6px;height:40px;margin-left:-8px;padding:0 8px;border-radius:12px;color:var(--muted);font-size:14px;font-weight:600;min-width:0;max-width:calc(100% - 48px)}
+/* ---------- Cabeçalho e Navegação ---------- */
+header{flex:none;background:var(--bg);padding:10px 0 12px}
+.nav{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:3px;height:40px;margin-bottom:10px;border-radius:12px;background:color-mix(in srgb,var(--ink) 6%,transparent);border:1px solid var(--line)}
+.nav button{border-radius:9px;font-size:13px;font-weight:600;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:5px;white-space:nowrap;transition:background .15s,color .15s}
+.nav button[aria-selected="true"]{background:var(--surface);color:var(--ink);font-weight:800;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:36px;color:var(--muted);font-size:14px}
+.lsb{display:inline-flex;align-items:center;gap:6px;height:36px;margin-left:-8px;padding:0 8px;border-radius:10px;color:var(--muted);font-size:14px;font-weight:600;min-width:0;max-width:calc(100% - 44px)}
 .lsb:hover{background:var(--line)}
 .lsb span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .lsb i{font-style:normal;font-size:12px;flex:none}
-.icon-btn{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:20px;color:var(--ink)}
+.top-back{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px;border-radius:10px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-size:13px;font-weight:600;white-space:nowrap}
+.top-back:active{transform:scale(.98)}
+.top-lbl{font-size:14px;font-weight:600;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.icon-btn{width:36px;height:36px;margin-right:-6px;flex:none;border-radius:10px;display:grid;place-items:center;font-size:20px;color:var(--ink)}
 .icon-btn:hover{background:var(--line)}
-.total{font-size:44px;font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:2px 0 6px;font-variant-numeric:tabular-nums}
+.total{font-size:42px;font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:2px 0 6px;font-variant-numeric:tabular-nums}
 .sub{display:flex;flex-wrap:wrap;column-gap:16px;row-gap:2px;color:var(--muted);font-size:14px;font-variant-numeric:tabular-nums}
 .sub b{color:var(--ink);font-weight:600}
-.bud{margin-top:12px}
+.bud{margin-top:10px}
 .bar{height:6px;border-radius:6px;background:var(--line);overflow:hidden}
 .bar i{display:block;height:100%;width:0;background:var(--accent);border-radius:6px;transition:width .3s}
 .bar.over i{background:var(--warn)}
 .bud p{margin:6px 0 0;font-size:13px;color:var(--muted)}
 .bud.over p{color:var(--warn)}
-.inst{display:flex;align-items:center;gap:8px;margin-top:12px;padding:8px 8px 8px 14px;border-radius:12px;background:var(--soft);font-size:14px;font-weight:600}
+.inst{display:flex;align-items:center;gap:8px;margin-top:10px;padding:8px 8px 8px 14px;border-radius:12px;background:var(--soft);font-size:14px;font-weight:600}
 .inst span{flex:1}
 .inst button{height:36px;padding:0 14px;border-radius:10px}
 #instGo{background:var(--accent);color:var(--accent-ink);font-weight:800}
 #instX{width:36px;padding:0;color:var(--muted)}
 
-/* ---------- Lista ---------- */
-main{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding-bottom:20px}
+/* ---------- Conteúdo principal e Lista ---------- */
+main{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding-bottom:28px}
 .grp{margin-top:18px}
 .grp h2{display:flex;justify-content:space-between;align-items:center;margin:0 4px 8px;font-size:14px;font-weight:600;color:var(--muted)}
 .gh-title{display:inline-flex;align-items:center;gap:6px}
@@ -73,6 +80,7 @@ main{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-ove
 .bin{position:absolute;right:22px;top:50%;width:22px;height:22px;margin-top:-11px;color:#fff}
 .bin svg{width:100%;height:100%}
 .row{position:relative;display:flex;align-items:center;gap:12px;padding:6px 2px 6px 6px;min-height:60px;background:hsl(var(--h) var(--cs) var(--cl));touch-action:pan-y}
+.row.ro{padding:8px 14px;touch-action:auto}
 .row.zero{background:linear-gradient(color-mix(in srgb,#f97316 34%,transparent),color-mix(in srgb,#f97316 34%,transparent)),hsl(var(--h) var(--cs) var(--cl));box-shadow:inset 4px 0 0 #ea580c}
 .zw{margin-right:6px}
 .chk{width:44px;height:44px;flex:none;display:grid;place-items:center}
@@ -91,9 +99,68 @@ main{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-ove
 .rm svg{width:19px;height:19px}
 .rm:hover,.rm:active{color:var(--warn);background:color-mix(in srgb,var(--ink) 7%,transparent)}
 .row.out{opacity:0;transform:translateX(-12px);transition:opacity .18s,transform .18s}
-.empty{text-align:center;color:var(--muted);padding:64px 24px}
+.empty{text-align:center;color:var(--muted);padding:56px 24px}
 .empty b{display:block;color:var(--ink);font-size:18px;margin-bottom:6px}
 .more{display:block;margin:18px auto 0;padding:10px 16px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--muted);font-size:14px;font-weight:600}
+
+/* ---------- Botão de finalizar / registrar compra ---------- */
+.fin-box{margin-top:24px;padding:14px;border-radius:16px;background:var(--surface);border:1px solid var(--line);text-align:center}
+.fin-btn{width:100%;height:48px;border-radius:12px;background:var(--accent);color:var(--accent-ink);font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px}
+.fin-btn:active{transform:scale(.98)}
+.fin-sub{margin:8px 0 0;font-size:12px;color:var(--muted)}
+
+/* ---------- Histórico de compras ---------- */
+.hcard{display:flex;align-items:center; justify-content:space-between;gap:12px;width:100%;padding:14px 16px;margin-top:10px;border-radius:16px;background:var(--surface);border:1px solid var(--line);text-align:left;transition:transform .1s,border-color .15s}
+.hcard:active{transform:scale(.99)}
+.hcard:hover{border-color:color-mix(in srgb,var(--ink) 25%,transparent)}
+.hc-left{min-width:0;flex:1}
+.hc-title{font-weight:800;font-size:16px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hc-meta{font-size:13px;color:var(--muted);margin-top:2px;font-variant-numeric:tabular-nums}
+.hc-right{text-align:right;flex:none}
+.hc-val{font-weight:800;font-size:17px;color:var(--accent);font-variant-numeric:tabular-nums}
+.hc-arr{font-size:12px;color:var(--muted);margin-top:2px}
+
+.hbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px}
+.hacts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.hacts.two{grid-template-columns:1fr 1.3fr}
+.hacts button{height:42px;padding:0 8px;border-radius:12px;font-weight:600;font-size:13.5px;white-space:nowrap;background:var(--surface);border:1px solid var(--line);display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:transform .1s,background .15s}
+.hacts button:active{transform:scale(.98)}
+.hacts button svg{width:16px;height:16px;flex:none}
+.hacts .pri{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:800}
+.hacts .del{color:var(--warn)}
+.ed-banner{margin-top:14px;padding:12px 14px;border-radius:14px;background:var(--soft);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent)}
+.ed-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.ed-top h4{margin:0;font-size:13.5px;color:var(--accent)}
+.ed-add{height:30px;padding:0 10px;border-radius:8px;background:var(--surface);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);color:var(--accent);font-size:12.5px;font-weight:800;white-space:nowrap}
+.ed-grid{display:grid;grid-template-columns:1fr 142px;gap:8px}
+.ed-grid input{width:100%;height:42px;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:0 10px;font-size:14px}
+
+/* ---------- Relatórios ---------- */
+.flt-bar{margin-top:10px;display:grid;gap:8px}
+.p-scroll{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.p-scroll::-webkit-scrollbar{display:none}
+.p-btn{flex:none;height:36px;padding:0 13px;border-radius:999px;font-size:13px;font-weight:600;background:var(--surface);border:1px solid var(--line);color:var(--muted)}
+.p-btn[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink);font-weight:800}
+.chart-card{margin-top:14px;padding:14px;border-radius:16px;background:var(--surface);border:1px solid var(--line)}
+.chart-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:10px}
+.chart-top h3{margin:0;font-size:14px;font-weight:600;color:var(--muted)}
+.chart-sel{font-size:13px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums;text-align:right}
+.chart-wrap{overflow-x:auto;padding-bottom:4px}
+.chart-svg{display:block;width:100%;height:190px;user-select:none}
+.chart-svg text{fill:var(--muted);font-size:11px;font-family:inherit;font-variant-numeric:tabular-nums}
+.chart-svg .grid{stroke:var(--line);stroke-dasharray:3 3}
+.chart-svg .bar-hit{cursor:pointer;fill:transparent}
+.chart-svg .bar-rect{fill:color-mix(in srgb,var(--accent) 72%,transparent);transition:fill .15s}
+.chart-svg .bar-g.on .bar-rect,.chart-svg .bar-g:hover .bar-rect{fill:var(--accent)}
+.chart-svg .trend{fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.45;pointer-events:none}
+.chart-svg .dot{fill:var(--surface);stroke:var(--accent);stroke-width:2;pointer-events:none}
+.cat-stat{display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;margin-top:8px;border-radius:12px;background:var(--surface);border:1px solid var(--line);text-align:left}
+.cat-stat .e{font-size:20px;flex:none}
+.cat-stat .cs-mid{flex:1;min-width:0}
+.cat-stat .cs-row{display:flex;justify-content:space-between;font-size:14px;font-weight:600;margin-bottom:4px}
+.cat-stat .cs-bar{height:6px;border-radius:6px;background:var(--line);overflow:hidden}
+.cat-stat .cs-bar i{display:block;height:100%;background:hsl(var(--h) 65% 45%);border-radius:6px}
+.cat-stat .cs-pct{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;width:42px;text-align:right;flex:none}
 
 /* ---------- Rodapé (formulário) ---------- */
 footer{flex:none;position:relative;background:var(--surface);border-top:1px solid var(--line);box-shadow:var(--shadow);padding:12px 0 calc(12px + env(safe-area-inset-bottom,0px))}
@@ -132,7 +199,7 @@ dialog label{display:block;font-size:13px;color:var(--muted);margin:12px 0 4px}
 .acts .pri{background:var(--accent);color:var(--accent-ink);flex:2;font-weight:800}
 .acts .dng{background:var(--warn);color:var(--surface);flex:2;font-weight:800}
 .acts .del{color:var(--warn)}
-.menu button{display:block;width:100%;text-align:left;padding:14px 4px;border-top:1px solid var(--line)}
+.menu button{display:block;width:100%;text-align:left;padding:13px 4px;border-top:1px solid var(--line)}
 .menu button.w{color:var(--warn)}
 .opt{display:flex;align-items:center;gap:10px;width:100%;min-height:50px;padding:0 14px;margin-top:8px;border-radius:12px;text-align:left;font-weight:600;background:hsl(var(--h) var(--cs) var(--cl));border:1px solid color-mix(in srgb,var(--ink) 10%,transparent)}
 .opt.plain{background:var(--bg)}
@@ -155,27 +222,35 @@ dialog label{display:block;font-size:13px;color:var(--muted);margin:12px 0 4px}
 .eqr .step,.eqr .kgw{width:140px;flex:none}
 
 /* ---------- Aviso (toast) ---------- */
-#toast{position:absolute;left:50%;bottom:calc(100% + 10px);transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;display:flex;gap:14px;align-items:center;opacity:0;pointer-events:none;transition:.25s;z-index:20;font-size:14px;white-space:nowrap;max-width:calc(100vw - 32px)}
+#toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;display:flex;gap:14px;align-items:center;opacity:0;pointer-events:none;transition:.25s;z-index:30;font-size:14px;white-space:nowrap;max-width:calc(100vw - 32px);box-shadow:0 8px 24px rgba(0,0,0,.22)}
+body.has-footer #toast{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
 #toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
 #toastTxt{overflow:hidden;text-overflow:ellipsis;min-width:0}
 #toast button{flex:none;padding:4px 0;color:var(--accent);font-weight:800}
 
 /* ---------- Ajustes de tela ---------- */
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
-@media (min-width:700px){.total{font-size:56px}}
-@media (max-width:370px){.wrap{padding:0 12px}.total{font-size:38px}.add{padding:0 14px}.row{gap:10px}.qw>*{width:100px}.step button{width:36px}}
+@media (min-width:700px){.total{font-size:52px}}
+@media (max-width:370px){.wrap{padding:0 12px}.total{font-size:36px}.add{padding:0 14px}.row{gap:10px}.qw>*{width:100px}.step button{width:36px}.nav button{font-size:12px}}
 /* teclado aberto ou tela baixa: cabeçalho compacto para sobrar espaço para a lista */
-@media (max-height:520px){header{padding:6px 0}.top .icon-btn,.lsb{height:32px}.total{font-size:30px;margin:0 0 2px}.inst,.bud p{display:none}.bud{margin-top:6px}.grp{margin-top:10px}}
+@media (max-height:520px){header{padding:6px 0}.nav{height:32px;margin-bottom:4px}.lsb{height:28px}.total{font-size:28px;margin:0 0 2px}.inst,.bud p{display:none}.bud{margin-top:4px}.grp{margin-top:10px}}
 </style>
 </head>
-<body>
+<body class="has-footer">
 <header><div class="wrap">
-  <div class="top">
+  <nav class="nav" id="mainNav" role="tablist" aria-label="Seções do aplicativo">
+    <button type="button" role="tab" data-tab="list" aria-selected="true">🛒 Lista</button>
+    <button type="button" role="tab" data-tab="hist" aria-selected="false">📋 Histórico</button>
+    <button type="button" role="tab" data-tab="rep" aria-selected="false">📊 Relatórios</button>
+  </nav>
+  <div class="top" id="hdrTop">
     <button class="lsb" id="lsBtn" aria-label="Trocar de lista"><span id="lsName">Mercado</span><i aria-hidden="true">▾</i></button>
+    <button type="button" class="top-back" id="topBack" hidden>← Voltar ao histórico</button>
+    <span class="top-lbl" id="hdrLabel" hidden></span>
     <button class="icon-btn" id="menuBtn" aria-label="Mais opções">⋯</button>
   </div>
   <div class="total" id="total">R$ 0,00</div>
-  <div class="sub">
+  <div class="sub" id="hdrSub">
     <span>No carrinho <b id="cart">R$ 0,00</b></span>
     <span>Falta <b id="rest">R$ 0,00</b></span>
     <span>Itens <b id="prog">0/0</b></span>
@@ -184,9 +259,13 @@ dialog label{display:block;font-size:13px;color:var(--muted);margin:12px 0 4px}
   <div class="bud" id="bud" hidden><div class="bar" id="bar"><i></i></div><p id="budTxt"></p></div>
 </div></header>
 
-<main><div class="wrap" id="list"></div></main>
+<main>
+  <div class="wrap" id="vList"></div>
+  <div class="wrap" id="vHist" hidden></div>
+  <div class="wrap" id="vRep" hidden></div>
+</main>
 
-<footer><div class="wrap f">
+<footer id="ftr"><div class="wrap f">
   <div class="r1">
     <div class="nw"><input id="name" list="dl" placeholder="Item (ex.: Arroz 5 kg)" autocomplete="off" enterkeyhint="next" maxlength="120"><button class="hb" id="hBtn" aria-label="Sugestões de itens">▾</button></div>
     <button class="add" id="addBtn">Adicionar</button>
@@ -201,12 +280,13 @@ dialog label{display:block;font-size:13px;color:var(--muted);margin:12px 0 4px}
     <button class="catb" id="cat" aria-label="Categoria"></button>
   </div>
   <div class="meta" id="prev"></div>
-  <div id="toast" role="status" aria-live="polite"><span id="toastTxt"></span><button id="undo">Desfazer</button></div>
 </div></footer>
+
+<div id="toast" role="status" aria-live="polite"><span id="toastTxt"></span><button id="undo">Desfazer</button></div>
 
 <!-- Janelas (a ordem importa: as que abrem por cima de outras ficam depois) -->
 <dialog id="ed">
-  <h3 tabindex="-1" autofocus>Editar item</h3>
+  <h3 tabindex="-1" autofocus id="edTitle">Editar item</h3>
   <label for="en">Nome</label><input id="en" maxlength="120" enterkeyhint="done">
   <label>Quantidade</label>
   <div class="eqr">
@@ -221,13 +301,16 @@ dialog label{display:block;font-size:13px;color:var(--muted);margin:12px 0 4px}
 
 <dialog id="mn">
   <h3 tabindex="-1" autofocus>Opções</h3>
-  <label for="bd">Orçamento desta lista (deixe vazio para desativar)</label>
-  <input id="bd" inputmode="numeric" placeholder="0,00">
+  <div id="mnListOpts">
+    <label for="bd">Orçamento desta lista (deixe vazio para desativar)</label>
+    <input id="bd" inputmode="numeric" placeholder="0,00">
+  </div>
   <label>Tema</label>
   <div class="seg" id="thm"><button type="button" data-v="auto">Automático</button><button type="button" data-v="light">Claro</button><button type="button" data-v="dark">Escuro</button></div>
   <div class="menu" style="margin-top:14px">
     <button id="mInst">Instalar app</button>
-    <button id="mExp">Exportar e compartilhar</button>
+    <button id="mExp">Exportar / Compartilhar lista atual</button>
+    <button id="mBak">Backup do aplicativo</button>
     <button id="mHide">Ocultar itens marcados</button>
     <button id="mDone" class="w">Remover itens marcados</button>
     <button id="mAll" class="w">Limpar a lista inteira</button>
@@ -247,20 +330,28 @@ dialog label{display:block;font-size:13px;color:var(--muted);margin:12px 0 4px}
 </dialog>
 
 <dialog id="ex">
-  <h3 tabindex="-1" autofocus>Exportar e compartilhar</h3>
+  <h3 tabindex="-1" autofocus id="exTitle">Exportar e compartilhar</h3>
   <div class="menu">
     <button id="xShare" hidden>Compartilhar (WhatsApp, Telegram…)</button>
-    <button id="xCopy">Copiar lista</button>
+    <button id="xCopy">Copiar como texto</button>
     <button id="xCsv">Baixar CSV</button>
     <button id="xXls">Baixar planilha (Excel)</button>
-    <button id="xBak">Salvar backup de todas as listas (.json)</button>
-    <button id="xRes">Restaurar backup</button>
-    <input type="file" id="xFile" accept=".json,application/json" hidden>
   </div>
   <div class="acts"><button class="pri" id="xOk">Fechar</button></div>
 </dialog>
 
-<dialog id="cp"><h3 tabindex="-1" autofocus>Escolher categoria</h3><div class="lst" id="cpl"></div></dialog>
+<dialog id="bk">
+  <h3 tabindex="-1" autofocus>Backup do aplicativo</h3>
+  <p style="margin:0 0 12px;font-size:13.5px;color:var(--muted);line-height:1.45">Salve ou restaure todas as suas listas ativas, o histórico completo de compras e os preços salvos.</p>
+  <div class="menu">
+    <button id="xBak">Salvar backup (.json)</button>
+    <button id="xRes">Restaurar backup (.json)</button>
+    <input type="file" id="xFile" accept=".json,application/json" hidden>
+  </div>
+  <div class="acts"><button class="pri" id="bkOk">Fechar</button></div>
+</dialog>
+
+<dialog id="cp"><h3 tabindex="-1" autofocus id="cpTitle">Escolher categoria</h3><div class="lst" id="cpl"></div></dialog>
 <dialog id="hs"><h3 tabindex="-1" autofocus>Sugestões de itens</h3><div class="lst" id="hsl"></div></dialog>
 <dialog id="ih"><h3 tabindex="-1" autofocus id="ihT"></h3><p id="ihP" style="margin:0;line-height:1.5"></p><div class="acts"><button class="pri" id="ihOk">Entendi</button></div></dialog>
 
@@ -305,6 +396,20 @@ const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 
 const vib = () => navigator.vibrate && navigator.vibrate(10);
 const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 const plural = (n, um, varios) => n === 1 ? `1 ${um}` : `${n} ${varios}`;
+
+const fmtDate = ts => new Date(ts).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric" });
+const fmtShortDate = ts => new Date(ts).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" });
+const fmtDateInput = ts => {
+  const d = new Date(ts);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+};
+const parseDateInput = (str, fallbackTs) => {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(str);
+  if (!m) return fallbackTs;
+  const old = new Date(fallbackTs || Date.now());
+  const d = new Date(+m[1], +m[2] - 1, +m[3], old.getHours(), old.getMinutes());
+  return Number.isFinite(d.getTime()) ? d.getTime() : fallbackTs;
+};
 
 // Máscaras de digitação: só números, vírgula automática
 const maskMoney = el => el.addEventListener("input", () => {
@@ -354,7 +459,19 @@ function cleanList(l) {
     order: Array.isArray(l.order) ? [...new Set(l.order.filter(okc))] : []
   };
 }
-// Aceita o formato atual (várias listas) e o antigo (uma lista só)
+function cleanRecord(r) {
+  if (!r || typeof r !== "object") return null;
+  const items = (Array.isArray(r.items) ? r.items : []).map(cleanItem).filter(Boolean);
+  if (!items.length) return null;
+  const dt = Number(r.date);
+  return {
+    id: r.id ? String(r.id) : uid(),
+    name: String(r.name || "Compra").trim().slice(0, 40) || "Compra",
+    date: Number.isFinite(dt) && dt > 0 ? dt : Date.now(),
+    items
+  };
+}
+// Aceita o formato atual (várias listas + histórico) e o antigo (uma lista só)
 function cleanState(d) {
   if (!d || typeof d !== "object") throw new Error("inválido");
   let lists;
@@ -362,6 +479,7 @@ function cleanState(d) {
   else if (Array.isArray(d.items)) lists = [cleanList({ name: "Mercado", items: d.items, budget: d.budget, order: d.order })];
   else throw new Error("inválido");
   if (!lists.length) lists = [newList("Mercado")];
+  const records = Array.isArray(d.records) ? d.records.map(cleanRecord).filter(Boolean).sort((a, b) => b.date - a.date) : [];
   const hist = {};
   if (d.hist && typeof d.hist === "object") {
     for (const [k, h] of Object.entries(d.hist)) {
@@ -371,6 +489,7 @@ function cleanState(d) {
   }
   return {
     lists,
+    records,
     cur: lists.some(l => l.id === d.cur) ? d.cur : lists[0].id,
     hist,
     cat: okc(d.cat) ? d.cat : "Mercearia",
@@ -409,7 +528,7 @@ function applyTheme() {
   const t = S.theme, root = document.documentElement;
   if (t === "auto") delete root.dataset.theme; else root.dataset.theme = t;
   const dark = t === "dark" || (t === "auto" && mqDark.matches);
-  $("tc").content = dark ? "#111314" : "#f5f6f7";   // barra de status com a mesma cor do topo
+  $("tc").content = dark ? "#111314" : "#f5f6f7";
   document.querySelectorAll("#thm button").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === t));
 }
 mqDark.addEventListener("change", applyTheme);
@@ -421,7 +540,7 @@ $("thm").addEventListener("click", e => {
 /* =========================================================
    Janelas: fechar tocando fora, botão voltar do Android
    ========================================================= */
-const DIALOGS = ["ed", "mn", "ls", "ex", "cp", "hs", "ih", "nm", "ask"];
+const DIALOGS = ["ed", "mn", "ls", "ex", "bk", "cp", "hs", "ih", "nm", "ask"];
 const anyOpen = () => document.querySelector("dialog[open]");
 let popSkip = 0;
 if (history.state && history.state.dlg) history.replaceState(null, "");
@@ -433,7 +552,6 @@ function openD(id) {
 }
 DIALOGS.forEach(id => {
   const d = $(id);
-  // Só fecha se o toque foi FORA da janela (no fundo escuro), não em espaços vazios dentro dela
   d.addEventListener("click", e => {
     if (e.target !== d) return;
     const r = d.getBoundingClientRect();
@@ -452,6 +570,7 @@ addEventListener("popstate", () => {
   }
 });
 $("xOk").onclick = () => $("ex").close();
+$("bkOk").onclick = () => $("bk").close();
 $("ihOk").onclick = () => $("ih").close();
 
 // Confirmação. Resolve "ok", "no" ou "" (fechou sem escolher)
@@ -508,14 +627,22 @@ $("undo").onclick = () => {
    Categoria (seletor)
    ========================================================= */
 const paint = (el, n) => {
+  if (n === "all") {
+    el.style.setProperty("--h", 200); el.style.setProperty("--cs", "15%");
+    el.innerHTML = `<span class="e">📊</span><span>Todas as categorias</span>`; el.dataset.v = "all";
+    return;
+  }
   const c = CAT(n);
   el.style.setProperty("--h", c.h); el.style.setProperty("--cs", c.s || "");
   el.innerHTML = `<span class="e">${c.e}</span><span>${c.n}</span>`; el.dataset.v = c.n;
 };
 let pickCb = null;
-function pick(cur, cb) {
+function pick(cur, cb, allowAll = false) {
   pickCb = cb;
-  $("cpl").innerHTML = CATS.map(c => `<button class="opt${c.n === cur ? " on" : ""}" style="${sty(c)}" data-c="${c.n}"><span class="e">${c.e}</span>${c.n}</button>`).join("");
+  $("cpTitle").textContent = allowAll ? "Filtrar por categoria" : "Escolher categoria";
+  let h = allowAll ? `<button class="opt plain${cur === "all" ? " on" : ""}" data-c="all"><span class="e">📊</span>Todas as categorias</button>` : "";
+  h += CATS.map(c => `<button class="opt${c.n === cur ? " on" : ""}" style="${sty(c)}" data-c="${c.n}"><span class="e">${c.e}</span>${c.n}</button>`).join("");
+  $("cpl").innerHTML = h;
   openD("cp");
 }
 $("cpl").addEventListener("click", e => {
@@ -531,14 +658,64 @@ document.addEventListener("input", e => e.target.classList && e.target.classList
 const bad = id => { $(id).classList.add("bad"); $(id).focus(); };
 
 /* =========================================================
+   Navegação por Abas (Lista, Histórico, Relatórios)
+   ========================================================= */
+let curTab = "list";
+let curRecId = null;      // ID da compra aberta no Histórico
+let draftRec = null;      // Cópia em edição da compra no Histórico
+let repPeriod = "30d";    // 30d | 60d | 90d | 180d | 365d | all
+let repCat = "all";       // all | nome da categoria
+let repSelId = null;      // Barra selecionada no gráfico
+
+function setTab(t) {
+  curTab = t;
+  document.querySelectorAll("#mainNav button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === t));
+  $("vList").hidden = t !== "list";
+  $("vHist").hidden = t !== "hist";
+  $("vRep").hidden = t !== "rep";
+  $("ftr").hidden = t !== "list";
+  document.body.classList.toggle("has-footer", t === "list");
+  render();
+}
+$("mainNav").addEventListener("click", async e => {
+  const b = e.target.closest("[data-tab]");
+  if (!b) return;
+  if (draftRec) {
+    const r = await ask("Sair sem salvar?", "As edições feitas nesta compra ainda não foram confirmadas e serão descartadas.", "Descartar", { danger: true });
+    if (r !== "ok") return;
+    draftRec = null;
+  }
+  if (b.dataset.tab === "hist" && curTab === "hist" && curRecId) {
+    curRecId = null; render(); return;
+  }
+  setTab(b.dataset.tab);
+});
+
+/* =========================================================
    Desenhar a tela
    ========================================================= */
 const TRASH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg>';
+const PLUS_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
+const SHARE_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7M16 6l-4-4-4 4M12 2v13"/></svg>';
+const EDIT_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>';
 
-function rowHTML(i) {
-  const diff = i.pp != null && i.price && i.price !== i.pp ? i.price - i.pp : 0;
+function rowHTML(i, mode = "list") {
+  const diff = mode === "list" && i.pp != null && i.price && i.price !== i.pp ? i.price - i.pp : 0;
   const pd = diff ? `<span class="pd ${diff > 0 ? "up" : "dn"}" title="Comparado com a última compra">${diff > 0 ? "▲" : "▼"} ${brl(Math.abs(diff))}</span>` : "";
   const warn = i.price ? "" : '<span class="zw" role="img" aria-label="Valor zerado">⚠️</span>';
+  if (mode === "view") {
+    return `<div class="sw"><div class="row ro${i.price ? "" : " zero"}">
+      <div class="info"><span class="name">${esc(i.name)}</span><span class="meta">${metaTxt(i)}</span></div>
+      <div class="line">${warn}${brl(sub(i))}</div>
+    </div></div>`;
+  }
+  if (mode === "editRec") {
+    return `<div class="sw"><div class="row${i.price ? "" : " zero"}" data-id="${esc(i.id)}">
+      <button class="info" data-re style="padding-left:8px"><span class="name">${esc(i.name)}</span><span class="meta">${metaTxt(i)} · Toque para editar</span></button>
+      <div class="line">${warn}${brl(sub(i))}</div>
+      <button class="rm" data-rd aria-label="Excluir ${esc(i.name)}">${TRASH}</button>
+    </div></div>`;
+  }
   return `<div class="sw"><span class="bin">${TRASH}</span>
     <div class="row${i.done ? " done" : ""}${i.price ? "" : " zero"}" data-id="${esc(i.id)}">
       <button class="chk" data-t aria-pressed="${i.done}" aria-label="No carrinho: ${esc(i.name)}"><span>✓</span></button>
@@ -549,13 +726,17 @@ function rowHTML(i) {
 }
 
 function render() {
+  if (curTab === "hist") { renderHist(); save(); return; }
+  if (curTab === "rep") { renderRep(); save(); return; }
+
   const l = L(), its = l.items;
   const tot = sum(its), done = its.filter(i => i.done), cart = sum(done);
+  $("lsBtn").hidden = false;
+  $("topBack").hidden = true;
+  $("hdrLabel").hidden = true;
   $("lsName").textContent = l.name;
   $("total").textContent = brl(tot);
-  $("cart").textContent = brl(cart);
-  $("rest").textContent = brl(tot - cart);
-  $("prog").textContent = `${done.length}/${its.length}`;
+  $("hdrSub").innerHTML = `<span>No carrinho <b>${brl(cart)}</b></span><span>Falta <b>${brl(tot - cart)}</b></span><span>Itens <b>${done.length}/${its.length}</b></span>`;
 
   const b = l.budget || 0;
   $("bud").hidden = !b;
@@ -566,7 +747,7 @@ function render() {
     $("budTxt").textContent = over ? `Passou ${brl(tot - b)} do orçamento de ${brl(b)}` : `Sobram ${brl(b - tot)} do orçamento de ${brl(b)}`;
   }
 
-  const box = $("list");
+  const box = $("vList");
   if (!its.length) {
     box.innerHTML = '<div class="empty"><b>Sua lista está vazia</b>Digite um item abaixo, informe o preço e toque em Adicionar.</div>';
   } else {
@@ -576,20 +757,282 @@ function render() {
       const all = its.filter(i => i.cat === cc.n);
       const vis = all.filter(i => !hide || !i.done).sort((a, b) => a.done - b.done);
       if (!vis.length) return "";
-      const addBtn = `<button type="button" class="cat-add" data-ca="${esc(cc.n)}" aria-label="Adicionar item em ${esc(cc.n)}" title="Adicionar item em ${esc(cc.n)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>`;
-      return `<section class="grp"><h2><span class="gh-title"><span>${cc.e} ${cc.n}</span>${addBtn}</span><span>${brl(sum(all))}</span></h2><div class="card" style="${sty(cc)}">${vis.map(rowHTML).join("")}</div></section>`;
+      const addBtn = `<button type="button" class="cat-add" data-ca="${esc(cc.n)}" aria-label="Adicionar item em ${esc(cc.n)}" title="Adicionar item em ${esc(cc.n)}">${PLUS_SVG}</button>`;
+      return `<section class="grp"><h2><span class="gh-title"><span>${cc.e} ${cc.n}</span>${addBtn}</span><span>${brl(sum(all))}</span></h2><div class="card" style="${sty(cc)}">${vis.map(i => rowHTML(i, "list")).join("")}</div></section>`;
     }).join("");
     if (hide && done.length) {
       if (done.length === its.length) h = '<div class="empty"><b>Tudo no carrinho! 🎉</b>Todos os itens desta lista já foram marcados.</div>';
       h += `<button class="more" id="showDone">${plural(done.length, "item marcado oculto", "itens marcados ocultos")} · Mostrar</button>`;
     }
+    h += `<div class="fin-box">
+      <button type="button" class="fin-btn" id="finBtn">✓ Registrar compra no histórico</button>
+      <p class="fin-sub">Salva esta compra no Histórico e desmarca o carrinho mantendo os itens na lista.</p>
+    </div>`;
     box.innerHTML = h;
   }
   save();
 }
 
 /* =========================================================
-   Ações na lista: marcar, editar, excluir (botão ou deslizar)
+   Aba Histórico: listagem, visualização e edição com confirmação
+   ========================================================= */
+function renderHist() {
+  $("lsBtn").hidden = true;
+  $("bud").hidden = true;
+
+  const rec = curRecId ? S.records.find(r => r.id === curRecId) : null;
+  if (!rec) { curRecId = null; draftRec = null; }
+
+  const box = $("vHist");
+  if (!rec) {
+    $("topBack").hidden = true;
+    $("hdrLabel").hidden = false;
+    const allTot = S.records.reduce((a, r) => a + sum(r.items), 0);
+    $("hdrLabel").textContent = "Histórico de compras realizadas";
+    $("total").textContent = brl(allTot);
+    $("hdrSub").innerHTML = `<span>Compras salvas <b>${S.records.length}</b></span><span>Média <b>${brl(S.records.length ? Math.round(allTot / S.records.length) : 0)}</b></span>`;
+
+    if (!S.records.length) {
+      box.innerHTML = `<div class="empty"><b>Nenhuma compra registrada</b>Ao terminar uma compra na aba <b>🛒 Lista</b>, toque em <b>“Registrar compra no histórico”</b> no final da lista para salvá-la aqui.</div>`;
+      return;
+    }
+    box.innerHTML = S.records.map(r => {
+      const t = sum(r.items);
+      return `<button type="button" class="hcard" data-open-rec="${esc(r.id)}">
+        <div class="hc-left">
+          <div class="hc-title">🛒 ${esc(r.name)}</div>
+          <div class="hc-meta">📅 ${fmtDate(r.date)} · ${plural(r.items.length, "item", "itens")}</div>
+        </div>
+        <div class="hc-right">
+          <div class="hc-val">${brl(t)}</div>
+          <div class="hc-arr">Ver detalhes ›</div>
+        </div>
+      </button>`;
+    }).join("");
+    return;
+  }
+
+  // Visualizando ou editando uma compra específica
+  $("topBack").hidden = false;
+  $("hdrLabel").hidden = true;
+  const target = draftRec || rec;
+  const tot = sum(target.items);
+  $("total").textContent = brl(tot);
+  $("hdrSub").innerHTML = `<span>${draftRec ? "✏️ Editando" : "🛒 Lista"} <b>${esc(target.name)}</b></span><span>Data <b>${fmtDate(target.date)}</b></span><span>Itens <b>${target.items.length}</b></span>`;
+
+  let h = "";
+  if (draftRec) {
+    h += `<div class="ed-banner">
+      <div class="ed-top">
+        <h4>Modo de edição</h4>
+        <button type="button" class="ed-add" id="hAddIt">+ Adicionar item</button>
+      </div>
+      <div class="ed-grid">
+        <input id="drName" value="${esc(draftRec.name)}" maxlength="40" placeholder="Nome da compra" aria-label="Nome da compra">
+        <input id="drDate" type="date" value="${fmtDateInput(draftRec.date)}" aria-label="Data da compra">
+      </div>
+      <div class="hacts two">
+        <button type="button" id="drCancel">Cancelar</button>
+        <button type="button" class="pri" id="drSave">Confirmar edições</button>
+      </div>
+    </div>`;
+  } else {
+    h += `<div class="hacts">
+      <button type="button" id="recShare">${SHARE_SVG}<span>Compartilhar</span></button>
+      <button type="button" id="recEdit">${EDIT_SVG}<span>Editar</span></button>
+      <button type="button" class="del" id="recDel">${TRASH}<span>Excluir</span></button>
+    </div>`;
+  }
+
+  const groups = CATS.map(cc => {
+    const its = target.items.filter(i => i.cat === cc.n);
+    if (!its.length) return "";
+    const addBtn = draftRec ? `<button type="button" class="cat-add" data-rca="${esc(cc.n)}" aria-label="Adicionar item em ${esc(cc.n)}">${PLUS_SVG}</button>` : "";
+    return `<section class="grp"><h2><span class="gh-title"><span>${cc.e} ${cc.n}</span>${addBtn}</span><span>${brl(sum(its))}</span></h2><div class="card" style="${sty(cc)}">${its.map(i => rowHTML(i, draftRec ? "editRec" : "view")).join("")}</div></section>`;
+  }).join("");
+
+  h += groups || `<div class="empty"><b>Nenhum item nesta compra</b>Toque em <b>+ Adicionar item</b> acima para incluir um item.</div>`;
+  box.innerHTML = h;
+}
+
+/* =========================================================
+   Aba Relatórios: gráfico Valor × Data e filtros
+   ========================================================= */
+const PERIODS = [
+  ["30d", "30 dias", 30],
+  ["60d", "2 meses", 60],
+  ["90d", "3 meses", 90],
+  ["180d", "6 meses", 180],
+  ["365d", "1 ano", 365],
+  ["all", "Tudo", 0]
+];
+
+function renderRep() {
+  $("lsBtn").hidden = true;
+  $("topBack").hidden = true;
+  $("hdrLabel").hidden = false;
+  $("bud").hidden = true;
+
+  const pInfo = PERIODS.find(p => p[0] === repPeriod) || PERIODS[0];
+  const cutoff = pInfo[2] ? Date.now() - pInfo[2] * 86400000 : 0;
+  const inPeriod = S.records.filter(r => r.date >= cutoff).sort((a, b) => a.date - b.date);
+
+  // Calcula valor de cada compra considerando o filtro de categoria
+  const points = inPeriod.map(r => {
+    const its = repCat === "all" ? r.items : r.items.filter(i => i.cat === repCat);
+    return { id: r.id, name: r.name, date: r.date, val: sum(its), count: its.length };
+  }).filter(p => p.val > 0);
+
+  const tot = points.reduce((a, p) => a + p.val, 0);
+  const avg = points.length ? Math.round(tot / points.length) : 0;
+  const maxVal = points.reduce((m, p) => Math.max(m, p.val), 0);
+
+  $("hdrLabel").textContent = `Gastos · ${pInfo[1]} · ${repCat === "all" ? "Todas as categorias" : repCat}`;
+  $("total").textContent = brl(tot);
+  $("hdrSub").innerHTML = `<span>Compras <b>${points.length}</b></span><span>Média <b>${brl(avg)}</b></span><span>Maior <b>${brl(maxVal)}</b></span>`;
+
+  const catObj = repCat === "all" ? null : CAT(repCat);
+  const catBtnStyle = catObj ? sty(catObj) : "--h:200;--cs:15%";
+  const catBtnLabel = catObj ? `<span class="e">${catObj.e}</span><span>${catObj.n}</span>` : `<span class="e">📊</span><span>Todas as categorias</span>`;
+
+  let h = `<div class="flt-bar">
+    <div class="p-scroll" role="group" aria-label="Período">
+      ${PERIODS.map(([k, lbl]) => `<button type="button" class="p-btn" data-rp="${k}" aria-pressed="${repPeriod === k}">${lbl}</button>`).join("")}
+    </div>
+    <button type="button" class="catb" id="repCatBtn" style="${catBtnStyle}">${catBtnLabel}</button>
+  </div>`;
+
+  if (!points.length) {
+    h += `<div class="empty"><b>Sem dados para este filtro</b>Registre compras no final da sua lista para acompanhar os gráficos de gastos por período e categoria.</div>`;
+    $("vRep").innerHTML = h;
+    return;
+  }
+
+  const selPt = points.find(p => p.id === repSelId) || points[points.length - 1];
+  repSelId = selPt.id;
+
+  // Construção do gráfico SVG Valor × Data
+  const n = points.length;
+  const stepX = Math.max(46, Math.floor(300 / Math.max(1, n)));
+  const W = Math.max(320, 48 + n * stepX + 12);
+  const H = 186, padL = 46, padR = 12, padT = 18, padB = 28;
+  const plotW = W - padL - padR, plotH = H - padT - padB;
+  const topY = maxVal || 100;
+
+  const yPos = v => Math.round(padT + plotH * (1 - v / topY));
+  const xCenter = idx => Math.round(padL + (idx + 0.5) * (plotW / n));
+  const barW = Math.min(28, Math.max(12, Math.floor((plotW / n) * 0.58)));
+
+  const gridLevels = [0, 0.5, 1];
+  const grids = gridLevels.map(f => {
+    const y = yPos(topY * f);
+    const lbl = Math.round((topY * f) / 100);
+    return `<line class="grid" x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}"/><text x="${padL - 6}" y="${y + 4}" text-anchor="end">R$${lbl}</text>`;
+  }).join("");
+
+  const labelStep = n > 8 ? Math.ceil(n / 6) : 1;
+  const bars = points.map((p, idx) => {
+    const cx = xCenter(idx), y = yPos(p.val), bh = Math.max(4, padT + plotH - y);
+    const showLbl = idx % labelStep === 0 || idx === n - 1;
+    const isSel = p.id === selPt.id;
+    return `<g class="bar-g${isSel ? " on" : ""}" data-pt="${esc(p.id)}">
+      <rect class="bar-hit" x="${cx - Math.floor(stepX / 2)}" y="${padT}" width="${stepX}" height="${plotH + padB}"/>
+      <rect class="bar-rect" x="${cx - Math.floor(barW / 2)}" y="${y}" width="${barW}" height="${bh}" rx="6"/>
+      ${showLbl ? `<text x="${cx}" y="${H - 8}" text-anchor="middle">${fmtShortDate(p.date)}</text>` : ""}
+    </g>`;
+  }).join("");
+
+  const poly = n > 1 ? `<polyline class="trend" points="${points.map((p, idx) => `${xCenter(idx)},${yPos(p.val)}`).join(" ")}"/>` : "";
+
+  h += `<div class="chart-card">
+    <div class="chart-top">
+      <h3>Valor × Data</h3>
+      <div class="chart-sel" id="chartSelTxt">${fmtDate(selPt.date)} · ${esc(selPt.name)} · <b>${brl(selPt.val)}</b></div>
+    </div>
+    <div class="chart-wrap">
+      <svg class="chart-svg" viewBox="0 0 ${W} ${H}" style="min-width:${W}px" role="img" aria-label="Gráfico de gastos por data">
+        ${grids}${poly}${bars}
+      </svg>
+    </div>
+  </div>`;
+
+  // Ranking por categoria (quando em "Todas") ou histórico detalhado da categoria
+  if (repCat === "all") {
+    const byCat = CATS.map(c => {
+      const v = inPeriod.reduce((acc, r) => acc + sum(r.items.filter(i => i.cat === c.n)), 0);
+      return { c, v };
+    }).filter(x => x.v > 0).sort((a, b) => b.v - a.v);
+
+    h += `<section class="grp"><h2><span>Gastos por categoria no período</span><span>Toque para filtrar</span></h2>` +
+      byCat.map(({ c, v }) => {
+        const pct = tot ? Math.round((v / tot) * 100) : 0;
+        return `<button type="button" class="cat-stat" data-rcat="${esc(c.n)}" style="--h:${c.h}">
+          <span class="e">${c.e}</span>
+          <div class="cs-mid">
+            <div class="cs-row"><span>${c.n}</span><span>${brl(v)}</span></div>
+            <div class="cs-bar"><i style="width:${Math.max(3, pct)}%"></i></div>
+          </div>
+          <span class="cs-pct">${pct}%</span>
+        </button>`;
+      }).join("") + `</section>`;
+  } else {
+    h += `<section class="grp"><h2><span>Compras com ${esc(repCat)}</span><span>${points.length} no período</span></h2>` +
+      points.slice().reverse().map(p => `<button type="button" class="hcard" data-jump-rec="${esc(p.id)}">
+        <div class="hc-left">
+          <div class="hc-title">🛒 ${esc(p.name)}</div>
+          <div class="hc-meta">📅 ${fmtDate(p.date)} · ${plural(p.count, "item", "itens")} na categoria</div>
+        </div>
+        <div class="hc-right">
+          <div class="hc-val">${brl(p.val)}</div>
+          <div class="hc-arr">Abrir ›</div>
+        </div>
+      </button>`).join("") + `</section>`;
+  }
+
+  $("vRep").innerHTML = h;
+}
+
+/* =========================================================
+   Registrar Compra + Recomendação de Backup
+   ========================================================= */
+async function finishPurchase() {
+  const l = L(), its = l.items;
+  if (!its.length) return;
+  const tot = sum(its);
+  const r = await ask(
+    "Registrar esta compra?",
+    `Deseja salvar “${l.name}” (${plural(its.length, "item", "itens")} · ${brl(tot)}) no histórico de compras? Os itens permanecerão na sua lista atual e serão desmarcados do carrinho.`,
+    "Registrar compra"
+  );
+  if (r !== "ok") return;
+
+  const rec = {
+    id: uid(),
+    name: l.name,
+    date: Date.now(),
+    items: its.map(i => ({ id: uid(), name: i.name, qty: i.qty, price: i.price, unit: i.unit, cat: i.cat, done: !!i.done }))
+  };
+  S.records.unshift(rec);
+  its.forEach(i => { i.done = false; });
+  S.hideDone = false;
+  vib();
+  render();
+
+  const bk = await ask(
+    "Compra registrada!",
+    "Recomendado realizar backup após cada registro para manter suas listas e histórico sempre seguros.",
+    "Realizar backup",
+    { cancel: "Mais tarde" }
+  );
+  if (bk === "ok") {
+    download("backup-lista-de-compras.json", JSON.stringify(S, null, 1));
+  } else {
+    toast("Compra salva no Histórico");
+  }
+}
+
+/* =========================================================
+   Ações na aba Lista: marcar, editar, excluir, finalizar
    ========================================================= */
 const findItem = row => L().items.find(x => String(x.id) === row.dataset.id);
 
@@ -602,8 +1045,9 @@ function delItem(it) {
 }
 
 let swipedAt = 0;
-$("list").addEventListener("click", e => {
+$("vList").addEventListener("click", e => {
   if (Date.now() - swipedAt < 400) return;
+  if (e.target.closest("#finBtn")) { finishPurchase(); return; }
   const ca = e.target.closest("[data-ca]");
   if (ca) {
     const c = ca.dataset.ca;
@@ -627,19 +1071,19 @@ $("list").addEventListener("click", e => {
   } else if (e.target.closest("[data-t]")) {
     it.done = !it.done; vib(); render();
   } else if (e.target.closest("[data-e]")) {
-    openEdit(it);
+    openEdit(it, "list");
   }
 });
 
 // Deslizar o item para a esquerda para excluir (celular)
 let sw = null;
-$("list").addEventListener("pointerdown", e => {
+$("vList").addEventListener("pointerdown", e => {
   if (e.pointerType === "mouse" || !e.isPrimary) return;
   const row = e.target.closest(".row");
   if (!row || row.dataset.gone) return;
   sw = { row, x: e.clientX, y: e.clientY, id: e.pointerId, on: false, dx: 0 };
 });
-$("list").addEventListener("pointermove", e => {
+$("vList").addEventListener("pointermove", e => {
   if (!sw || e.pointerId !== sw.id) return;
   const dx = e.clientX - sw.x, dy = e.clientY - sw.y;
   if (!sw.on) {
@@ -671,26 +1115,130 @@ function swipeEnd(e) {
     setTimeout(() => row.parentNode && row.parentNode.classList.remove("drag"), 200);
   }
 }
-$("list").addEventListener("pointerup", swipeEnd);
-$("list").addEventListener("pointercancel", swipeEnd);
+$("vList").addEventListener("pointerup", swipeEnd);
+$("vList").addEventListener("pointercancel", swipeEnd);
 
 /* =========================================================
-   Editar item
+   Ações nas abas Histórico e Relatórios
    ========================================================= */
-let editing = null, eq = 1, eu = "un";
+function syncDraftInputs() {
+  if (!draftRec) return;
+  const nEl = $("drName"), dEl = $("drDate");
+  if (nEl && nEl.value.trim()) draftRec.name = nEl.value.trim().slice(0, 40);
+  if (dEl && dEl.value) draftRec.date = parseDateInput(dEl.value, draftRec.date);
+}
+$("topBack").onclick = async () => {
+  if (draftRec) {
+    const r = await ask("Sair sem salvar?", "As edições feitas nesta compra ainda não foram confirmadas e serão descartadas.", "Descartar", { danger: true });
+    if (r !== "ok") return;
+    draftRec = null;
+  } else {
+    curRecId = null;
+  }
+  render();
+};
+$("vHist").addEventListener("input", e => {
+  if (e.target.id === "drName" || e.target.id === "drDate") syncDraftInputs();
+});
+$("vHist").addEventListener("click", async e => {
+  const openBtn = e.target.closest("[data-open-rec]");
+  if (openBtn) {
+    curRecId = openBtn.dataset.openRec; draftRec = null; render(); return;
+  }
+  const rec = S.records.find(r => r.id === curRecId);
+  if (!rec) return;
+
+  if (e.target.closest("#recShare")) {
+    openExportFor(rec); return;
+  }
+  if (e.target.closest("#recEdit")) {
+    draftRec = JSON.parse(JSON.stringify(rec));
+    render(); return;
+  }
+  if (e.target.closest("#recDel")) {
+    const r = await ask(`Excluir compra de ${fmtDate(rec.date)}?`, `“${rec.name}” (${brl(sum(rec.items))}) será removida do seu histórico.`, "Excluir", { danger: true });
+    if (r !== "ok") return;
+    const idx = S.records.indexOf(rec);
+    S.records.splice(idx, 1);
+    curRecId = null; draftRec = null;
+    render();
+    toast("Compra excluída do histórico", () => { S.records.splice(idx, 0, rec); });
+    return;
+  }
+  if (e.target.closest("#drCancel")) {
+    draftRec = null; render(); return;
+  }
+  if (e.target.closest("#drSave")) {
+    syncDraftInputs();
+    if (!draftRec.items.length) { toast("A compra precisa ter pelo menos 1 item"); return; }
+    const r = await ask("Confirmar alterações?", `Deseja aplicar as edições em “${draftRec.name}” (${fmtDate(draftRec.date)} · ${brl(sum(draftRec.items))})?`, "Aplicar edições");
+    if (r !== "ok") return;
+    Object.assign(rec, draftRec);
+    S.records.sort((a, b) => b.date - a.date);
+    draftRec = null;
+    render();
+    toast("Edições salvas com sucesso");
+    return;
+  }
+  if (e.target.closest("#hAddIt")) {
+    syncDraftInputs();
+    openEdit({ id: uid(), name: "", qty: 1, price: 0, unit: "un", cat: S.cat, done: false }, "addRec");
+    return;
+  }
+  const rca = e.target.closest("[data-rca]");
+  if (rca) {
+    syncDraftInputs();
+    openEdit({ id: uid(), name: "", qty: 1, price: 0, unit: "un", cat: rca.dataset.rca, done: false }, "addRec");
+    return;
+  }
+  if (draftRec) {
+    const row = e.target.closest(".row"); if (!row) return;
+    const it = draftRec.items.find(x => String(x.id) === row.dataset.id); if (!it) return;
+    if (e.target.closest("[data-rd]")) {
+      syncDraftInputs();
+      draftRec.items = draftRec.items.filter(x => x !== it);
+      render();
+    } else if (e.target.closest("[data-re]")) {
+      syncDraftInputs();
+      openEdit(it, "editRec");
+    }
+  }
+});
+
+$("vRep").addEventListener("click", e => {
+  const pb = e.target.closest("[data-rp]");
+  if (pb) { repPeriod = pb.dataset.rp; render(); return; }
+  if (e.target.closest("#repCatBtn")) {
+    pick(repCat, c => { repCat = c; render(); }, true);
+    return;
+  }
+  const pt = e.target.closest("[data-pt]");
+  if (pt) { repSelId = pt.dataset.pt; render(); return; }
+  const rc = e.target.closest("[data-rcat]");
+  if (rc) { repCat = rc.dataset.rcat; render(); return; }
+  const jr = e.target.closest("[data-jump-rec]");
+  if (jr) { curRecId = jr.dataset.jumpRec; draftRec = null; setTab("hist"); }
+});
+
+/* =========================================================
+   Editar item (na lista atual ou no rascunho do histórico)
+   ========================================================= */
+let editing = null, editCtx = "list", eq = 1, eu = "un";
 function setEditUnit(u) {
   eu = u;
   document.querySelectorAll("#eun button").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === u));
   $("eStep").hidden = u === "kg"; $("ekgw").hidden = u !== "kg";
   $("epl").textContent = u === "kg" ? "Preço por quilo" : "Preço unitário";
 }
-function openEdit(it) {
-  editing = it;
+function openEdit(it, ctx = "list") {
+  editing = it; editCtx = ctx;
+  $("edTitle").textContent = ctx === "addRec" ? "Adicionar item à compra" : "Editar item";
+  $("edDel").hidden = ctx === "addRec";
   $("en").value = it.name;
   eq = isKg(it) ? 1 : it.qty; $("eqv").textContent = eq;
   $("ekg").value = isKg(it) ? fmtN(it.qty, 3) : "";
   setEditUnit(it.unit);
-  $("ep").value = fromC(it.price, 1);
+  $("ep").value = it.price ? fromC(it.price, 1) : "";
   paint($("ec"), it.cat);
   ["en", "ep", "ekg"].forEach(id => $(id).classList.remove("bad"));
   openD("ed");
@@ -705,18 +1253,30 @@ function saveEdit() {
   if (eu === "kg" && !q) return bad("ekg");
   if (!$("ep").value) return bad("ep");
   const it = editing, oldCat = it.cat;
-  if (norm(n) !== norm(it.name) || eu !== it.unit) delete it.pp;
+  if (editCtx === "list" && (norm(n) !== norm(it.name) || eu !== it.unit)) delete it.pp;
   Object.assign(it, { name: n, qty: q, unit: eu, price: cents($("ep").value), cat: $("ec").dataset.v });
-  if (it.cat !== oldCat) bump(it.cat);
-  remember(it);
+  if (editCtx === "addRec" && draftRec) {
+    draftRec.items.push(it);
+  } else if (editCtx === "list") {
+    if (it.cat !== oldCat) bump(it.cat);
+    remember(it);
+  }
   $("ed").close(); render();
 }
 $("edSave").onclick = saveEdit;
 ["en", "ep", "ekg"].forEach(id => $(id).addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); saveEdit(); } }));
-$("edDel").onclick = () => { const it = editing; $("ed").close(); delItem(it); };
+$("edDel").onclick = () => {
+  const it = editing; $("ed").close();
+  if (editCtx === "editRec" && draftRec) {
+    draftRec.items = draftRec.items.filter(x => x !== it);
+    render();
+  } else {
+    delItem(it);
+  }
+};
 
 /* =========================================================
-   Adicionar item
+   Adicionar item na lista atual
    ========================================================= */
 let qty = 1, unit = "un", autoPrice = false, hint = "";
 function setUnit(u) {
@@ -740,7 +1300,6 @@ $("qp").onclick = () => { qty = Math.min(999, qty + 1); $("qv").textContent = qt
 $("kg").addEventListener("input", updatePreview);
 $("price").addEventListener("input", () => { autoPrice = false; updatePreview(); });
 
-// Ao digitar um item já comprado antes, preenche preço, unidade e categoria
 $("name").addEventListener("input", () => {
   const h = S.hist[norm($("name").value)];
   if (h) {
@@ -771,7 +1330,6 @@ async function add() {
   if (!$("price").value) { bad("price"); toast("Informe o preço do item"); return; }
   const price = cents($("price").value), cat = $("cat").dataset.v, l = L(), k = norm(n), u = unit;
 
-  // Item repetido: oferece somar à quantidade existente
   const ex = l.items.find(i => norm(i.name) === k && i.unit === u);
   if (ex) {
     const r = await ask(`“${ex.name}” já está na lista`, `Já tem ${qLabel(ex.qty, u)}. Quer somar mais ${qLabel(q, u)} a esse item ou adicionar separado?`, "Somar", { cancel: "Adicionar separado" });
@@ -787,7 +1345,7 @@ async function add() {
   }
 
   const h = S.hist[k], it = { id: uid(), name: n, qty: q, price, unit: u, cat, done: false };
-  if (h && h.u === u && h.p && h.p !== price) it.pp = h.p;   // para mostrar se o preço subiu/caiu
+  if (h && h.u === u && h.p && h.p !== price) it.pp = h.p;
   l.items.push(it);
   remember(it); bump(cat); resetForm(); render(); afterAdd();
 }
@@ -826,13 +1384,21 @@ $("hsl").addEventListener("click", e => {
    Menu de opções
    ========================================================= */
 $("menuBtn").onclick = () => {
+  const onList = curTab === "list";
+  $("mnListOpts").hidden = !onList;
+  $("mExp").hidden = !onList;
+  $("mHide").hidden = !onList;
+  $("mDone").hidden = !onList;
+  $("mAll").hidden = !onList;
   $("bd").value = fromC(L().budget || 0);
   $("mHide").textContent = S.hideDone ? "Mostrar itens marcados" : "Ocultar itens marcados";
   applyTheme(); openD("mn");
 };
 $("mnOk").onclick = () => $("mn").close();
-// O orçamento é salvo sempre que a janela fecha (Pronto, tocar fora ou voltar)
-$("mn").addEventListener("close", () => { L().budget = cents($("bd").value); render(); });
+$("mn").addEventListener("close", () => {
+  if (curTab === "list") L().budget = cents($("bd").value);
+  render();
+});
 $("mHide").onclick = () => {
   S.hideDone = !S.hideDone; $("mn").close(); render();
   toast(S.hideDone ? "Itens marcados ocultos" : "Itens marcados visíveis");
@@ -851,10 +1417,17 @@ $("mAll").onclick = () => {
   l.items = []; render();
   toast("Lista limpa", () => { l.items = old; });
 };
-$("mExp").onclick = () => { $("mn").close(); $("xShare").hidden = !navigator.share; openD("ex"); };
+$("mExp").onclick = () => {
+  $("mn").close();
+  openExportFor(L());
+};
+$("mBak").onclick = () => {
+  $("mn").close();
+  openD("bk");
+};
 
 /* =========================================================
-   Várias listas
+   Minhas listas (modelos / listas ativas)
    ========================================================= */
 function renderLists() {
   $("lsl").innerHTML = S.lists.map(l => `<button class="opt plain${l.id === S.cur ? " on" : ""}" data-l="${esc(l.id)}"><span class="e">🛒</span><span class="ln">${esc(l.name)}</span><em>${plural(l.items.length, "item", "itens")} · ${brl(sum(l.items))}</em></button>`).join("");
@@ -886,36 +1459,53 @@ $("lDel").onclick = async () => {
 };
 
 /* =========================================================
-   Exportar, compartilhar e backup
+   Exportar, compartilhar e backup (funciona na lista atual e no histórico)
    ========================================================= */
+let expTarget = null;
+function openExportFor(target) {
+  expTarget = target || L();
+  $("exTitle").textContent = expTarget.date
+    ? `Compartilhar: ${expTarget.name} (${fmtDate(expTarget.date)})`
+    : `Exportar / Compartilhar: ${expTarget.name}`;
+  $("xShare").hidden = !navigator.share;
+  openD("ex");
+}
+
+const getExp = () => expTarget || L();
 const HEAD = ["Categoria", "Item", "Quantidade", "Unidade", "Preço unitário", "Subtotal", "No carrinho"];
-const rows = () => L().items.map(i => [CAT(i.cat).n, i.name, i.qty, isKg(i) ? "kg" : "un", i.price / 100, sub(i) / 100, i.done ? "Sim" : "Não"]);
-const totalR = () => sum(L().items) / 100;
-const fileBase = () => "lista-" + slug(L().name);
+const rows = () => getExp().items.map(i => [CAT(i.cat).n, i.name, i.qty, isKg(i) ? "kg" : "un", i.price / 100, sub(i) / 100, i.done ? "Sim" : "Não"]);
+const totalR = () => sum(getExp().items) / 100;
+const fileBase = () => {
+  const t = getExp();
+  const d = t.date ? "-" + fmtDateInput(t.date) : "";
+  return "lista-" + slug(t.name) + d;
+};
 
 function listText() {
-  const l = L();
+  const t = getExp();
+  const hdr = t.date ? `🛒 ${t.name} (${fmtDate(t.date)})` : `🛒 ${t.name}`;
   const body = CATS.map(cc => {
-    const its = l.items.filter(i => i.cat === cc.n);
-    return its.length ? `${cc.e} ${cc.n}\n` + its.map(i => `${i.done ? "[x]" : "[ ]"} ${isKg(i) ? fmtN(i.qty, 3) + " kg" : i.qty + "x"} ${i.name} - ${brl(sub(i))}`).join("\n") : "";
+    const its = t.items.filter(i => i.cat === cc.n);
+    return its.length ? `${cc.e} ${cc.n}\n` + its.map(i => `${t.date ? "•" : (i.done ? "[x]" : "[ ]")} ${isKg(i) ? fmtN(i.qty, 3) + " kg" : i.qty + "x"} ${i.name} - ${brl(sub(i))}`).join("\n") : "";
   }).filter(Boolean).join("\n\n");
-  return `🛒 ${l.name}\n\n${body}\n\nTotal: ${brl(sum(l.items))}`;
+  return `${hdr}\n\n${body}\n\nTotal: ${brl(sum(t.items))}`;
 }
 
 function download(name, data) {
-  $("ex").close();
+  if ($("ex").open) $("ex").close();
+  if ($("bk").open) $("bk").close();
   try {
     const type = name.endsWith(".csv") ? "text/csv;charset=utf-8" : name.endsWith(".json") ? "application/json" : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
     const u = URL.createObjectURL(new Blob([data], { type })), a = document.createElement("a");
     a.href = u; a.download = name; document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(u), 5000);
-    toast("Arquivo exportado");
+    toast(name.endsWith(".json") ? "Backup salvo com sucesso" : "Arquivo exportado");
   } catch (e) { toast("Não foi possível exportar"); }
 }
 
 $("xShare").onclick = async () => {
-  $("ex").close();
-  try { await navigator.share({ title: L().name, text: listText() }); }
+  const t = getExp(); $("ex").close();
+  try { await navigator.share({ title: t.name, text: listText() }); }
   catch (e) { if (e.name !== "AbortError") toast("Não foi possível compartilhar"); }
 };
 $("xCopy").onclick = async () => {
@@ -938,7 +1528,7 @@ const loadXLSX = () => window.XLSX ? Promise.resolve() : new Promise((ok, no) =>
 });
 $("xXls").onclick = async () => {
   try { await loadXLSX(); } catch (e) { $("ex").close(); toast("Não foi possível gerar a planilha (precisa de internet na 1ª vez)"); return; }
-  const n = L().items.length, ws = XLSX.utils.aoa_to_sheet([HEAD, ...rows(), ["", "", "", "", "Total", totalR(), ""]]);
+  const n = getExp().items.length, ws = XLSX.utils.aoa_to_sheet([HEAD, ...rows(), ["", "", "", "", "Total", totalR(), ""]]);
   ws["!cols"] = [{ wch: 16 }, { wch: 30 }, { wch: 11 }, { wch: 9 }, { wch: 14 }, { wch: 12 }, { wch: 12 }];
   for (let r = 2; r <= n + 2; r++) ["E", "F"].forEach(c => { if (ws[c + r] && typeof ws[c + r].v === "number") ws[c + r].z = '"R$" #,##0.00'; });
   const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "Lista");
@@ -950,12 +1540,14 @@ $("xFile").onchange = async e => {
   const f = e.target.files[0]; e.target.value = ""; if (!f) return;
   let d;
   try { d = cleanState(JSON.parse(await f.text())); }
-  catch (x) { $("ex").close(); toast("Arquivo de backup inválido"); return; }
+  catch (x) { if ($("bk").open) $("bk").close(); toast("Arquivo de backup inválido"); return; }
   const n = d.lists.reduce((a, l) => a + l.items.length, 0);
-  const r = await ask("Restaurar backup?", `O arquivo tem ${plural(d.lists.length, "lista", "listas")} e ${plural(n, "item", "itens")}. Suas listas atuais serão substituídas.`, "Restaurar", { danger: true });
+  const r = await ask("Restaurar backup?", `O arquivo tem ${plural(d.lists.length, "lista", "listas")} (${plural(n, "item", "itens")}) e ${plural(d.records.length, "compra no histórico", "compras no histórico")}. Seus dados atuais serão substituídos.`, "Restaurar", { danger: true });
   if (r !== "ok") return;
   const old = S; S = d;
-  $("ex").close(); refreshAll();
+  curRecId = null; draftRec = null;
+  if ($("bk").open) $("bk").close();
+  refreshAll();
   toast("Backup restaurado", () => { S = old; refreshAll(); });
 };
 function refreshAll() { paint($("cat"), S.cat); applyTheme(); fillDatalist(); render(); }

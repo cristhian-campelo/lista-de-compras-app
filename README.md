@@ -6,19 +6,23 @@ Aplicativo web instalável (PWA) para fazer a lista de compras do mercado e sabe
 
 ## Funcionalidades
 
+- **Navegação em 3 abas:** **🛒 Lista** (compras atuais), **📋 Histórico** (compras finalizadas e registradas com data) e **📊 Relatórios** (gráficos e análise de gastos).
 - **Total em tempo real:** total da lista, valor já no carrinho, quanto falta e quantos itens já foram pegos (ex.: `7/12`).
-- **Várias listas:** Mercado, Farmácia, Churrasco… Toque no nome da lista no topo para trocar, criar, renomear ou excluir.
+- **Várias listas ativas:** Mercado, Farmácia, Churrasco… Toque no nome da lista no topo para trocar, criar, renomear ou excluir.
+- **Registrar compra no histórico:** botão ao final da lista que salva uma cópia completa da compra com data no **Histórico**, desmarca automaticamente os itens do carrinho mantendo-os na lista atual e oferece atalho imediato para fazer backup.
+- **Histórico de compras editável:** acesse qualquer compra passada para ver itens e totais, compartilhar/exportar (WhatsApp, texto, CSV, Excel), excluir ou **editar** (com confirmação antes de aplicar as alterações).
+- **Relatórios e gráfico Valor × Data:** visualize e compare seus gastos ao longo do tempo com filtros por **período** (`30 dias`, `2 meses`, `3 meses`, `6 meses`, `1 ano`, `Tudo`) e por **categoria** (`Todas as categorias` ou uma categoria específica).
 - **Item, quantidade e preço:** o preço é obrigatório; itens com valor R$ 0,00 ficam destacados em laranja com um alerta ⚠️.
 - **Itens por peso (kg):** toque em **/un** no campo de preço para mudar para **/kg** e informe o peso (ex.: `750` vira `0,750 kg`).
 - **Lembra o último preço:** ao digitar um item já comprado, o preço, a unidade e a categoria são preenchidos sozinhos. Na lista aparece ▲ ou ▼ quando o preço subiu ou caiu em relação à última compra.
 - **Itens repetidos:** ao adicionar um item que já está na lista, o app pergunta se quer somar à quantidade existente.
-- **Categorias coloridas:** Hortifruti, Padaria, Açougue, Laticínios, Frios e Ovos, Mercearia, Bebidas, Limpeza, Higiene, Congelados, Snacks e Doces, Pets e Outros. A categoria usada por último sobe para o topo da lista.
+- **Categorias coloridas com atalho `+`:** Hortifruti, Padaria, Açougue, Laticínios, Frios e Ovos, Mercearia, Bebidas, Limpeza, Higiene, Congelados, Snacks e Doces, Pets e Outros. Toque no `+` ao lado do nome da categoria na lista para já selecioná-la e abrir o teclado.
 - **Sugestões de itens:** a seta ▾ ao lado do nome abre os itens comprados recentemente e sugestões por categoria.
 - **Modo mercado:** toque no círculo para marcar o item como colocado no carrinho; os marcados vão para o fim da categoria e podem ser ocultados.
 - **Excluir com desfazer:** pela lixeira 🗑️, deslizando o item para a esquerda ou pela tela de edição.
 - **Orçamento:** defina um limite por lista e acompanhe quanto ainda pode gastar.
 - **Compartilhar e exportar:** enviar pelo WhatsApp/Telegram, copiar como texto, baixar **CSV** ou **planilha Excel (.xlsx)**.
-- **Backup:** salve todas as listas em um arquivo `.json` e restaure quando quiser.
+- **Backup completo:** salve todas as listas ativas, histórico de compras e memória de preços em um arquivo `.json` e restaure quando quiser.
 - **Tema claro, escuro ou automático**, desenhado primeiro para o celular.
 - **Instalação com um toque:** botão **Instalar** dentro do próprio app (no iPhone, mostra o passo a passo).
 - **Funciona offline** e abre na hora, mesmo com sinal fraco dentro do mercado.
