@@ -680,10 +680,11 @@ body.has-footer #toast{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
 <footer id="ftr"><div class="wrap f">
   <div class="r1">
     <div class="nw">
-      <input id="name" list="dl" placeholder="Item (ex.: Arroz 5 kg)" autocomplete="off" enterkeyhint="next" maxlength="120">
+      <input id="name" placeholder="Item (ex.: Arroz 5 kg)" autocomplete="off" enterkeyhint="next" maxlength="120" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="acList">
       <button class="hb" id="hBtn" aria-label="Sugestões de itens">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
       </button>
+      <div class="ac-pop" id="acList" role="listbox" hidden></div>
     </div>
     <button class="add" id="addBtn">Adicionar</button>
   </div>
@@ -714,7 +715,10 @@ body.has-footer #toast{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
 <dialog id="ed">
   <h3 tabindex="-1" autofocus id="edTitle">Editar item</h3>
   <label for="en">Nome</label>
-  <input id="en" maxlength="120" enterkeyhint="done" autocomplete="off">
+  <div class="enw">
+    <input id="en" maxlength="120" enterkeyhint="done" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="edAc">
+    <div class="ac-pop down" id="edAc" role="listbox" hidden></div>
+  </div>
   <label>Quantidade</label>
   <div class="eqr">
     <div class="seg" id="eun"><button type="button" data-v="un">Unidade</button><button type="button" data-v="kg">Quilo</button></div>
@@ -726,6 +730,7 @@ body.has-footer #toast{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
     <div class="kgw" id="ekgw" hidden><input id="ekg" inputmode="numeric" placeholder="Peso" aria-label="Peso em quilos" enterkeyhint="done"><span class="sx">kg</span></div>
   </div>
   <label for="ep" id="epl">Preço unitário</label><input id="ep" inputmode="numeric" placeholder="0,00" enterkeyhint="done">
+  <div class="ed-ph" id="edHist" hidden></div>
   <label for="ec">Categoria</label>
   <div class="cw">
     <button class="catb" id="ec" type="button"></button>
@@ -1201,6 +1206,102 @@ function fillDatalist() {
   $("dl").innerHTML = recent().filter(h => !/^\d+$/.test(h.n.trim())).slice(0, 200).map(h => `<option value="${esc(h.n)}"></option>`).join("");
 }
 
+function productCatalog() {
+  const map = new Map();
+  for (const [k, h] of Object.entries(S.hist || {})) {
+    if (!k || /^\d+$/.test(k) || k.length < 2 || !h || !h.n) continue;
+    map.set(k, {
+      k, n: h.n,
+      c: (h.c && h.c !== "Sem categoria") ? h.c : "Sem categoria",
+      u: h.u === "kg" ? "kg" : "un",
+      p: h.p > 0 ? h.p : 0,
+      t: +h.t || 0, cnt: 0, recDate: 0, meta: null
+    });
+  }
+  for (const r of (S.records || [])) {
+    const dt = +r.date || 0;
+    for (const it of (r.items || [])) {
+      if (it.skipped) continue;
+      const k = norm(it.name);
+      if (!k || /^\d+$/.test(k) || k.length < 2) continue;
+      const u = it.unit === "kg" ? "kg" : "un";
+      const cat = (it.cat && it.cat !== "Sem categoria") ? it.cat : "Sem categoria";
+      let e = map.get(k);
+      if (!e) {
+        map.set(k, { k, n: it.name, c: cat, u, p: it.price > 0 ? it.price : 0, t: dt, cnt: 1, recDate: dt, meta: r.catMeta || null });
+      } else {
+        e.cnt++;
+        if (dt >= e.recDate) {
+          e.recDate = dt;
+          if (dt >= e.t) {
+            e.t = dt;
+            e.n = it.name;
+            e.u = u;
+            if (it.price > 0) e.p = it.price;
+            if (cat !== "Sem categoria") { e.c = cat; e.meta = r.catMeta || e.meta; }
+          } else {
+            if (!e.p && it.price > 0) e.p = it.price;
+            if (e.c === "Sem categoria" && cat !== "Sem categoria") { e.c = cat; e.meta = r.catMeta || e.meta; }
+          }
+        }
+      }
+    }
+  }
+  for (const l of (S.lists || [])) {
+    for (const it of (l.items || [])) {
+      const k = norm(it.name);
+      if (!k || /^\d+$/.test(k) || k.length < 2) continue;
+      const cat = (it.cat && it.cat !== "Sem categoria") ? it.cat : "Sem categoria";
+      const e = map.get(k);
+      if (!e) {
+        map.set(k, { k, n: it.name, c: cat, u: it.unit === "kg" ? "kg" : "un", p: it.price > 0 ? it.price : 0, t: 1, cnt: 0, recDate: 0, meta: null });
+      } else {
+        if (!e.p && it.price > 0) e.p = it.price;
+        if (e.c === "Sem categoria" && cat !== "Sem categoria") e.c = cat;
+      }
+    }
+  }
+  return [...map.values()];
+}
+
+function matchProducts(query) {
+  const q = norm(query);
+  if (!q || /^\d+$/.test(q)) return [];
+  const scored = [];
+  for (const p of productCatalog()) {
+    let rank = -1;
+    if (p.k.startsWith(q)) rank = p.k === q ? 0 : 1;
+    else if (p.k.split(/\s+/).some(w => w.startsWith(q))) rank = 2;
+    else if (p.k.includes(q)) rank = 3;
+    if (rank >= 0) scored.push({ p, rank });
+  }
+  scored.sort((a, b) => a.rank - b.rank || b.p.cnt - a.p.cnt || b.p.t - a.p.t || a.p.n.localeCompare(b.p.n));
+  return scored.slice(0, 7).map(x => x.p);
+}
+
+function findProductExact(name) {
+  const k = norm(name);
+  if (!k || /^\d+$/.test(k) || k.length < 2) return null;
+  return productCatalog().find(p => p.k === k) || null;
+}
+
+function productPriceHistory(name, excludeRecId = null) {
+  const k = norm(name);
+  if (!k || /^\d+$/.test(k) || k.length < 2) return [];
+  const out = [];
+  const recs = [...(S.records || [])].sort((a, b) => (b.date || 0) - (a.date || 0));
+  for (const r of recs) {
+    if (excludeRecId && r.id === excludeRecId) continue;
+    for (const it of (r.items || [])) {
+      if (it.skipped || !(it.price > 0)) continue;
+      if (norm(it.name) === k) {
+        out.push({ date: r.date, list: r.name, recId: r.id, price: it.price, unit: it.unit === "kg" ? "kg" : "un" });
+      }
+    }
+  }
+  return out;
+}
+
 /* =========================================================
    Tema
    ========================================================= */
@@ -1536,14 +1637,14 @@ const GUIDES = {
     title: "Guia rápido · Lista de compras",
     html: `
       <div class="gbox">
-        <div class="gbox-top"><span class="g-ico">${ico("home")}</span><span>1. Monte a lista antes ou no mercado</span></div>
-        <p>• Digite o item abaixo ou toque na seta para abrir sugestões (recentes, mais comprados e categorias). Itens já comprados trazem sugestão automática.</p>
+        <div class="gbox-top"><span class="g-ico">${ico("home")}</span><span>1. Monte a lista com busca inteligente</span><span class="gbox-tag">Banco interno</span></div>
+        <p>• Ao digitar o nome do item (ex.: <i>Ab...</i>), aparece uma lista de recomendações com os produtos já salvos no seu histórico, exibindo categoria e <b>último valor por unidade ou quilo</b>.</p>
         <p>• O <b>preço e a categoria são opcionais</b> — itens ainda sem valor ficam destacados com um <b>filete vermelho suave na borda esquerda</b> e aviso no topo do grupo para preencher no mercado.</p>
       </div>
       <div class="gbox">
         <div class="gbox-top"><span class="g-ico">${ico("cart")}</span><span>2. No mercado: marcar, quantidade e preços</span></div>
         <p>• Toque na caixinha à esquerda do item para marcá-lo (<b>No carrinho</b>) com fundo listrado verde-água e risco gradual.</p>
-        <p>• Use os botões <b>− / +</b> na etiqueta do próprio card para alterar quantidades sem abrir formulários, ou toque no lápis azul para editar .</p>
+        <p>• Use os botões <b>− / +</b> na etiqueta do próprio card para alterar quantidades sem abrir formulários, ou toque no lápis azul para editar e <b>consultar o histórico de últimos valores pagos</b> por aquele produto.</p>
         <p>• Use o <b>olho</b> no topo para ocultar/mostrar itens marcados e a <b>setinha</b> da categoria para recolher/expandir grupos mantendo os avisos pendentes visíveis.</p>
       </div>
       <div class="gbox">
@@ -1576,7 +1677,7 @@ const GUIDES = {
         <div class="gbox-top"><span class="g-ico">${ico("edit")}</span><span>3. Recibo detalhado e edição persistente</span></div>
         <p>Ao abrir uma compra você vê o resumo em 4 indicadores (lista, itens pagos, desistências e data) e pode:</p>
         <p>• <b>Compartilhar:</b> enviar no WhatsApp, copiar texto ou baixar Excel/CSV (considerando apenas os itens pagos).</p>
-        <p>• <b>Editar:</b> ajustar quantidades com <b>− / +</b> direto nos cards, alterar preços, incluir itens esquecidos, mover ou restaurar itens de <b>Desistência</b> e salvar tudo no aparelho.</p>
+        <p>• <b>Editar:</b> ajustar quantidades com <b>− / +</b> direto nos cards, alterar preços com apoio do histórico do item, incluir itens esquecidos, mover ou restaurar itens de <b>Desistência</b> e salvar tudo no aparelho.</p>
       </div>`
   },
   rep: {
@@ -2599,11 +2700,38 @@ $("vRep").addEventListener("click", e => {
    Editar item (na lista atual ou no rascunho do histórico)
    ========================================================= */
 let editing = null, editCtx = "list", eq = 1, eu = "un";
+function renderEditPriceHist() {
+  const box = $("edHist");
+  if (!box) return;
+  const hist = productPriceHistory($("en").value, editCtx === "editRec" && draftRec ? draftRec.id : null);
+  if (!hist.length) {
+    box.hidden = true;
+    box.innerHTML = "";
+    return;
+  }
+  const sameU = hist.filter(x => x.unit === eu);
+  const ref = sameU.length ? sameU : hist;
+  const last = ref[0], curP = cents($("ep").value);
+  let metaHtml = "";
+  if (curP > 0 && last.unit === eu && curP !== last.price) {
+    const d = curP - last.price;
+    metaHtml = `<span class="pd ${d > 0 ? "up" : "dn"}">${ico(d > 0 ? "trendUp" : "trendDown", 2.5)}<span>${brl(Math.abs(d))} vs último</span></span>`;
+  } else if (sameU.length >= 2) {
+    const minP = Math.min(...sameU.map(x => x.price));
+    metaHtml = `<span class="ed-ph-meta">Último ${brl(last.price)} · Menor ${brl(minP)}</span>`;
+  } else {
+    metaHtml = `<span class="ed-ph-meta">${plural(hist.length, "registro", "registros")}</span>`;
+  }
+  box.hidden = false;
+  box.innerHTML = `<div class="ed-ph-top"><span class="ed-ph-t">${ico("clock")}<span>Histórico unitário/kg</span></span>${metaHtml}</div>
+    <div class="ed-ph-list">${hist.slice(0, 10).map(x => `<button type="button" class="ed-ph-chip" data-ph-p="${x.price}" data-ph-u="${x.unit}" title="Toque para aplicar este valor"><span class="ed-ph-v">${brl(x.price)}/${x.unit}</span><span class="ed-ph-d">${fmtShortDate(x.date)} · ${esc(x.list)}</span></button>`).join("")}</div>`;
+}
 function setEditUnit(u) {
   eu = u;
   document.querySelectorAll("#eun button").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === u));
   $("eStep").hidden = u === "kg"; $("ekgw").hidden = u !== "kg";
   $("epl").textContent = u === "kg" ? "Preço por quilo" : "Preço unitário";
+  renderEditPriceHist();
 }
 function openEdit(it, ctx = "list") {
   editing = it; editCtx = ctx;
@@ -2623,12 +2751,25 @@ function openEdit(it, ctx = "list") {
   setEditUnit(eu);
   paint($("ec"), it.cat || "");
   ["en", "ep", "ekg"].forEach(id => $(id).classList.remove("bad"));
+  $("edAc").hidden = true;
   openD("ed");
 }
 $("eun").addEventListener("click", e => { const b = e.target.closest("button"); if (b) setEditUnit(b.dataset.v); });
 $("eqm").onclick = () => { eq = Math.max(1, eq - 1); $("eqv").textContent = eq; };
 $("eqp").onclick = () => { eq = Math.min(999, eq + 1); $("eqv").textContent = eq; };
-
+$("en").addEventListener("input", renderEditPriceHist);
+$("ep").addEventListener("input", renderEditPriceHist);
+$("edHist").addEventListener("click", e => {
+  const ch = e.target.closest("[data-ph-p]");
+  if (!ch) return;
+  const u = ch.dataset.phU === "kg" ? "kg" : "un";
+  if (u !== eu) setEditUnit(u);
+  $("ep").value = fromC(+ch.dataset.phP, 1);
+  $("ep").classList.remove("bad");
+  renderEditPriceHist();
+  vib();
+  toast("Valor do histórico aplicado");
+});
 function saveEdit() {
   const n = $("en").value.trim().slice(0, 120);
   if (!n) return bad("en");
@@ -2689,6 +2830,85 @@ $("edSkip").onclick = () => {
 };
 
 /* =========================================================
+   Autocomplete do banco interno de produtos
+   ========================================================= */
+function hlMatch(str, query) {
+  const q = norm(query);
+  if (!q) return esc(str);
+  let n = "", map = [];
+  for (let i = 0; i < str.length; i++) {
+    const ch = norm(str[i]);
+    for (let j = 0; j < ch.length; j++) map.push(i);
+    n += ch;
+  }
+  const at = n.indexOf(q);
+  if (at < 0) return esc(str);
+  const sIdx = map[at], eIdx = (map[at + q.length - 1] !== undefined ? map[at + q.length - 1] : sIdx) + 1;
+  return `${esc(str.slice(0, sIdx))}<mark>${esc(str.slice(sIdx, eIdx))}</mark>${esc(str.slice(eIdx))}`;
+}
+
+function attachProductAC(inputEl, listEl, onPick, onEnterNoPick) {
+  let matches = [], active = -1;
+  const hide = () => {
+    listEl.hidden = true;
+    inputEl.setAttribute("aria-expanded", "false");
+    active = -1;
+  };
+  const renderList = () => {
+    matches = matchProducts(inputEl.value);
+    active = -1;
+    if (!matches.length) { hide(); return; }
+    const q = inputEl.value;
+    listEl.innerHTML = `<div class="ac-hdr"><span>Seus produtos salvos</span><span>${matches.length}</span></div>` +
+      matches.map((p, i) => {
+        const cc = CAT(p.c, p.meta);
+        const priceTxt = p.p > 0 ? `<span class="ac-p">${brl(p.p)}/${p.u}</span>` : "";
+        const cntTxt = p.cnt > 0 ? `<span class="ac-cnt">${p.cnt}x</span>` : "";
+        return `<button type="button" class="ac-it" role="option" data-ac="${i}"><span class="ac-l">${catBadge(cc)}<span class="ac-txt"><span class="ac-n">${hlMatch(p.n, q)}</span><span class="ac-s">${esc(cc.n)}</span></span></span><span class="ac-r">${priceTxt}${cntTxt}</span></button>`;
+      }).join("");
+    listEl.hidden = false;
+    inputEl.setAttribute("aria-expanded", "true");
+  };
+  const choose = idx => {
+    const p = matches[idx];
+    if (!p) return;
+    hide();
+    onPick(p);
+  };
+  inputEl.addEventListener("input", renderList);
+  inputEl.addEventListener("focus", () => { if (inputEl.value.trim()) renderList(); });
+  inputEl.addEventListener("blur", () => { setTimeout(hide, 140); });
+  inputEl.addEventListener("keydown", e => {
+    if (!listEl.hidden && matches.length) {
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        active = (active + 1) % matches.length;
+        listEl.querySelectorAll(".ac-it").forEach((b, i) => b.classList.toggle("on", i === active));
+        return;
+      }
+      if (e.key === "ArrowUp") {
+        e.preventDefault();
+        active = active <= 0 ? matches.length - 1 : active - 1;
+        listEl.querySelectorAll(".ac-it").forEach((b, i) => b.classList.toggle("on", i === active));
+        return;
+      }
+      if (e.key === "Escape") { e.preventDefault(); hide(); return; }
+      if (e.key === "Enter" && active >= 0) { e.preventDefault(); choose(active); return; }
+    }
+    if (e.key === "Enter" && onEnterNoPick) { e.preventDefault(); hide(); onEnterNoPick(); }
+  });
+  listEl.addEventListener("pointerdown", e => {
+    const b = e.target.closest("[data-ac]");
+    if (b) e.preventDefault();
+  });
+  listEl.addEventListener("click", e => {
+    const b = e.target.closest("[data-ac]");
+    if (b) choose(+b.dataset.ac);
+  });
+  return { hide };
+}
+
+/* =========================================================
    Adicionar item na lista atual (preço opcional)
    ========================================================= */
 let qty = 1, unit = "un", autoPrice = false, autoCat = false, hint = "";
@@ -2707,38 +2927,79 @@ function updatePreview() {
   if (hint) t = t ? `${hint} · ${t}` : hint;
   $("prev").textContent = t;
 }
+function applyProductToAddForm(p, forceOverride = false) {
+  if (!p) return;
+  if (forceOverride) $("name").value = p.n;
+  if (p.p > 0 && (forceOverride || autoPrice || !$("price").value)) {
+    $("price").value = fromC(p.p, 1);
+    $("price").classList.remove("bad");
+    autoPrice = true;
+  } else if (forceOverride && p.p <= 0 && autoPrice) {
+    $("price").value = "";
+    autoPrice = false;
+  }
+  if (forceOverride || autoCat || !$("cat").dataset.v) {
+    if (p.c && p.c !== "Sem categoria" && okc(p.c)) {
+      S.cat = p.c;
+      paint($("cat"), p.c);
+      autoCat = true;
+    } else if (forceOverride && autoCat) {
+      S.cat = "";
+      paint($("cat"), "");
+      autoCat = false;
+    }
+  }
+  if (p.u !== unit) setUnit(p.u);
+  hint = p.p > 0 ? `Último preço: ${brl(p.p)}/${p.u}` : "";
+  updatePreview();
+}
 $("ub").onclick = () => { setUnit(unit === "kg" ? "un" : "kg"); if (unit === "kg") $("kg").focus(); };
 $("qm").onclick = () => { qty = Math.max(1, qty - 1); $("qv").textContent = qty; updatePreview(); };
 $("qp").onclick = () => { qty = Math.min(999, qty + 1); $("qv").textContent = qty; updatePreview(); };
 $("kg").addEventListener("input", updatePreview);
 $("price").addEventListener("input", () => { autoPrice = false; updatePreview(); });
 
-function onName() {
-  const h = S.hist[norm($("name").value)];
+$("name").addEventListener("input", () => {
+  const h = findProductExact($("name").value);
   if (h) {
-    if (h.p > 0 && (autoPrice || !$("price").value)) { $("price").value = fromC(h.p, 1); autoPrice = true; }
-    if ((autoCat || !$("cat").dataset.v) && okc(h.c)) { S.cat = h.c; paint($("cat"), h.c); autoCat = true; }
-    if (h.u !== unit) setUnit(h.u);
-    hint = h.p > 0 ? `Último preço: ${brl(h.p)}/${h.u}` : "";
+    applyProductToAddForm(h, false);
   } else {
     if (autoPrice) { $("price").value = ""; autoPrice = false; }
     if (autoCat) { S.cat = ""; paint($("cat"), ""); autoCat = false; }
     hint = "";
+    updatePreview();
   }
-  updatePreview();
-}
-$("name").addEventListener("input", onName);
-$("name").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $(unit === "kg" ? "kg" : "price").focus(); } });
+});
+
+const nameAC = attachProductAC($("name"), $("acList"), p => {
+  applyProductToAddForm(p, true);
+  save();
+  $(unit === "kg" ? "kg" : "price").focus();
+}, () => $(unit === "kg" ? "kg" : "price").focus());
+
+attachProductAC($("en"), $("edAc"), p => {
+  $("en").value = p.n;
+  if ((editCtx === "addRec" || !$("ec").dataset.v) && p.c && p.c !== "Sem categoria" && okc(p.c)) {
+    paint($("ec"), p.c);
+  }
+  if (editCtx === "addRec") setEditUnit(p.u);
+  if (p.p > 0 && (editCtx === "addRec" || !$("ep").value)) {
+    $("ep").value = fromC(p.p, 1);
+  }
+  renderEditPriceHist();
+}, saveEdit);
 
 function resetForm() {
   $("name").value = ""; $("price").value = ""; $("kg").value = "";
   qty = 1; $("qv").textContent = 1; autoPrice = false; autoCat = false; hint = "";
+  nameAC.hide();
   setUnit("un");
   S.cat = "";
   paint($("cat"), "");
 }
 
 async function add() {
+  nameAC.hide();
   const n = $("name").value.trim().slice(0, 120);
   if (!n) { bad("name"); toast("Informe o nome do item"); return; }
   const q = unit === "kg" ? kilos($("kg").value) : qty;
@@ -2764,7 +3025,7 @@ async function add() {
     }
   }
 
-  const h = S.hist[k], it = { id: uid(), name: n, qty: q, price, unit: u, cat, done: false };
+  const h = findProductExact(n), it = { id: uid(), name: n, qty: q, price, unit: u, cat, done: false };
   if (h && h.u === u && h.p && price && h.p !== price) it.pp = h.p;
   l.items.push(it);
   lastAddedId = it.id;
