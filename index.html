@@ -44,7 +44,7 @@ header{flex:none;background:var(--bg);padding:8px 0 10px}
 .nav button svg{width:20px;height:20px;display:block;transition:transform .25s ease}
 .nav button:hover{transform:translateY(-3px);color:var(--ink)}
 .nav button:active{transform:translateY(-1px) scale(.93)}
-.nav button[aria-selected="true"]{background:var(--accent);color:var(--accent-ink);box-shadow:0 4px 12px rgba(16,185,129,.45);transform:translateY(-2px)}
+.nav button[aria-selected="true"]{background:transparent;color:var(--accent);box-shadow:none;transform:translateY(-1px)}
 .top{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:36px;color:var(--muted);font-size:14px;margin-bottom:8px}
 .lsb{display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 12px;border-radius:11px;background:var(--surface);color:var(--ink);font-size:14.5px;font-weight:700;min-width:0;max-width:calc(100% - 160px);box-shadow:0 2px 6px rgba(0,0,0,.07);transition:all .22s ease}
 .lsb:hover{transform:translateY(-2px);box-shadow:0 5px 12px rgba(0,0,0,.12)}
@@ -57,6 +57,7 @@ header{flex:none;background:var(--bg);padding:8px 0 10px}
 .top-back:hover{background:var(--accent);color:var(--accent-ink);box-shadow:0 5px 12px rgba(16,185,129,.32);transform:translateY(-2px)}
 .top-back:active{transform:translateY(0) scale(.96)}
 .top-lbl{flex:1;min-width:0;font-size:13.5px;font-weight:700;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.top-lbl.is-title{font-size:17px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
 .top-r{display:flex;align-items:center;gap:6px;flex:none}
 .help-btn{height:36px;padding:0 12px;border-radius:11px;border:none;display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:700;color:var(--accent);background:var(--surface);box-shadow:0 2px 6px rgba(0,0,0,.08);transition:all .22s ease}
 .help-btn svg{width:16px;height:16px;flex:none}
@@ -65,6 +66,10 @@ header{flex:none;background:var(--bg);padding:8px 0 10px}
 .icon-btn{width:36px;height:36px;flex:none;border-radius:11px;border:none;background:var(--surface);display:grid;place-items:center;color:var(--ink);box-shadow:0 2px 6px rgba(0,0,0,.08);transition:all .22s ease}
 .icon-btn svg{width:18px;height:18px;display:block}
 .icon-btn:hover{background:var(--ink);color:var(--bg);box-shadow:0 6px 14px rgba(0,0,0,.2);transform:translateY(-2px)}
+.icon-btn.dng{color:#dc2626}
+.icon-btn.dng:hover{background:#ef4444;color:#fff;box-shadow:0 6px 14px rgba(239,68,68,.35)}
+:root[data-theme="dark"] .icon-btn.dng:not(:hover){color:#f87171}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .icon-btn.dng:not(:hover){color:#f87171}}
 .icon-btn:active{transform:translateY(0) scale(.93)}
 .icon-btn.eye-off{color:var(--accent)}
 .icon-btn svg{transition:transform .25s ease}
@@ -181,11 +186,13 @@ main>.wrap:not([hidden]){animation:viewIn .26s cubic-bezier(.22,1,.36,1)}
 :root[data-theme="dark"] .cat-add:not(:hover){background:#232730;box-shadow:0 2px 5px rgba(0,0,0,.4)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cat-add:not(:hover){background:#232730;box-shadow:0 2px 5px rgba(0,0,0,.4)}}
 
-/* Card de superfície com separação sutil entre itens e barra lateral da cor da categoria */
-.card{display:flex;flex-direction:column;gap:5px;padding:6px;background:var(--bg);border:1px solid var(--line);border-left:4px solid hsl(var(--h,210) 68% 52%);border-radius:16px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.05)}
+/* Card de superfície com separação suave apenas abaixo de cada item e barra lateral da cor da categoria */
+.card{display:flex;flex-direction:column;background:color-mix(in srgb,var(--bg) 78%,var(--surface));border:1px solid var(--line);border-left:4px solid hsl(var(--h,210) 68% 52%);border-radius:16px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.05)}
 :root[data-theme="dark"] .card{box-shadow:0 4px 16px rgba(0,0,0,.35)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .card{box-shadow:0 4px 16px rgba(0,0,0,.35)}}
-.sw{position:relative;border-radius:11px;overflow:hidden;border:1px solid var(--line);background:var(--surface)}
+.sw{position:relative;overflow:hidden;background:var(--surface)}
+.sw:not(:last-child){margin-bottom:3px}
+.sw:not(:last-child)::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;z-index:2;pointer-events:none;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--bg) 85%,var(--line)) 10%,color-mix(in srgb,var(--bg) 85%,var(--line)) 90%,transparent)}
 .sw.drag{background:#dc2626}
 .bin{position:absolute;right:22px;top:50%;width:22px;height:22px;margin-top:-11px;color:#fff;opacity:0;pointer-events:none;transition:opacity .15s}
 .sw.drag .bin{opacity:1}
@@ -429,6 +436,11 @@ footer{flex:none;position:relative;z-index:6;background:var(--surface);border-to
 .cat-x svg{width:12px;height:12px;display:block}
 .cat-x:hover,.cat-x:active{background:#ef4444;color:#fff;transform:translateY(-50%) scale(.94)}
 .bad{border-color:#ea580c!important;box-shadow:0 0 0 3px color-mix(in srgb,#f97316 30%,transparent)!important}
+#prev{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;max-width:100%;padding:4px 10px;border-radius:9px;background:var(--bg);border:1px solid var(--line);font-size:12px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+#prev svg{width:13px;height:13px;color:var(--accent);flex:none}
+#prev b{color:var(--ink);font-weight:800}
+:root[data-theme="dark"] #prev{background:#232730;box-shadow:0 1px 4px rgba(0,0,0,.35)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #prev{background:#232730;box-shadow:0 1px 4px rgba(0,0,0,.35)}}
 #prev:empty{display:none}
 .step{display:flex;align-items:center;border:1px solid var(--line);border-radius:12px;background:var(--bg);height:46px;padding:0 3px}
 .step button{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;flex:none;color:var(--ink);transition:all .18s ease}
@@ -530,18 +542,51 @@ dialog label{display:block;font-size:13px;font-weight:600;color:var(--muted);mar
 .ac-cnt{font-size:10.5px;font-weight:700;color:var(--muted);background:var(--surface);padding:2px 6px;border-radius:7px}
 :root[data-theme="dark"] .ac-p,:root[data-theme="dark"] .ac-cnt{background:#1a1d1f}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ac-p,:root:not([data-theme="light"]) .ac-cnt{background:#1a1d1f}}
-.ed-ph{margin-top:10px;padding:9px 10px;border-radius:12px;background:var(--bg);border:1px solid var(--line)}
-.ed-ph-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px;flex-wrap:wrap}
-.ed-ph-t{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:800;color:var(--ink)}
-.ed-ph-t svg{width:13px;height:13px;color:var(--accent);flex:none}
-.ed-ph-meta{font-size:11px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums}
-.ed-ph-list{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
-.ed-ph-chip{flex:none;display:flex;flex-direction:column;align-items:flex-start;gap:1px;padding:6px 9px;border-radius:9px;background:var(--surface);border:1px solid var(--line);text-align:left;transition:all .18s ease}
-.ed-ph-chip:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.08)}
+/* Histórico minimalista de 1 linha na edição do item (até 4 últimos valores) */
+.ed-ph{display:flex;align-items:center;gap:6px;margin-top:7px;padding:5px 8px;border-radius:10px;background:var(--bg);border:1px solid var(--line);overflow-x:auto;white-space:nowrap}
+.ed-ph[hidden]{display:none!important}
+.ed-ph-lbl{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;color:var(--muted);flex:none}
+.ed-ph-lbl svg{width:12px;height:12px;color:var(--accent);flex:none}
+.ed-ph-list{display:inline-flex;align-items:center;gap:5px;flex:1;min-width:0}
+.ed-ph-chip{flex:none;display:inline-flex;align-items:baseline;gap:4px;padding:3px 7px;border-radius:7px;background:var(--surface);border:1px solid var(--line);font-variant-numeric:tabular-nums;transition:all .16s ease}
+.ed-ph-chip:hover{border-color:var(--accent);background:var(--soft);transform:translateY(-1px)}
 :root[data-theme="dark"] .ed-ph-chip:not(:hover){background:#232730}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ed-ph-chip:not(:hover){background:#232730}}
-.ed-ph-v{font-size:12.5px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums;white-space:nowrap}
-.ed-ph-d{font-size:10.5px;font-weight:600;color:var(--muted);white-space:nowrap;max-width:118px;overflow:hidden;text-overflow:ellipsis}
+.ed-ph-v{font-size:11.5px;font-weight:800;color:var(--accent);white-space:nowrap}
+.ed-ph-d{font-size:10px;font-weight:600;color:var(--muted);white-space:nowrap}
+/* Banco de Dados de Produtos (#vProd) */
+.pdb-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:12px}
+.pdb-bar .h-search-w{flex:1 1 190px;margin-bottom:0}
+.pdb-btn{height:40px;padding:0 12px;border-radius:11px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-size:12.5px;font-weight:700;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.05);transition:all .2s ease}
+.pdb-btn svg{width:15px;height:15px;flex:none}
+.pdb-btn:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+.pdb-btn.pri{background:var(--accent);color:var(--accent-ink);border-color:transparent;box-shadow:0 4px 12px rgba(16,185,129,.28)}
+.pdb-btn.pri:hover{color:var(--accent-ink);filter:brightness(1.05)}
+.pdb-btn.on{background:var(--surface);border-color:var(--accent);color:var(--accent)}
+.pdb-btn.dng{color:#dc2626;border-color:color-mix(in srgb,#dc2626 30%,var(--line))}
+.pdb-btn.dng:hover{background:#ef4444;color:#fff;border-color:#ef4444}
+:root[data-theme="dark"] .pdb-btn:not(.pri):not(:hover){background:#1c2026}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .pdb-btn:not(.pri):not(:hover){background:#1c2026}}
+.pdb-bulk{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:9px 12px;margin-bottom:12px;border-radius:12px;background:var(--surface);border:1px solid var(--line);box-shadow:0 3px 10px rgba(0,0,0,.06);font-size:12.5px;font-weight:700;color:var(--ink)}
+:root[data-theme="dark"] .pdb-bulk{background:#1c2026;box-shadow:0 3px 10px rgba(0,0,0,.35)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .pdb-bulk{background:#1c2026;box-shadow:0 3px 10px rgba(0,0,0,.35)}}
+.pdb-bulk-info{display:inline-flex;align-items:center;gap:7px;min-width:0}
+.pdb-bulk-info svg{width:16px;height:16px;flex:none;color:var(--accent)}
+.pdb-bulk-acts{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}
+.pdb-bulk-acts .pdb-btn{height:34px;padding:0 11px;font-size:12px}
+.pdb-sort{display:flex;align-items:center;justify-content:flex-start;margin:14px 2px 10px}
+.pdb-sort-box{display:inline-flex;align-items:center;gap:4px;padding:4px;border-radius:11px;background:var(--surface);border:1px solid var(--line);box-shadow:0 2px 6px rgba(0,0,0,.05)}
+:root[data-theme="dark"] .pdb-sort-box{background:#1c2026;box-shadow:0 2px 6px rgba(0,0,0,.35)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .pdb-sort-box{background:#1c2026;box-shadow:0 2px 6px rgba(0,0,0,.35)}}
+.pdb-sb{height:30px;padding:0 9px;border-radius:8px;font-size:12px;font-weight:700;line-height:1;white-space:nowrap;flex:none;background:transparent;border:1px solid transparent;color:var(--muted);display:inline-flex;align-items:center;gap:3px;transition:all .18s ease}
+.pdb-sb svg{width:14px;height:14px;flex:none}
+.pdb-sb .pdb-arr{width:12px;height:12px}
+.pdb-sb:hover{color:var(--ink);background:var(--bg)}
+.pdb-sb.on{background:var(--bg);color:var(--accent);border-color:var(--line);box-shadow:0 1px 4px rgba(0,0,0,.06)}
+:root[data-theme="dark"] .pdb-sb:hover,:root[data-theme="dark"] .pdb-sb.on{background:#232730}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .pdb-sb:hover,:root:not([data-theme="light"]) .pdb-sb.on{background:#232730}}
+.ph-date{font-size:11.5px;font-weight:600;color:var(--muted);display:inline-flex;align-items:center;gap:5px}
+.ph-date svg{width:12px;height:12px;flex:none}
 .emj-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:6px}
 .emj-b{height:40px;border-radius:10px;background:var(--bg);border:1px solid var(--line);display:grid;place-items:center;color:var(--ink);transition:all .18s ease}
 .emj-b svg{width:19px;height:19px;display:block}
@@ -570,6 +615,12 @@ dialog label{display:block;font-size:13px;font-weight:600;color:var(--muted);mar
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .sec-del:not(:hover){background:#232730;color:#f87171}}
 .acts.stack{flex-direction:column}
 .acts.stack button{flex:none;width:100%}
+.acts.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.acts.grid2 button{flex:none;width:100%;height:44px;font-size:13px;white-space:nowrap}
+.acts .fin-cart{background:#10b981;color:#fff;font-weight:800;box-shadow:0 4px 12px rgba(16,185,129,.28)}
+.acts .fin-skip{background:#f59e0b;color:#fff;font-weight:800;box-shadow:0 4px 12px rgba(245,158,11,.28)}
+.acts .fin-drop{background:#ef4444;color:#fff;font-weight:800;box-shadow:0 4px 12px rgba(239,68,68,.28)}
+.acts .fin-drop:disabled{opacity:.42;pointer-events:none;box-shadow:none}
 .fin-stat{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0 6px}
 .fin-stat>div{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:8px 11px;font-size:12.5px}
 .fin-stat span{display:block;color:var(--muted);font-weight:600;margin-bottom:2px}
@@ -613,6 +664,9 @@ body.has-footer #toast{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
     <button type="button" role="tab" data-tab="hist" aria-selected="false" aria-label="Histórico de compras" title="Histórico de compras">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>
     </button>
+    <button type="button" role="tab" data-tab="prod" aria-selected="false" aria-label="Banco de produtos" title="Banco de produtos">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>
+    </button>
     <button type="button" role="tab" data-tab="rep" aria-selected="false" aria-label="Relatórios de gastos" title="Relatórios de gastos">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
     </button>
@@ -625,10 +679,16 @@ body.has-footer #toast{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
     </button>
     <button type="button" class="top-back" id="topBack" hidden>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
-      <span>Voltar ao histórico</span>
+      <span id="topBackTxt">Voltar ao histórico</span>
     </button>
     <span class="top-lbl" id="hdrLabel" hidden></span>
     <div class="top-r">
+      <button type="button" class="icon-btn" id="checkAllBtn" aria-label="Marcar todos os itens" title="Marcar todos os itens">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"/></svg>
+      </button>
+      <button type="button" class="icon-btn dng" id="clearAllBtn" aria-label="Excluir todos os itens" title="Excluir todos os itens">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+      </button>
       <button type="button" class="icon-btn" id="eyeBtn" aria-label="Ocultar itens marcados" title="Ocultar itens marcados">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
       </button>
@@ -674,6 +734,7 @@ body.has-footer #toast{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
 <main>
   <div class="wrap" id="vList"></div>
   <div class="wrap" id="vHist" hidden></div>
+  <div class="wrap" id="vProd" hidden></div>
   <div class="wrap" id="vRep" hidden></div>
 </main>
 
@@ -688,7 +749,6 @@ body.has-footer #toast{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
     </div>
     <button class="add" id="addBtn">Adicionar</button>
   </div>
-  <datalist id="dl"></datalist>
   <div class="r2">
     <div class="qw">
       <div class="step" id="qStep">
@@ -761,7 +821,7 @@ body.has-footer #toast{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
     <button id="mExp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/></svg><span>Exportar / Compartilhar lista atual</span></button>
     <button id="mBak"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg><span>Backup do aplicativo</span></button>
     <button id="mHide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.52 13.52 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg><span id="mHideTxt">Ocultar itens marcados</span></button>
-    <button id="mDone" class="w"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><span>Remover itens marcados</span></button>
+    <button id="mToggleAll"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"/></svg><span id="mToggleAllTxt">Marcar todos os itens</span></button>
     <button id="mAll" class="w"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg><span>Limpar a lista inteira</span></button>
   </div>
   <div class="acts"><button class="pri" id="mnOk">Pronto</button></div>
@@ -830,6 +890,7 @@ body.has-footer #toast{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
   <div class="seg" id="tutSeg" style="margin-bottom:10px">
     <button type="button" data-gt="list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg><span>Lista</span></button>
     <button type="button" data-gt="hist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg><span>Histórico</span></button>
+    <button type="button" data-gt="prod"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg><span>Produtos</span></button>
     <button type="button" data-gt="rep"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg><span>Relatórios</span></button>
   </div>
   <div class="lst" id="tutBody"></div>
@@ -886,10 +947,47 @@ body.has-footer #toast{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
   <h3 tabindex="-1" autofocus id="finAskT">Itens desmarcados na lista</h3>
   <p id="finAskP" style="margin:0;line-height:1.5;color:var(--muted);font-size:13.5px"></p>
   <div class="fin-stat" id="finAskStat"></div>
-  <div class="acts stack">
-    <button type="button" class="pri" id="finMoveSkip"></button>
-    <button type="button" class="dng" id="finDropUnm"></button>
+  <div class="acts grid2">
+    <button type="button" class="fin-cart" id="finMarkCart">Inserir no carrinho</button>
+    <button type="button" class="fin-skip" id="finMoveSkip">Para desistência</button>
+    <button type="button" class="fin-drop" id="finDropUnm">Excluir</button>
     <button type="button" id="finCancel">Cancelar</button>
+  </div>
+</dialog>
+
+<dialog id="pm">
+  <h3 tabindex="-1" autofocus id="pmTitle">Novo produto</h3>
+  <div id="pmProdFields">
+    <label for="pmName">Nome do produto</label>
+    <input id="pmName" maxlength="120" placeholder="Ex.: Arroz 5 kg" autocomplete="off" enterkeyhint="done">
+    <label for="pmCat">Categoria</label>
+    <div class="cw">
+      <button class="catb" id="pmCat" type="button"></button>
+      <button class="cat-x" id="pmCatX" type="button" aria-label="Deixar sem categoria" title="Deixar sem categoria" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+  </div>
+  <label id="pmUnitLbl">Unidade padrão</label>
+  <div class="seg" id="pmUn"><button type="button" data-v="un">Unidade</button><button type="button" data-v="kg">Quilo</button></div>
+  <div id="pmPriceFields">
+    <label for="pmPrice" id="pmPriceLbl">Valor unitário (opcional)</label>
+    <input id="pmPrice" inputmode="numeric" placeholder="0,00" enterkeyhint="done">
+    <div class="ed-grid" id="pmDateRow" style="margin-top:10px">
+      <div>
+        <label for="pmDate" style="margin-top:0">Data da compra</label>
+        <input id="pmDate" type="date">
+      </div>
+      <div>
+        <label for="pmOrigin" style="margin-top:0">Local / Lista</label>
+        <input id="pmOrigin" maxlength="40" placeholder="Ex.: Mercado" enterkeyhint="done">
+      </div>
+    </div>
+  </div>
+  <div class="acts">
+    <button type="button" class="del" id="pmDel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg><span>Excluir</span></button>
+    <button type="button" id="pmCancel">Cancelar</button>
+    <button type="button" class="pri" id="pmSave">Salvar</button>
   </div>
 </dialog>
 
@@ -957,7 +1055,14 @@ const LUCIDE_PATHS = {
   coffee: '<path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/>',
   shirt: '<path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/>',
   home: '<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
-  zap: '<path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>'
+  zap: '<path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>',
+  database: '<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/>',
+  arrowUpDown: '<path d="m21 16-4 4-4-4"/><path d="M17 20V4"/><path d="m3 8 4-4 4 4"/><path d="M7 4v16"/>',
+  arrowUp: '<path d="m5 12 7-7 7 7"/><path d="M12 19V5"/>',
+  arrowDown: '<path d="M12 5v14"/><path d="m19 12-7 7-7-7"/>',
+  dollarSign: '<line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>',
+  checkSquare: '<rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/>',
+  square: '<rect width="18" height="18" x="3" y="3" rx="2"/>'
 };
 
 const ico = (k, sw = 2) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${LUCIDE_PATHS[k] || LUCIDE_PATHS.tag}</svg>`;
@@ -1148,7 +1253,87 @@ function cleanRecord(r, customCats) {
   if (catMeta) o.catMeta = catMeta;
   return o;
 }
-// Aceita o formato atual (várias listas + histórico + categorias personalizadas) e o antigo
+
+function cleanPriceEntry(pe) {
+  if (!pe || typeof pe !== "object") return null;
+  const price = Math.round(Number(pe.price));
+  if (!Number.isFinite(price) || price <= 0) return null;
+  const dt = Number(pe.date);
+  return {
+    id: pe.id ? String(pe.id) : uid(),
+    price: Math.min(price, 1e9),
+    unit: pe.unit === "kg" ? "kg" : "un",
+    date: Number.isFinite(dt) && dt > 0 ? dt : Date.now(),
+    list: String(pe.list || "Compra").trim().slice(0, 40) || "Compra"
+  };
+}
+
+function cleanProduct(p) {
+  if (!p || typeof p !== "object") return null;
+  const name = String(p.name || "").trim().slice(0, 120);
+  const k = norm(name);
+  if (!name || !k) return null;
+  const unit = p.unit === "kg" ? "kg" : "un";
+  const rawCat = String(p.cat || "").trim().slice(0, 32);
+  const cat = (rawCat && rawCat !== "Outros" && rawCat !== "Sem categoria") ? rawCat : "Sem categoria";
+  const prices = (Array.isArray(p.prices) ? p.prices : []).map(cleanPriceEntry).filter(Boolean).sort((a, b) => b.date - a.date);
+  const o = { id: p.id ? String(p.id) : uid(), name, cat, unit, prices };
+  if (p.catMeta && typeof p.catMeta === "object") {
+    const m = {};
+    for (const [mk, mv] of Object.entries(p.catMeta)) {
+      if (mk && mv && typeof mv === "object") {
+        m[String(mk).slice(0, 32)] = {
+          e: String(mv.e || "🏷️").trim().slice(0, 8) || "🏷️",
+          h: Number.isFinite(+mv.h) ? Math.max(0, Math.min(360, Math.round(+mv.h))) : 205
+        };
+      }
+    }
+    if (Object.keys(m).length) o.catMeta = m;
+  }
+  return o;
+}
+
+function ingestRecordIntoProducts(rec, targetProducts, customCats) {
+  if (!rec || !Array.isArray(rec.items)) return;
+  const prods = targetProducts || (S && S.products);
+  if (!Array.isArray(prods)) return;
+  const dt = Number(rec.date) || Date.now();
+  const listName = String(rec.name || "Compra").trim().slice(0, 40) || "Compra";
+  for (const it of rec.items) {
+    if (!it || it.skipped) continue;
+    const name = String(it.name || "").trim().slice(0, 120);
+    const k = norm(name);
+    if (!name || !k) continue;
+    const u = it.unit === "kg" ? "kg" : "un";
+    const cat = (it.cat && it.cat !== "Outros" && it.cat !== "Sem categoria") ? it.cat : "Sem categoria";
+    let prod = prods.find(p => norm(p.name) === k);
+    if (!prod) {
+      prod = { id: uid(), name, cat, unit: u, prices: [] };
+      prods.push(prod);
+    } else {
+      prod.name = name;
+      prod.unit = u;
+      if (cat !== "Sem categoria") prod.cat = cat;
+    }
+    const stdSet = new Set(STD_CATS.map(c => c.n));
+    if (prod.cat !== "Sem categoria" && !stdSet.has(prod.cat)) {
+      const mSource = (rec.catMeta && rec.catMeta[prod.cat]) || ((customCats || (S && S.customCats) || []).find(c => c.n === prod.cat));
+      if (mSource) {
+        prod.catMeta = Object.assign({}, prod.catMeta || {}, { [prod.cat]: { e: mSource.e || "🏷️", h: mSource.h } });
+      }
+    }
+    const price = Math.round(Number(it.price));
+    if (Number.isFinite(price) && price > 0) {
+      const dup = prod.prices.some(pe => pe.price === price && pe.unit === u && Math.abs(pe.date - dt) < 1000 && pe.list === listName);
+      if (!dup) {
+        prod.prices.push({ id: uid(), price, unit: u, date: dt, list: listName });
+        prod.prices.sort((a, b) => b.date - a.date);
+      }
+    }
+  }
+}
+
+// Aceita o formato atual (várias listas + histórico + banco de produtos + categorias personalizadas) e o antigo
 function cleanState(d) {
   if (!d || typeof d !== "object") throw new Error("inválido");
   const customCats = cleanCustomCats(d.customCats);
@@ -1162,15 +1347,36 @@ function cleanState(d) {
   if (d.hist && typeof d.hist === "object") {
     for (const [k, h] of Object.entries(d.hist)) {
       if (h && typeof h.n === "string" && Number.isFinite(h.p)) {
-        if (/^\d+$/.test(k.trim())) continue;
         const c = (h.c && okc(h.c, customCats) && h.c !== "Outros") ? h.c : "Sem categoria";
         hist[k] = { n: h.n.slice(0, 120), p: Math.max(0, Math.round(h.p)), c, u: h.u === "kg" ? "kg" : "un", t: +h.t || 0 };
+      }
+    }
+  }
+  const products = [];
+  const seenProd = new Set();
+  if (Array.isArray(d.products)) {
+    for (const rawP of d.products) {
+      const cp = cleanProduct(rawP);
+      if (!cp) continue;
+      const k = norm(cp.name);
+      if (seenProd.has(k)) continue;
+      seenProd.add(k);
+      products.push(cp);
+    }
+  } else {
+    records.slice().sort((a, b) => a.date - b.date).forEach(r => ingestRecordIntoProducts(r, products, customCats));
+    for (const [k, h] of Object.entries(hist)) {
+      if (!k || !h || !h.n) continue;
+      if (!products.some(p => norm(p.name) === k)) {
+        const prices = h.p > 0 ? [{ id: uid(), price: h.p, unit: h.u === "kg" ? "kg" : "un", date: h.t || Date.now(), list: "Registro anterior" }] : [];
+        products.push({ id: uid(), name: h.n, cat: h.c || "Sem categoria", unit: h.u === "kg" ? "kg" : "un", prices });
       }
     }
   }
   return {
     lists,
     records,
+    products,
     customCats,
     cur: lists.some(l => l.id === d.cur) ? d.cur : lists[0].id,
     hist,
@@ -1189,84 +1395,33 @@ const L = () => S.lists.find(l => l.id === S.cur) || S.lists[0];
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
 const bump = c => { if (!c || c === "Sem categoria") return; const l = L(); l.order = [c, ...l.order.filter(x => x !== c)]; };
 
-// Banco interno de produtos e histórico de preços (lembra nome, categoria, unidade e valores unitários/kg)
-function remember(i) {
-  const k = norm(i.name);
-  if (!k || /^\d+$/.test(k) || k.length < 2) return;
-  const prev = S.hist[k];
-  const p = i.price > 0 ? i.price : (prev && prev.p > 0 ? prev.p : 0);
-  const c = (i.cat && i.cat !== "Sem categoria") ? i.cat : (prev && prev.c ? prev.c : "Sem categoria");
-  S.hist[k] = { n: i.name.trim().slice(0, 120), p, c, u: i.unit === "kg" ? "kg" : "un", t: Date.now() };
-  const keys = Object.keys(S.hist);
-  if (keys.length > 800) keys.sort((a, b) => S.hist[a].t - S.hist[b].t).slice(0, keys.length - 800).forEach(x => delete S.hist[x]);
-  fillDatalist();
-}
-const recent = () => Object.values(S.hist).sort((a, b) => b.t - a.t);
-function fillDatalist() {
-  $("dl").innerHTML = recent().filter(h => !/^\d+$/.test(h.n.trim())).slice(0, 200).map(h => `<option value="${esc(h.n)}"></option>`).join("");
-}
+// Banco independente de produtos alimentado pelos registros de compras (e gerenciável na aba Produtos)
+function remember() {}
 
 function productCatalog() {
-  const map = new Map();
-  for (const [k, h] of Object.entries(S.hist || {})) {
-    if (!k || /^\d+$/.test(k) || k.length < 2 || !h || !h.n) continue;
-    map.set(k, {
-      k, n: h.n,
-      c: (h.c && h.c !== "Sem categoria") ? h.c : "Sem categoria",
-      u: h.u === "kg" ? "kg" : "un",
-      p: h.p > 0 ? h.p : 0,
-      t: +h.t || 0, cnt: 0, recDate: 0, meta: null
-    });
-  }
-  for (const r of (S.records || [])) {
-    const dt = +r.date || 0;
-    for (const it of (r.items || [])) {
-      if (it.skipped) continue;
-      const k = norm(it.name);
-      if (!k || /^\d+$/.test(k) || k.length < 2) continue;
-      const u = it.unit === "kg" ? "kg" : "un";
-      const cat = (it.cat && it.cat !== "Sem categoria") ? it.cat : "Sem categoria";
-      let e = map.get(k);
-      if (!e) {
-        map.set(k, { k, n: it.name, c: cat, u, p: it.price > 0 ? it.price : 0, t: dt, cnt: 1, recDate: dt, meta: r.catMeta || null });
-      } else {
-        e.cnt++;
-        if (dt >= e.recDate) {
-          e.recDate = dt;
-          if (dt >= e.t) {
-            e.t = dt;
-            e.n = it.name;
-            e.u = u;
-            if (it.price > 0) e.p = it.price;
-            if (cat !== "Sem categoria") { e.c = cat; e.meta = r.catMeta || e.meta; }
-          } else {
-            if (!e.p && it.price > 0) e.p = it.price;
-            if (e.c === "Sem categoria" && cat !== "Sem categoria") { e.c = cat; e.meta = r.catMeta || e.meta; }
-          }
-        }
-      }
-    }
-  }
-  for (const l of (S.lists || [])) {
-    for (const it of (l.items || [])) {
-      const k = norm(it.name);
-      if (!k || /^\d+$/.test(k) || k.length < 2) continue;
-      const cat = (it.cat && it.cat !== "Sem categoria") ? it.cat : "Sem categoria";
-      const e = map.get(k);
-      if (!e) {
-        map.set(k, { k, n: it.name, c: cat, u: it.unit === "kg" ? "kg" : "un", p: it.price > 0 ? it.price : 0, t: 1, cnt: 0, recDate: 0, meta: null });
-      } else {
-        if (!e.p && it.price > 0) e.p = it.price;
-        if (e.c === "Sem categoria" && cat !== "Sem categoria") e.c = cat;
-      }
-    }
-  }
-  return [...map.values()];
+  return (S.products || []).map(p => {
+    const k = norm(p.name);
+    if (!k) return null;
+    const sorted = (p.prices || []).slice().sort((a, b) => b.date - a.date);
+    const last = sorted[0];
+    return {
+      id: p.id,
+      k,
+      n: p.name,
+      c: (p.cat && p.cat !== "Sem categoria") ? p.cat : "Sem categoria",
+      u: last ? last.unit : (p.unit === "kg" ? "kg" : "un"),
+      p: last ? last.price : 0,
+      t: last ? last.date : 0,
+      cnt: sorted.length,
+      meta: p.catMeta || null,
+      prod: p
+    };
+  }).filter(Boolean);
 }
 
 function matchProducts(query) {
   const q = norm(query);
-  if (!q || /^\d+$/.test(q)) return [];
+  if (!q) return [];
   const scored = [];
   for (const p of productCatalog()) {
     let rank = -1;
@@ -1281,25 +1436,16 @@ function matchProducts(query) {
 
 function findProductExact(name) {
   const k = norm(name);
-  if (!k || /^\d+$/.test(k) || k.length < 2) return null;
+  if (!k) return null;
   return productCatalog().find(p => p.k === k) || null;
 }
 
-function productPriceHistory(name, excludeRecId = null) {
+function productPriceHistory(name) {
   const k = norm(name);
-  if (!k || /^\d+$/.test(k) || k.length < 2) return [];
-  const out = [];
-  const recs = [...(S.records || [])].sort((a, b) => (b.date || 0) - (a.date || 0));
-  for (const r of recs) {
-    if (excludeRecId && r.id === excludeRecId) continue;
-    for (const it of (r.items || [])) {
-      if (it.skipped || !(it.price > 0)) continue;
-      if (norm(it.name) === k) {
-        out.push({ date: r.date, list: r.name, recId: r.id, price: it.price, unit: it.unit === "kg" ? "kg" : "un" });
-      }
-    }
-  }
-  return out;
+  if (!k) return [];
+  const prod = (S.products || []).find(p => norm(p.name) === k);
+  if (!prod || !Array.isArray(prod.prices)) return [];
+  return prod.prices.filter(pe => pe && pe.price > 0).slice().sort((a, b) => b.date - a.date);
 }
 
 /* =========================================================
@@ -1322,7 +1468,7 @@ $("thm").addEventListener("click", e => {
 /* =========================================================
    Janelas: fechar tocando fora, botão voltar do Android
    ========================================================= */
-const DIALOGS = ["ed", "mn", "ls", "ex", "bk", "bkh", "tut", "cp", "nc", "hs", "ih", "nm", "finAsk", "ask"];
+const DIALOGS = ["ed", "mn", "ls", "ex", "bk", "bkh", "tut", "cp", "nc", "hs", "ih", "nm", "finAsk", "pm", "ask"];
 const anyOpen = () => document.querySelector("dialog[open]");
 let popSkip = 0;
 if (history.state && history.state.dlg) history.replaceState(null, "");
@@ -1359,6 +1505,11 @@ addEventListener("popstate", () => {
   }
   if (curRecId) {
     curRecId = null;
+    render();
+    return;
+  }
+  if (curProdId) {
+    curProdId = null;
     render();
   }
 });
@@ -1562,8 +1713,10 @@ $("cpl").addEventListener("click", async e => {
       l.order = l.order.filter(x => x !== cn);
       l.items.forEach(i => { if (i.cat === cn) i.cat = "Sem categoria"; });
     });
+    S.products.forEach(p => { if (p.cat === cn) p.cat = "Sem categoria"; });
     if (S.cat === cn) { S.cat = ""; paint($("cat"), ""); }
     if ($("ec").dataset.v === cn) paint($("ec"), "");
+    if ($("pmCat").dataset.v === cn) paint($("pmCat"), "");
     save();
     render();
     pick(pickCur === cn ? "" : pickCur, pickCb, pickAllowAll);
@@ -1575,6 +1728,7 @@ $("cpl").addEventListener("click", async e => {
 });
 $("cat").onclick = () => pick($("cat").dataset.v, n => { S.cat = n; autoCat = false; paint($("cat"), n); save(); });
 $("ec").onclick = () => pick($("ec").dataset.v, n => paint($("ec"), n));
+$("pmCat").onclick = () => pick($("pmCat").dataset.v, n => paint($("pmCat"), n));
 $("catX").onclick = e => {
   e.stopPropagation();
   S.cat = "";
@@ -1588,18 +1742,28 @@ $("ecX").onclick = e => {
   paint($("ec"), "");
   vib();
 };
+$("pmCatX").onclick = e => {
+  e.stopPropagation();
+  paint($("pmCat"), "");
+  vib();
+};
 
-["price", "ep", "bd"].forEach(id => maskMoney($(id)));
+["price", "ep", "bd", "pmPrice"].forEach(id => maskMoney($(id)));
 ["kg", "ekg"].forEach(id => maskKg($(id)));
 document.addEventListener("input", e => e.target.classList && e.target.classList.remove("bad"));
 const bad = id => { $(id).classList.add("bad"); $(id).focus(); };
 
 /* =========================================================
-   Navegação por Abas (Lista, Histórico, Relatórios)
+   Navegação por Abas (Lista, Histórico, Produtos, Relatórios)
    ========================================================= */
 let curTab = "list";
 let curRecId = null;      // ID da compra aberta no Histórico
 let draftRec = null;      // Cópia em edição da compra no Histórico
+let curProdId = null;     // ID do produto aberto no Banco de Produtos
+let prodQuery = "";       // Busca na aba de Produtos
+let prodSelIds = new Set(); // Seleção múltipla de produtos
+let prodCols = new Set(); // Categorias recolhidas na aba de Produtos
+let prodSort = "date-desc"; // date-desc | date-asc | price-asc | price-desc
 let repPeriod = "30d";    // 30d | 60d | 90d | 180d | 365d | all
 let repCat = "all";       // all | nome da categoria
 let repSelId = null;      // Barra selecionada no gráfico
@@ -1610,6 +1774,7 @@ function setTab(t) {
   document.querySelectorAll("#mainNav button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === t));
   $("vList").hidden = t !== "list";
   $("vHist").hidden = t !== "hist";
+  $("vProd").hidden = t !== "prod";
   $("vRep").hidden = t !== "rep";
   $("ftr").hidden = t !== "list";
   document.body.classList.toggle("has-footer", t === "list");
@@ -1623,29 +1788,28 @@ $("mainNav").addEventListener("click", async e => {
     if (r !== "ok") return;
     draftRec = null;
   }
-  if (b.dataset.tab === "hist" && curTab === "hist" && curRecId) {
-    curRecId = null; render(); return;
-  }
+  curRecId = null;
+  curProdId = null;
   setTab(b.dataset.tab);
 });
 
 /* =========================================================
-   Guia rápido por página (Lista, Histórico e Relatórios)
+   Guia rápido por página (Lista, Histórico, Produtos e Relatórios)
    ========================================================= */
 const GUIDES = {
   list: {
     title: "Guia rápido · Lista de compras",
     html: `
       <div class="gbox">
-        <div class="gbox-top"><span class="g-ico">${ico("home")}</span><span>1. Monte a lista com busca inteligente</span><span class="gbox-tag">Banco interno</span></div>
-        <p>• Ao digitar o nome do item (ex.: <i>Ab...</i>), aparece uma lista de recomendações com os produtos já salvos no seu histórico, exibindo categoria e <b>último valor por unidade ou quilo</b>.</p>
+        <div class="gbox-top"><span class="g-ico">${ico("home")}</span><span>1. Monte a lista com busca inteligente</span><span class="gbox-tag">Banco de produtos</span></div>
+        <p>• Ao digitar o nome do item (ex.: <i>Ab...</i>), aparece uma lista de recomendações puxada diretamente do seu <b>Banco de Produtos</b>, exibindo categoria, ícone e <b>último valor por unidade ou quilo</b>.</p>
         <p>• O <b>preço e a categoria são opcionais</b> — itens ainda sem valor ficam destacados com um <b>filete vermelho suave na borda esquerda</b> e aviso no topo do grupo para preencher no mercado.</p>
       </div>
       <div class="gbox">
         <div class="gbox-top"><span class="g-ico">${ico("cart")}</span><span>2. No mercado: marcar, quantidade e preços</span></div>
         <p>• Toque na caixinha à esquerda do item para marcá-lo (<b>No carrinho</b>) com fundo listrado verde-água e risco gradual.</p>
-        <p>• Use os botões <b>− / +</b> na etiqueta do próprio card para alterar quantidades sem abrir formulários, ou toque no lápis azul para editar e <b>consultar o histórico de últimos valores pagos</b> por aquele produto.</p>
-        <p>• Use o <b>olho</b> no topo para ocultar/mostrar itens marcados e a <b>setinha</b> da categoria para recolher/expandir grupos mantendo os avisos pendentes visíveis.</p>
+        <p>• Use os botões <b>− / +</b> na etiqueta do próprio card para alterar quantidades sem abrir formulários, ou toque no lápis azul para editar e consultar a <b>barra compacta com os 4 últimos valores pagos</b> por aquele produto.</p>
+        <p>• No topo, ao lado de Guia: use a <b>caixinha</b> para marcar ou desmarcar todos os itens de uma vez, a <b>lixeira</b> para limpar a lista inteira (ambos com opção de <b>Desfazer</b>) e o <b>olho</b> para ocultar/mostrar itens marcados.</p>
       </div>
       <div class="gbox">
         <div class="gbox-top"><span class="g-ico">${ico("skip")}</span><span>3. Desistir da compra vs. Excluir</span></div>
@@ -1659,7 +1823,7 @@ const GUIDES = {
       </div>
       <div class="gbox">
         <div class="gbox-top"><span class="g-ico">${ico("checkCircle")}</span><span>5. Registrar compra no histórico</span></div>
-        <p>Ao finalizar no caixa, se ainda houver itens ativos desmarcados, escolha se eles entram como <b>Desistência no registro</b> ou são <b>excluídos apenas do registro</b>. Sua lista atual permanece intacta e limpa para a próxima compra.</p>
+        <p>Ao finalizar no caixa, os itens comprados alimentam automaticamente o seu <b>Banco de Produtos</b> com seus valores por unidade/kg, mesmo que no futuro você limpe a lista ou exclua registros antigos do histórico.</p>
       </div>`
   },
   hist: {
@@ -1667,7 +1831,7 @@ const GUIDES = {
     html: `
       <div class="gbox">
         <div class="gbox-top"><span class="g-ico">${ico("history")}</span><span>1. Consulte e gerencie suas compras</span></div>
-        <p>Todas as compras finalizadas ficam salvas localmente por data, mostrando também se houve itens em <b>Desistência</b>. Cada card possui um botão rápido de <b>lixeira</b> caso queira excluir o registro direto da lista.</p>
+        <p>Todas as compras finalizadas ficam salvas localmente por data, mostrando também se houve itens em <b>Desistência</b>. Excluir um registro aqui <b>não apaga</b> os produtos já aprendidos no seu Banco de Produtos.</p>
       </div>
       <div class="gbox">
         <div class="gbox-top"><span class="g-ico">${ico("target")}</span><span>2. Busca inteligente de preços e produtos</span></div>
@@ -1678,6 +1842,25 @@ const GUIDES = {
         <p>Ao abrir uma compra você vê o resumo em 4 indicadores (lista, itens pagos, desistências e data) e pode:</p>
         <p>• <b>Compartilhar:</b> enviar no WhatsApp, copiar texto ou baixar Excel/CSV (considerando apenas os itens pagos).</p>
         <p>• <b>Editar:</b> ajustar quantidades com <b>− / +</b> direto nos cards, alterar preços com apoio do histórico do item, incluir itens esquecidos, mover ou restaurar itens de <b>Desistência</b> e salvar tudo no aparelho.</p>
+      </div>`
+  },
+  prod: {
+    title: "Guia rápido · Banco de produtos",
+    html: `
+      <div class="gbox">
+        <div class="gbox-top"><span class="g-ico">${ico("database")}</span><span>1. Catálogo independente alimentado pelas compras</span><span class="gbox-tag">Independente</span></div>
+        <p>• Cada vez que você <b>registra uma compra</b> no Histórico, os produtos comprados e seus valores por <b>un/kg</b> são salvos neste catálogo local organizado por categorias.</p>
+        <p>• O catálogo é <b>totalmente independente</b>: limpar a lista de compras ou excluir recibos do Histórico de Compras <b>não apaga</b> seus produtos nem o histórico de preços deles.</p>
+      </div>
+      <div class="gbox">
+        <div class="gbox-top"><span class="g-ico">${ico("checkSquare")}</span><span>2. Criar, editar, selecionar vários e mover</span></div>
+        <p>• Crie produtos manualmente em <b>+ Novo produto</b> ou pelo botão <b>+</b> de cada categoria, edite nome/categoria/unidade ou exclua itens individuais.</p>
+        <p>• Marque as caixinhas à esquerda dos produtos (ou use <b>Selecionar todos</b>) para <b>mudar a categoria</b> ou <b>excluir vários produtos de uma só vez</b>.</p>
+      </div>
+      <div class="gbox">
+        <div class="gbox-top"><span class="g-ico">${ico("arrowUpDown")}</span><span>3. Histórico completo de valores por produto</span></div>
+        <p>• Toque em qualquer produto para abrir a ficha completa com <b>Último valor, Menor, Maior e Média</b>.</p>
+        <p>• Ordene os registros por <b>Data</b> ou <b>Valor</b> (crescente ou decrescente) e adicione, edite ou exclua valores individuais quando quiser.</p>
       </div>`
   },
   rep: {
@@ -1732,19 +1915,40 @@ const skippedOf = items => items.filter(i => i.skipped);
 let recCols = new Set();
 
 function syncHideUI() {
+  const onList = curTab === "list";
+  const act = activeOf(L().items);
+  const allChecked = act.length > 0 && act.every(i => i.done);
+
   const eb = $("eyeBtn");
   if (eb) {
-    eb.hidden = curTab !== "list";
+    eb.hidden = !onList;
     eb.classList.toggle("eye-off", !!S.hideDone);
     eb.innerHTML = ico(S.hideDone ? "eyeOff" : "eye");
     const lbl = S.hideDone ? "Mostrar itens marcados" : "Ocultar itens marcados";
     eb.setAttribute("aria-label", lbl);
     eb.title = lbl;
   }
+  const cb = $("checkAllBtn");
+  if (cb) {
+    cb.hidden = !onList;
+    cb.classList.toggle("eye-off", allChecked);
+    cb.innerHTML = ico(allChecked ? "checkSquare" : "square");
+    const cLbl = allChecked ? "Desmarcar todos os itens" : "Marcar todos os itens";
+    cb.setAttribute("aria-label", cLbl);
+    cb.title = cLbl;
+  }
+  const clb = $("clearAllBtn");
+  if (clb) clb.hidden = !onList;
+
   const mh = $("mHide"), mt = $("mHideTxt");
   if (mt) mt.textContent = S.hideDone ? "Mostrar itens marcados" : "Ocultar itens marcados";
   if (mh && mh.firstElementChild && mh.firstElementChild.tagName === "svg") {
     mh.firstElementChild.innerHTML = LUCIDE_PATHS[S.hideDone ? "eye" : "eyeOff"];
+  }
+  const mta = $("mToggleAll"), mtat = $("mToggleAllTxt");
+  if (mtat) mtat.textContent = allChecked ? "Desmarcar todos os itens" : "Marcar todos os itens";
+  if (mta && mta.firstElementChild && mta.firstElementChild.tagName === "svg") {
+    mta.firstElementChild.innerHTML = LUCIDE_PATHS[allChecked ? "checkSquare" : "square"];
   }
 }
 
@@ -1759,7 +1963,31 @@ function toggleHideDone() {
   render();
   toast(S.hideDone ? "Itens marcados ocultos" : "Itens marcados visíveis");
 }
+function toggleAllDone() {
+  const act = activeOf(L().items);
+  if (!act.length) { toast("Não há itens ativos na lista"); return; }
+  const allChecked = act.every(i => i.done);
+  const prev = act.map(i => [i, !!i.done]);
+  const target = !allChecked;
+  act.forEach(i => { i.done = target; });
+  vib();
+  render();
+  toast(
+    target ? "Todos os itens marcados" : "Todos os itens desmarcados",
+    () => { prev.forEach(([item, d]) => { item.done = d; }); }
+  );
+}
+function clearAllItems() {
+  const l = L(), old = l.items.slice();
+  if (!old.length) { toast("A lista já está vazia"); return; }
+  l.items = [];
+  vib();
+  render();
+  toast("Lista limpa", () => { l.items = old; });
+}
 $("eyeBtn").onclick = toggleHideDone;
+$("checkAllBtn").onclick = toggleAllDone;
+$("clearAllBtn").onclick = clearAllItems;
 
 function pillsHTML(i, mode = "list", pd = "") {
   const minQ = isKg(i) ? 0.1 : 1;
@@ -1849,6 +2077,7 @@ function updateListTotalsUI() {
   $("lsBtn").hidden = false;
   $("topBack").hidden = true;
   $("hdrLabel").hidden = true;
+  $("hdrLabel").classList.remove("is-title");
   $("lsName").textContent = l.name;
   $("totLbl").textContent = "Total previsto da lista";
   $("total").textContent = brl(tot);
@@ -1872,6 +2101,7 @@ function updateListTotalsUI() {
 function render() {
   syncHideUI();
   if (curTab === "hist") { renderHist(); save(); return; }
+  if (curTab === "prod") { renderProd(); save(); return; }
   if (curTab === "rep") { renderRep(); save(); return; }
 
   const l = L(), its = l.items;
@@ -1965,6 +2195,7 @@ function renderHist() {
   if (!rec) {
     $("topBack").hidden = true;
     $("hdrLabel").hidden = false;
+    $("hdrLabel").classList.remove("is-title");
     const allTot = S.records.reduce((a, r) => a + sum(activeOf(r.items)), 0);
     $("hdrLabel").textContent = "Histórico de compras realizadas";
     $("totLbl").textContent = "Total acumulado no histórico";
@@ -1988,7 +2219,7 @@ function renderHist() {
         })
       : S.records;
 
-    let h = "";
+    let h = `<div class="pdb-bar"${S.records.length <= 2 && !q ? ' style="justify-content:flex-end"' : ""}>`;
     if (S.records.length > 2 || q) {
       h += `<div class="h-search-w">
         <svg class="h-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -1996,6 +2227,7 @@ function renderHist() {
         ${q ? `<button type="button" id="hSearchClear" class="h-search-clear" aria-label="Limpar busca"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>` : ""}
       </div>`;
     }
+    h += `<button type="button" class="pdb-btn dng" id="hDelAll">${TRASH}<span>Excluir todos</span></button></div>`;
 
     if (q && !filtered.length) {
       h += `<div class="empty"><b>Nenhuma compra encontrada</b>Nenhum registro corresponde a “${esc(histQuery)}”.</div>`;
@@ -2027,6 +2259,7 @@ function renderHist() {
 
   // Visualizando ou editando uma compra específica
   $("topBack").hidden = false;
+  $("topBackTxt").textContent = "Voltar ao histórico";
   $("hdrLabel").hidden = true;
   const target = draftRec || rec;
   const paidIts = activeOf(target.items), skipIts = skippedOf(target.items);
@@ -2101,6 +2334,211 @@ function renderHist() {
 }
 
 /* =========================================================
+   Aba Banco de Produtos: catálogo por categoria, seleção múltipla e histórico de preços
+   ========================================================= */
+function getRecMetaMap() {
+  const m = {};
+  S.records.forEach(r => Object.assign(m, r.catMeta || {}));
+  return m;
+}
+
+function renderProd() {
+  $("lsBtn").hidden = true;
+  $("bud").hidden = true;
+  $("budHint").hidden = true;
+
+  const validIds = new Set(S.products.map(p => p.id));
+  for (const id of [...prodSelIds]) {
+    if (!validIds.has(id)) prodSelIds.delete(id);
+  }
+
+  const prod = curProdId ? S.products.find(p => p.id === curProdId) : null;
+  if (!prod) curProdId = null;
+
+  const box = $("vProd");
+  const recMeta = getRecMetaMap();
+
+  if (!prod) {
+    $("topBack").hidden = true;
+    $("hdrLabel").hidden = false;
+    $("hdrLabel").classList.remove("is-title");
+    const totPrices = S.products.reduce((a, p) => a + p.prices.length, 0);
+    const catCount = new Set(S.products.map(p => p.cat || "Sem categoria")).size;
+    $("hdrLabel").textContent = "Banco de dados local de produtos";
+    $("totLbl").textContent = "Produtos registrados";
+    $("total").textContent = String(S.products.length);
+    $("hdrBadge").innerHTML = `${ico("database")}<span>${plural(totPrices, "preço salvo", "preços salvos")}</span>`;
+    $("hdrSub").innerHTML = `
+      <div class="sc-box"><span class="sc-k">${ico("tag")}<span>Categorias com itens</span></span><b class="sc-v">${catCount}</b></div>
+      <div class="sc-box"><span class="sc-k">${ico("clock")}<span>Registros de valor</span></span><b class="sc-v">${totPrices}</b></div>`;
+
+    const q = prodQuery.trim().toLowerCase();
+    const filtered = q
+      ? S.products.filter(p => p.name.toLowerCase().includes(q) || (p.cat || "Sem categoria").toLowerCase().includes(q))
+      : S.products;
+
+    const allVisSel = filtered.length > 0 && filtered.every(p => prodSelIds.has(p.id));
+    let h = `<div class="pdb-bar">
+      <div class="h-search-w">
+        <svg class="h-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="search" id="pSearch" class="h-search-input" placeholder="Buscar produto ou categoria..." value="${esc(prodQuery)}" autocomplete="off">
+        ${q ? `<button type="button" id="pSearchClear" class="h-search-clear" aria-label="Limpar busca"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>` : ""}
+      </div>
+      ${filtered.length ? `<button type="button" class="pdb-btn${allVisSel ? " on" : ""}" id="pSelAll" title="Selecionar ou desmarcar todos os produtos visíveis">${ico(allVisSel ? "checkSquare" : "square")}<span>${allVisSel ? "Desmarcar" : "Selecionar todos"}</span></button>` : ""}
+      <button type="button" class="pdb-btn pri" id="pAddBtn">${PLUS_SVG}<span>Novo produto</span></button>
+    </div>`;
+
+    if (prodSelIds.size > 0) {
+      h += `<div class="pdb-bulk">
+        <span class="pdb-bulk-info">${ico("checkSquare")}<span>${plural(prodSelIds.size, "produto selecionado", "produtos selecionados")}</span></span>
+        <div class="pdb-bulk-acts">
+          <button type="button" class="pdb-btn" id="pBulkCat">${ico("tag")}<span>Mudar categoria</span></button>
+          <button type="button" class="pdb-btn dng" id="pBulkDel">${TRASH}<span>Excluir (${prodSelIds.size})</span></button>
+        </div>
+      </div>`;
+    }
+
+    if (!S.products.length) {
+      h += `<div class="empty"><b>Nenhum produto registrado ainda</b>Seus produtos e valores por un/kg aparecem automaticamente aqui sempre que você finaliza uma compra em <b>“Registrar compra no histórico”</b>, ou você pode cadastrar manualmente em <b>“+ Novo produto”</b>.</div>`;
+      box.innerHTML = h;
+      return;
+    }
+
+    if (q && !filtered.length) {
+      h += `<div class="empty"><b>Nenhum produto encontrado</b>Nenhum item corresponde a “${esc(prodQuery)}”.</div>`;
+      box.innerHTML = h;
+      return;
+    }
+
+    const catNames = [...new Set([...getAllCats().map(c => c.n), ...filtered.map(p => p.cat || "Sem categoria")])];
+    h += catNames.map(cn => CAT(cn, recMeta)).map(cc => {
+      const its = filtered.filter(p => (p.cat || "Sem categoria") === cc.n).sort((a, b) => a.name.localeCompare(b.name, "pt-BR", { numeric: true, sensitivity: "base" }));
+      if (!its.length) return "";
+      const isCol = prodCols.has(cc.n);
+      const addBtn = `<button type="button" class="cat-add" data-pca="${esc(cc.n)}" aria-label="Novo produto em ${esc(cc.n)}" title="Novo produto em ${esc(cc.n)}">${PLUS_SVG}</button>`;
+      const rowsHtml = its.map(p => {
+        const sortedP = p.prices.slice().sort((a, b) => b.date - a.date);
+        const lastP = sortedP[0] || null;
+        const sel = prodSelIds.has(p.id);
+        const lineCls = lastP ? "line" : "line zero-line";
+        return `<div class="sw"><div class="row" data-pid="${esc(p.id)}">
+          <button type="button" class="chk" data-psel="${esc(p.id)}" aria-pressed="${sel}" aria-label="Selecionar ${esc(p.name)}">${CHK_SVG}</button>
+          <div class="info" data-open-prod="${esc(p.id)}" style="cursor:pointer">
+            <span class="name">${esc(p.name)}</span>
+            <span class="pills">
+              <span class="pill p-qty">${p.unit === "kg" ? "Por kg" : "Por un"}</span>
+              ${lastP ? `<span class="pill p-unit">Últ.: ${brl(lastP.price)}/${lastP.unit} · ${fmtShortDate(lastP.date)}</span>` : `<span class="pill p-unit">Sem valor</span>`}
+              <span class="pill p-unit">${plural(p.prices.length, "registro", "registros")}</span>
+            </span>
+          </div>
+          <button type="button" class="${lineCls}" data-open-prod="${esc(p.id)}" title="Abrir histórico de preços">${lastP ? `${brl(lastP.price)}/${lastP.unit}` : "Sem valor"}</button>
+          <div class="row-acts">
+            <button type="button" class="act-b ed-b" data-ped="${esc(p.id)}" title="Editar produto" aria-label="Editar ${esc(p.name)}">${EDIT_SVG}</button>
+            <button type="button" class="act-b rm-b" data-pdel="${esc(p.id)}" title="Excluir produto" aria-label="Excluir ${esc(p.name)}">${TRASH}</button>
+          </div>
+        </div></div>`;
+      }).join("");
+
+      return `<section class="grp${isCol ? " col" : ""}" data-grp="${esc(cc.n)}">
+        <h2>
+          <span class="gh-title">
+            <button type="button" class="gh-tog" data-pcol="${esc(cc.n)}" aria-expanded="${!isCol}"><span class="gh-chev">${CHEV_DOWN}</span>${catBadge(cc)}<span class="gh-name">${esc(cc.n)}</span></button>
+            ${addBtn}
+          </span>
+          <span class="gh-r"><span class="gstat">${plural(its.length, "produto", "produtos")}</span></span>
+        </h2>
+        <div class="cwrap"><div class="cin"><div class="card" style="${sty(cc)}">${rowsHtml}</div></div></div>
+      </section>`;
+    }).join("");
+
+    box.innerHTML = h;
+    return;
+  }
+
+  // Visualizando o histórico completo de um produto específico
+  $("topBack").hidden = false;
+  $("topBackTxt").textContent = "Voltar aos produtos";
+  $("hdrLabel").hidden = false;
+  $("hdrLabel").classList.add("is-title");
+  $("hdrLabel").textContent = prod.name;
+
+  const cc = CAT(prod.cat || "Sem categoria", recMeta);
+  const chron = prod.prices.slice().sort((a, b) => b.date - a.date);
+  const lastP = chron[0] || null;
+  const vals = chron.map(x => x.price).filter(v => v > 0);
+  const minV = vals.length ? Math.min(...vals) : 0;
+  const maxV = vals.length ? Math.max(...vals) : 0;
+  const avgV = vals.length ? Math.round(vals.reduce((a, b) => a + b, 0) / vals.length) : 0;
+
+  $("totLbl").textContent = `Último valor (${prod.unit})`;
+  $("total").textContent = lastP ? `${brl(lastP.price)}/${lastP.unit}` : "Sem valor";
+  $("hdrBadge").innerHTML = `${catBadge(cc)}<span>${esc(cc.n)}</span>`;
+  $("hdrSub").innerHTML = `
+    <div class="sc-box sc-cart"><span class="sc-k">${ico("trendDown")}<span>Menor valor</span></span><b class="sc-v">${minV ? `${brl(minV)}/${prod.unit}` : "—"}</b></div>
+    <div class="sc-box sc-rest"><span class="sc-k">${ico("trendUp")}<span>Maior valor</span></span><b class="sc-v">${maxV ? `${brl(maxV)}/${prod.unit}` : "—"}</b></div>
+    <div class="sc-box"><span class="sc-k">${ico("scale")}<span>Preço médio</span></span><b class="sc-v">${avgV ? `${brl(avgV)}/${prod.unit}` : "—"}</b></div>
+    <div class="sc-box"><span class="sc-k">${ico("clock")}<span>Registros salvos</span></span><b class="sc-v">${chron.length}</b></div>`;
+
+  let h = `<div class="hacts">
+    <button type="button" class="pri" id="pdAddPrice">${PLUS_SVG}<span>Registrar valor</span></button>
+    <button type="button" id="pdEdit">${EDIT_SVG}<span>Editar produto</span></button>
+    <button type="button" class="del" id="pdDel">${TRASH}<span>Excluir</span></button>
+  </div>`;
+
+  if (!chron.length) {
+    h += `<div class="empty"><b>Nenhum valor registrado para “${esc(prod.name)}”</b>Toque em <b>“+ Registrar valor”</b> acima ou finalize uma compra com este produto para iniciar o histórico de preços.</div>`;
+    box.innerHTML = h;
+    return;
+  }
+
+  const sorted = chron.slice().sort((a, b) => {
+    if (prodSort === "date-asc") return a.date - b.date;
+    if (prodSort === "price-asc") return a.price - b.price || b.date - a.date;
+    if (prodSort === "price-desc") return b.price - a.price || b.date - a.date;
+    return b.date - a.date;
+  });
+
+  const isDateSort = prodSort.startsWith("date");
+  const isPriceSort = prodSort.startsWith("price");
+  const dateUp = prodSort === "date-asc";
+  const priceUp = prodSort === "price-asc";
+  const dateTip = dateUp ? "Ordenar por data: mais antigos primeiro" : "Ordenar por data: mais recentes primeiro";
+  const priceTip = priceUp ? "Ordenar por valor: menor primeiro" : "Ordenar por valor: maior primeiro";
+
+  h += `<div class="pdb-sort">
+    <div class="pdb-sort-box" role="group" aria-label="Ordenar histórico">
+      <button type="button" class="pdb-sb${isDateSort ? " on" : ""}" data-psort="date" title="${dateTip}" aria-label="${dateTip}">${ico("calendar")}<span class="pdb-arr">${ico(dateUp ? "arrowUp" : "arrowDown", 2.3)}</span></button>
+      <button type="button" class="pdb-sb${isPriceSort ? " on" : ""}" data-psort="price" title="${priceTip}" aria-label="${priceTip}">${ico("dollarSign")}<span class="pdb-arr">${ico(priceUp ? "arrowUp" : "arrowDown", 2.3)}</span></button>
+    </div>
+  </div>`;
+
+  const rowsHtml = sorted.map(pr => `<div class="sw"><div class="row" data-phid="${esc(pr.id)}">
+    <div class="info" data-phed="${esc(pr.id)}" style="cursor:pointer;padding-left:6px">
+      <span class="name">${fmtDate(pr.date)}</span>
+      <span class="pills">
+        <span class="pill p-qty">${pr.unit === "kg" ? "Por kg" : "Por un"}</span>
+        <span class="pill p-unit">${esc(pr.list || "Registro manual")}</span>
+      </span>
+    </div>
+    <button type="button" class="line" data-phed="${esc(pr.id)}" title="Editar este registro de valor">${brl(pr.price)}/${pr.unit}</button>
+    <div class="row-acts">
+      <button type="button" class="act-b ed-b" data-phed="${esc(pr.id)}" title="Editar valor/data" aria-label="Editar valor de ${fmtDate(pr.date)}">${EDIT_SVG}</button>
+      <button type="button" class="act-b rm-b" data-phdel="${esc(pr.id)}" title="Excluir este registro" aria-label="Excluir valor de ${fmtDate(pr.date)}">${TRASH}</button>
+    </div>
+  </div></div>`).join("");
+
+  h += `<section class="grp">
+    <h2>
+      <span class="gh-title">${catBadge(cc)}<span class="gh-name">Histórico de compras de ${esc(prod.name)}</span></span>
+      <span class="gh-r"><span class="gstat">${plural(sorted.length, "registro", "registros")}</span></span>
+    </h2>
+    <div class="cwrap"><div class="cin"><div class="card" style="${sty(cc)}">${rowsHtml}</div></div></div>
+  </section>`;
+
+  box.innerHTML = h;
+}
+
+/* =========================================================
    Aba Relatórios: gráfico Valor × Data e filtros
    ========================================================= */
 const PERIODS = [
@@ -2117,6 +2555,7 @@ function renderRep() {
   $("lsBtn").hidden = true;
   $("topBack").hidden = true;
   $("hdrLabel").hidden = false;
+  $("hdrLabel").classList.remove("is-title");
   $("bud").hidden = true;
   $("budHint").hidden = true;
 
@@ -2266,22 +2705,21 @@ function renderRep() {
    Registrar Compra + Recomendação de Backup
    ========================================================= */
 function askFin(doneIts, unmarked, skippedIts) {
-  $("finAskP").textContent = `Existem ${plural(unmarked.length, "item ativo não marcado", "itens ativos não marcados")} no carrinho. Escolha o que fazer apenas neste registro do Histórico (sua lista atual continuará intacta):`;
+  $("finAskP").textContent = `Há ${plural(unmarked.length, "item desmarcado", "itens desmarcados")}. Escolha o que fazer com ${unmarked.length === 1 ? "ele" : "eles"} apenas neste registro (sua lista atual continua intacta):`;
   $("finAskStat").innerHTML = `
-    <div class="row-s"><span>Marcados no carrinho (${doneIts.length})</span><b>${brl(sum(doneIts))}</b></div>
+    <div class="row-s"><span>No carrinho (${doneIts.length})</span><b>${brl(sum(doneIts))}</b></div>
     <div class="row-s"><span>Desmarcados (${unmarked.length})</span><b>${brl(sum(unmarked))}</b></div>
-    ${skippedIts.length ? `<div class="row-s"><span>Já em desistência (${skippedIts.length})</span><b>${brl(sum(skippedIts))}</b></div>` : ""}`;
-  $("finMoveSkip").textContent = `Mover ${unmarked.length} desmarcado${unmarked.length > 1 ? "s" : ""} para Desistência`;
-  $("finDropUnm").textContent = `Excluir ${unmarked.length} desmarcado${unmarked.length > 1 ? "s" : ""} do registro`;
+    ${skippedIts.length ? `<div class="row-s"><span>Em desistência (${skippedIts.length})</span><b>${brl(sum(skippedIts))}</b></div>` : ""}`;
   $("finDropUnm").disabled = !doneIts.length && !skippedIts.length;
   return new Promise(res => {
     const d = $("finAsk");
     const done = v => {
-      ["finMoveSkip", "finDropUnm", "finCancel"].forEach(id => $(id).onclick = null);
+      ["finMarkCart", "finMoveSkip", "finDropUnm", "finCancel"].forEach(id => $(id).onclick = null);
       d.oncancel = null;
       if (d.open) d.close();
       res(v);
     };
+    $("finMarkCart").onclick = () => done("cart");
     $("finMoveSkip").onclick = () => done("skip");
     $("finDropUnm").onclick = () => done("drop");
     $("finCancel").onclick = () => done("cancel");
@@ -2298,7 +2736,7 @@ async function finishPurchase() {
   let mode = "all";
   if (unmarked.length) {
     mode = await askFin(doneIts, unmarked, skippedIts);
-    if (mode !== "skip" && mode !== "drop") return;
+    if (mode !== "cart" && mode !== "skip" && mode !== "drop") return;
   } else {
     const tot = sum(doneIts);
     const skipNote = skippedIts.length ? ` e ${plural(skippedIts.length, "em desistência", "em desistência")}` : "";
@@ -2336,6 +2774,7 @@ async function finishPurchase() {
     ...(meta ? { catMeta: meta } : {})
   };
   S.records.unshift(rec);
+  ingestRecordIntoProducts(rec);
   l.items.forEach(i => { i.done = false; i.skipped = false; });
   S.hideDone = false;
   S.cat = "";
@@ -2537,6 +2976,15 @@ $("topBack").onclick = async () => {
     if (r !== "ok") return;
     draftRec = null;
   }
+  if (curTab === "prod") {
+    if (history.state && history.state.prod) {
+      history.back();
+      return;
+    }
+    curProdId = null;
+    render();
+    return;
+  }
   if (history.state && history.state.rec) {
     history.back();
     return;
@@ -2559,6 +3007,24 @@ $("vHist").addEventListener("click", async e => {
   if (e.target.closest("#hSearchClear")) {
     histQuery = "";
     renderHist();
+    return;
+  }
+  if (e.target.closest("#hDelAll")) {
+    if (!S.records.length) return;
+    const old = S.records.slice();
+    const r = await ask(
+      `Excluir todos os ${plural(old.length, "registro", "registros")}?`,
+      "Todas as compras salvas no Histórico e os gráficos de Relatórios serão apagados. Seus produtos no Banco de Produtos e suas listas atuais continuam preservados.",
+      "Excluir tudo",
+      { danger: true }
+    );
+    if (r !== "ok") return;
+    S.records = [];
+    curRecId = null;
+    draftRec = null;
+    histQuery = "";
+    render();
+    toast("Todos os registros do histórico foram excluídos", () => { S.records = old; });
     return;
   }
   const delRecB = e.target.closest("[data-del-rec]");
@@ -2615,6 +3081,7 @@ $("vHist").addEventListener("click", async e => {
     if (!draftRec.catMeta) delete draftRec.catMeta;
     Object.assign(rec, draftRec);
     if (!draftRec.catMeta) delete rec.catMeta;
+    ingestRecordIntoProducts(rec);
     activeOf(rec.items).forEach(remember);
     S.records.sort((a, b) => b.date - a.date);
     draftRec = null;
@@ -2697,6 +3164,301 @@ $("vRep").addEventListener("click", e => {
 });
 
 /* =========================================================
+   Ações na aba Banco de Produtos (CRUD, seleção múltipla e ordenação)
+   ========================================================= */
+let pmMode = "addProd", pmTargetProd = null, pmTargetPrice = null, pmUnitVal = "un";
+function setPmUnit(u) {
+  pmUnitVal = u === "kg" ? "kg" : "un";
+  document.querySelectorAll("#pmUn button").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === pmUnitVal));
+  $("pmPriceLbl").textContent = pmMode === "addProd"
+    ? (pmUnitVal === "kg" ? "Valor inicial por kg (opcional)" : "Valor inicial unitário (opcional)")
+    : (pmUnitVal === "kg" ? "Preço pago por quilo" : "Preço pago por unidade");
+}
+$("pmUn").addEventListener("click", e => { const b = e.target.closest("button"); if (b) setPmUnit(b.dataset.v); });
+
+function openProdModal(mode, prod = null, priceEntry = null, presetCat = "") {
+  pmMode = mode;
+  pmTargetProd = prod;
+  pmTargetPrice = priceEntry;
+  const isPriceOnly = mode === "addPrice" || mode === "editPrice";
+  const isEditProd = mode === "editProd";
+  $("pmTitle").textContent = mode === "addProd" ? "Novo produto" : isEditProd ? "Editar produto" : mode === "addPrice" ? `Registrar valor · ${prod ? prod.name : ""}` : `Editar valor · ${prod ? prod.name : ""}`;
+  $("pmProdFields").hidden = isPriceOnly;
+  $("pmPriceFields").hidden = isEditProd;
+  $("pmDateRow").hidden = mode !== "addPrice" && mode !== "editPrice";
+  $("pmDel").hidden = mode === "addProd" || mode === "addPrice";
+
+  if (!isPriceOnly) {
+    $("pmName").value = prod ? prod.name : "";
+    paint($("pmCat"), prod ? (prod.cat === "Sem categoria" ? "" : prod.cat) : (presetCat && presetCat !== "Sem categoria" ? presetCat : ""));
+  }
+  const u = priceEntry ? priceEntry.unit : (prod ? prod.unit : "un");
+  setPmUnit(u);
+
+  if (!isEditProd) {
+    $("pmPrice").value = priceEntry && priceEntry.price ? fromC(priceEntry.price, 1) : "";
+    $("pmDate").value = fmtDateInput(priceEntry ? priceEntry.date : Date.now());
+    $("pmOrigin").value = priceEntry ? (priceEntry.list || "") : "";
+  }
+  ["pmName", "pmPrice", "pmDate"].forEach(id => $(id).classList.remove("bad"));
+  openD("pm");
+  setTimeout(() => $(isPriceOnly ? "pmPrice" : "pmName").focus(), 50);
+}
+
+function saveProdModal() {
+  if (pmMode === "addProd" || pmMode === "editProd") {
+    const n = $("pmName").value.trim().slice(0, 120);
+    if (!n) return bad("pmName");
+    const rawCat = $("pmCat").dataset.v;
+    const cat = (rawCat && rawCat !== "Sem categoria") ? rawCat : "Sem categoria";
+    const k = norm(n);
+    const dup = S.products.find(p => norm(p.name) === k && (!pmTargetProd || p.id !== pmTargetProd.id));
+
+    if (pmMode === "addProd") {
+      const pVal = cents($("pmPrice").value);
+      if (dup) {
+        dup.name = n;
+        dup.unit = pmUnitVal;
+        if (cat !== "Sem categoria") dup.cat = cat;
+        if (pVal > 0) dup.prices.unshift({ id: uid(), price: pVal, unit: pmUnitVal, date: Date.now(), list: "Cadastro manual" });
+        $("pm").close();
+        render();
+        toast(`Produto “${n}” atualizado no banco`);
+        return;
+      }
+      const newP = {
+        id: uid(),
+        name: n,
+        cat,
+        unit: pmUnitVal,
+        prices: pVal > 0 ? [{ id: uid(), price: pVal, unit: pmUnitVal, date: Date.now(), list: "Cadastro manual" }] : []
+      };
+      S.products.push(newP);
+      $("pm").close();
+      render();
+      toast(`Produto “${n}” adicionado ao banco`);
+      return;
+    }
+
+    if (pmTargetProd) {
+      if (dup) {
+        // Mescla histórico se renomeou para um produto já existente
+        dup.name = n;
+        dup.cat = cat;
+        dup.unit = pmUnitVal;
+        pmTargetProd.prices.forEach(pr => {
+          if (!dup.prices.some(x => x.id === pr.id)) dup.prices.push(pr);
+        });
+        dup.prices.sort((a, b) => b.date - a.date);
+        S.products = S.products.filter(p => p.id !== pmTargetProd.id);
+        if (curProdId === pmTargetProd.id) curProdId = dup.id;
+      } else {
+        pmTargetProd.name = n;
+        pmTargetProd.cat = cat;
+        pmTargetProd.unit = pmUnitVal;
+      }
+      $("pm").close();
+      render();
+      toast("Produto atualizado");
+    }
+    return;
+  }
+
+  // Adicionar ou editar registro de valor (addPrice / editPrice)
+  if (!pmTargetProd) return;
+  const pVal = cents($("pmPrice").value);
+  if (pVal <= 0) return bad("pmPrice");
+  const dVal = $("pmDate").value ? parseDateInput($("pmDate").value, pmTargetPrice ? pmTargetPrice.date : Date.now()) : Date.now();
+  const orig = $("pmOrigin").value.trim().slice(0, 40) || "Registro manual";
+
+  if (pmMode === "addPrice") {
+    pmTargetProd.prices.unshift({ id: uid(), price: pVal, unit: pmUnitVal, date: dVal, list: orig });
+    pmTargetProd.unit = pmUnitVal;
+    pmTargetProd.prices.sort((a, b) => b.date - a.date);
+    $("pm").close();
+    render();
+    toast("Valor registrado no histórico do produto");
+  } else if (pmMode === "editPrice" && pmTargetPrice) {
+    Object.assign(pmTargetPrice, { price: pVal, unit: pmUnitVal, date: dVal, list: orig });
+    pmTargetProd.prices.sort((a, b) => b.date - a.date);
+    $("pm").close();
+    render();
+    toast("Registro de valor atualizado");
+  }
+}
+$("pmSave").onclick = saveProdModal;
+$("pmCancel").onclick = () => $("pm").close();
+["pmName", "pmPrice", "pmOrigin"].forEach(id => $(id).addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); saveProdModal(); } }));
+
+async function deleteProductWithUndo(prod) {
+  if (!prod) return;
+  const r = await ask(`Excluir “${prod.name}”?`, `O produto e seus ${plural(prod.prices.length, "registro de preço", "registros de preço")} serão removidos do Banco de Produtos.`, "Excluir", { danger: true });
+  if (r !== "ok") return;
+  const idx = S.products.indexOf(prod);
+  if (idx < 0) return;
+  S.products.splice(idx, 1);
+  prodSelIds.delete(prod.id);
+  if (curProdId === prod.id) curProdId = null;
+  render();
+  toast(`“${prod.name}” excluído do banco`, () => { S.products.splice(Math.min(idx, S.products.length), 0, prod); });
+}
+
+$("pmDel").onclick = async () => {
+  $("pm").close();
+  if (pmMode === "editProd" && pmTargetProd) {
+    await deleteProductWithUndo(pmTargetProd);
+  } else if (pmMode === "editPrice" && pmTargetProd && pmTargetPrice) {
+    const pObj = pmTargetProd, prObj = pmTargetPrice;
+    const idx = pObj.prices.indexOf(prObj);
+    if (idx < 0) return;
+    pObj.prices.splice(idx, 1);
+    render();
+    toast("Registro de preço excluído", () => { pObj.prices.splice(Math.min(idx, pObj.prices.length), 0, prObj); });
+  }
+};
+
+$("vProd").addEventListener("input", e => {
+  if (e.target.id === "pSearch") {
+    prodQuery = e.target.value;
+    renderProd();
+    const inp = $("pSearch");
+    if (inp) { inp.focus(); inp.selectionStart = inp.selectionEnd = inp.value.length; }
+  }
+});
+
+$("vProd").addEventListener("click", async e => {
+  if (e.target.closest("#pSearchClear")) {
+    prodQuery = "";
+    renderProd();
+    return;
+  }
+  if (e.target.closest("#pAddBtn")) {
+    openProdModal("addProd");
+    return;
+  }
+  const pca = e.target.closest("[data-pca]");
+  if (pca) {
+    openProdModal("addProd", null, null, pca.dataset.pca);
+    return;
+  }
+  const pcolB = e.target.closest("[data-pcol]");
+  if (pcolB) {
+    const k = pcolB.dataset.pcol;
+    const nowCol = !prodCols.has(k);
+    if (nowCol) prodCols.add(k); else prodCols.delete(k);
+    const grp = pcolB.closest(".grp");
+    if (grp) grp.classList.toggle("col", nowCol);
+    pcolB.setAttribute("aria-expanded", String(!nowCol));
+    vib();
+    return;
+  }
+  if (e.target.closest("#pSelAll")) {
+    const q = prodQuery.trim().toLowerCase();
+    const vis = q
+      ? S.products.filter(p => p.name.toLowerCase().includes(q) || (p.cat || "Sem categoria").toLowerCase().includes(q))
+      : S.products;
+    const allSel = vis.length > 0 && vis.every(p => prodSelIds.has(p.id));
+    vis.forEach(p => { if (allSel) prodSelIds.delete(p.id); else prodSelIds.add(p.id); });
+    vib();
+    render();
+    return;
+  }
+  const psel = e.target.closest("[data-psel]");
+  if (psel) {
+    const id = psel.dataset.psel;
+    if (prodSelIds.has(id)) prodSelIds.delete(id); else prodSelIds.add(id);
+    vib();
+    render();
+    return;
+  }
+  if (e.target.closest("#pBulkCat")) {
+    if (!prodSelIds.size) return;
+    pick("", newCat => {
+      const c = newCat || "Sem categoria";
+      let cnt = 0;
+      S.products.forEach(p => { if (prodSelIds.has(p.id)) { p.cat = c; cnt++; } });
+      prodSelIds.clear();
+      render();
+      toast(`Categoria alterada em ${plural(cnt, "produto", "produtos")}`);
+    });
+    return;
+  }
+  if (e.target.closest("#pBulkDel")) {
+    if (!prodSelIds.size) return;
+    const selList = S.products.filter(p => prodSelIds.has(p.id));
+    const r = await ask(`Excluir ${plural(selList.length, "produto", "produtos")}?`, "Os produtos selecionados e seus históricos de preços serão removidos do Banco de Produtos.", "Excluir selecionados", { danger: true });
+    if (r !== "ok") return;
+    const backup = S.products.slice();
+    S.products = S.products.filter(p => !prodSelIds.has(p.id));
+    prodSelIds.clear();
+    render();
+    toast(`${plural(selList.length, "produto excluído", "produtos excluídos")}`, () => { S.products = backup; });
+    return;
+  }
+  const openP = e.target.closest("[data-open-prod]");
+  if (openP) {
+    curProdId = openP.dataset.openProd;
+    history.pushState({ prod: curProdId }, "");
+    render();
+    return;
+  }
+  const ped = e.target.closest("[data-ped]");
+  if (ped) {
+    const pObj = S.products.find(x => x.id === ped.dataset.ped);
+    if (pObj) openProdModal("editProd", pObj);
+    return;
+  }
+  const pdel = e.target.closest("[data-pdel]");
+  if (pdel) {
+    const pObj = S.products.find(x => x.id === pdel.dataset.pdel);
+    await deleteProductWithUndo(pObj);
+    return;
+  }
+
+  // Ações dentro da ficha de um produto específico
+  const prod = S.products.find(p => p.id === curProdId);
+  if (!prod) return;
+
+  if (e.target.closest("#pdAddPrice")) {
+    openProdModal("addPrice", prod);
+    return;
+  }
+  if (e.target.closest("#pdEdit")) {
+    openProdModal("editProd", prod);
+    return;
+  }
+  if (e.target.closest("#pdDel")) {
+    await deleteProductWithUndo(prod);
+    return;
+  }
+  const sortB = e.target.closest("[data-psort]");
+  if (sortB) {
+    const k = sortB.dataset.psort;
+    if (k === "date") prodSort = prodSort === "date-desc" ? "date-asc" : "date-desc";
+    else prodSort = prodSort === "price-asc" ? "price-desc" : "price-asc";
+    vib();
+    render();
+    return;
+  }
+  const phed = e.target.closest("[data-phed]");
+  if (phed) {
+    const pr = prod.prices.find(x => x.id === phed.dataset.phed);
+    if (pr) openProdModal("editPrice", prod, pr);
+    return;
+  }
+  const phdel = e.target.closest("[data-phdel]");
+  if (phdel) {
+    const pr = prod.prices.find(x => x.id === phdel.dataset.phdel);
+    if (!pr) return;
+    const idx = prod.prices.indexOf(pr);
+    prod.prices.splice(idx, 1);
+    vib();
+    render();
+    toast("Registro de preço excluído", () => { prod.prices.splice(Math.min(idx, prod.prices.length), 0, pr); });
+  }
+});
+
+/* =========================================================
    Editar item (na lista atual ou no rascunho do histórico)
    ========================================================= */
 let editing = null, editCtx = "list", eq = 1, eu = "un";
@@ -2712,19 +3474,15 @@ function renderEditPriceHist() {
   const sameU = hist.filter(x => x.unit === eu);
   const ref = sameU.length ? sameU : hist;
   const last = ref[0], curP = cents($("ep").value);
-  let metaHtml = "";
+  let diffHtml = "";
   if (curP > 0 && last.unit === eu && curP !== last.price) {
     const d = curP - last.price;
-    metaHtml = `<span class="pd ${d > 0 ? "up" : "dn"}">${ico(d > 0 ? "trendUp" : "trendDown", 2.5)}<span>${brl(Math.abs(d))} vs último</span></span>`;
-  } else if (sameU.length >= 2) {
-    const minP = Math.min(...sameU.map(x => x.price));
-    metaHtml = `<span class="ed-ph-meta">Último ${brl(last.price)} · Menor ${brl(minP)}</span>`;
-  } else {
-    metaHtml = `<span class="ed-ph-meta">${plural(hist.length, "registro", "registros")}</span>`;
+    diffHtml = `<span class="pd ${d > 0 ? "up" : "dn"}" title="Diferença em relação ao último valor">${ico(d > 0 ? "trendUp" : "trendDown", 2.5)}<span>${brl(Math.abs(d))}</span></span>`;
   }
   box.hidden = false;
-  box.innerHTML = `<div class="ed-ph-top"><span class="ed-ph-t">${ico("clock")}<span>Histórico unitário/kg</span></span>${metaHtml}</div>
-    <div class="ed-ph-list">${hist.slice(0, 10).map(x => `<button type="button" class="ed-ph-chip" data-ph-p="${x.price}" data-ph-u="${x.unit}" title="Toque para aplicar este valor"><span class="ed-ph-v">${brl(x.price)}/${x.unit}</span><span class="ed-ph-d">${fmtShortDate(x.date)} · ${esc(x.list)}</span></button>`).join("")}</div>`;
+  box.innerHTML = `<span class="ed-ph-lbl" title="Últimos valores no Banco de Produtos (toque para aplicar)">${ico("clock")}<span>Últimos:</span></span>` +
+    `<div class="ed-ph-list">${hist.slice(0, 4).map(x => `<button type="button" class="ed-ph-chip" data-ph-p="${x.price}" data-ph-u="${x.unit}" title="${esc(x.list)} · ${fmtDate(x.date)} (toque para aplicar)"><span class="ed-ph-v">${brl(x.price)}/${x.unit}</span><span class="ed-ph-d">${fmtShortDate(x.date)}</span></button>`).join("")}</div>` +
+    diffHtml;
 }
 function setEditUnit(u) {
   eu = u;
@@ -2923,9 +3681,11 @@ function setUnit(u) {
 }
 function updatePreview() {
   const c = cents($("price").value), q = unit === "kg" ? kilos($("kg").value) : qty;
-  let t = c && q && (unit === "kg" || q > 1) ? `= ${brl(Math.round(c * q))}` : "";
-  if (hint) t = t ? `${hint} · ${t}` : hint;
-  $("prev").textContent = t;
+  const subTxt = c && q && (unit === "kg" || q > 1) ? `= ${brl(Math.round(c * q))}` : "";
+  const parts = [];
+  if (hint) parts.push(`<span>${esc(hint)}</span>`);
+  if (subTxt) parts.push(`<b>${esc(subTxt)}</b>`);
+  $("prev").innerHTML = parts.length ? `${ico("clock")}${parts.join("<span>·</span>")}` : "";
 }
 function applyProductToAddForm(p, forceOverride = false) {
   if (!p) return;
@@ -3046,27 +3806,14 @@ const SUG={"Hortifruti":["Banana","Maçã","Laranja","Limão","Mamão","Abacate"
 const FAV=[["Arroz","Mercearia"],["Feijão","Mercearia"],["Leite","Laticínios"],["Pão francês","Padaria"],["Ovos","Frios e Ovos"],["Banana","Hortifruti"],["Tomate","Hortifruti"],["Cebola","Hortifruti"],["Café","Mercearia"],["Açúcar","Mercearia"],["Óleo","Mercearia"],["Papel higiênico","Higiene"],["Detergente","Limpeza"]];
 const chip = (n, c) => `<button class="chip" data-n="${esc(n)}" data-c="${esc(c)}">${esc(n)}</button>`;
 function renderSuggestions() {
-  let h = "";
-  const rec = recent().slice(0, 12);
-  if (rec.length) h += `<section class="sec" style="--h:200;--cs:20%"><h4><span class="cat-ico" style="--h:200">${ico("clock")}</span><span>Comprados recentemente</span><button type="button" class="sec-del" id="clearRecHist" title="Limpar recentes" aria-label="Limpar comprados recentemente">${TRASH}</button></h4><div class="sg">${rec.map(r => chip(r.n, r.c)).join("")}</div></section>`;
-  h += `<section class="sec" style="--h:48"><h4><span class="cat-ico" style="--h:48">${ico("star")}</span><span>Mais comprados</span></h4><div class="sg">${FAV.map(([n, c]) => chip(n, c)).join("")}</div></section>`;
+  let h = `<section class="sec" style="--h:48"><h4><span class="cat-ico" style="--h:48">${ico("star")}</span><span>Mais comprados</span></h4><div class="sg">${FAV.map(([n, c]) => chip(n, c)).join("")}</div></section>`;
   STD_CATS.forEach(c => { if (SUG[c.n]) h += `<section class="sec" style="${sty(c)}"><h4>${catBadge(c)}<span>${c.n}</span></h4><div class="sg">${SUG[c.n].map(n => chip(n, c.n)).join("")}</div></section>`; });
   $("hsl").innerHTML = h;
 }
 $("hBtn").onclick = () => {
   renderSuggestions(); openD("hs"); $("hsl").scrollTop = 0;
 };
-$("hsl").addEventListener("click", async e => {
-  if (e.target.closest("#clearRecHist")) {
-    const r = await ask("Limpar comprados recentemente?", "Isso remove apenas os atalhos de sugestões recentes. Suas listas e histórico de compras não serão afetados.", "Limpar recentes", { danger: true });
-    if (r !== "ok") return;
-    S.hist = {};
-    save();
-    fillDatalist();
-    renderSuggestions();
-    toast("Sugestões recentes limpas");
-    return;
-  }
+$("hsl").addEventListener("click", e => {
   const b = e.target.closest("[data-n]"); if (!b) return;
   S.cat = b.dataset.c; autoCat = false; paint($("cat"), S.cat);
   $("name").value = b.dataset.n; $("name").dispatchEvent(new Event("input", { bubbles: true }));
@@ -3082,7 +3829,7 @@ function openMenu(focusBudget = false) {
   $("mnListOpts").hidden = !onList;
   $("mExp").hidden = !onList;
   $("mHide").hidden = !onList;
-  $("mDone").hidden = !onList;
+  $("mToggleAll").hidden = !onList;
   $("mAll").hidden = !onList;
   $("bd").value = fromC(L().budget || 0);
   syncHideUI();
@@ -3104,19 +3851,13 @@ $("mHide").onclick = () => {
   $("mn").close();
   toggleHideDone();
 };
-$("mDone").onclick = () => {
-  const l = L(), old = l.items.slice();
+$("mToggleAll").onclick = () => {
   $("mn").close();
-  if (!old.some(i => i.done && !i.skipped)) { toast("Nenhum item marcado"); return; }
-  l.items = l.items.filter(i => !i.done || i.skipped); render();
-  toast("Itens marcados removidos", () => { l.items = old; });
+  toggleAllDone();
 };
 $("mAll").onclick = () => {
-  const l = L(), old = l.items.slice();
   $("mn").close();
-  if (!old.length) { toast("A lista já está vazia"); return; }
-  l.items = []; render();
-  toast("Lista limpa", () => { l.items = old; });
+  clearAllItems();
 };
 $("mExp").onclick = () => {
   $("mn").close();
@@ -3253,15 +3994,16 @@ $("xFile").onchange = async e => {
   catch (x) { if ($("bk").open) $("bk").close(); toast("Arquivo de backup inválido"); return; }
   const n = d.lists.reduce((a, l) => a + l.items.length, 0);
   const cMsg = d.customCats.length ? `, ${plural(d.customCats.length, "categoria personalizada", "categorias personalizadas")}` : "";
-  const r = await ask("Restaurar backup?", `O arquivo tem ${plural(d.lists.length, "lista", "listas")} (${plural(n, "item", "itens")})${cMsg} e ${plural(d.records.length, "compra no histórico", "compras no histórico")}. Seus dados atuais serão substituídos.`, "Restaurar", { danger: true });
+  const pMsg = d.products.length ? `, ${plural(d.products.length, "produto no banco", "produtos no banco")}` : "";
+  const r = await ask("Restaurar backup?", `O arquivo tem ${plural(d.lists.length, "lista", "listas")} (${plural(n, "item", "itens")})${cMsg}${pMsg} e ${plural(d.records.length, "compra no histórico", "compras no histórico")}. Seus dados atuais serão substituídos.`, "Restaurar", { danger: true });
   if (r !== "ok") return;
   const old = S; S = d;
-  curRecId = null; draftRec = null;
+  curRecId = null; draftRec = null; curProdId = null; prodSelIds.clear();
   if ($("bk").open) $("bk").close();
   refreshAll();
   toast("Backup restaurado", () => { S = old; refreshAll(); });
 };
-function refreshAll() { S.cat = ""; paint($("cat"), ""); applyTheme(); fillDatalist(); render(); }
+function refreshAll() { S.cat = ""; paint($("cat"), ""); applyTheme(); render(); }
 
 /* =========================================================
    Instalação do app
