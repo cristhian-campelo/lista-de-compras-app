@@ -1,0 +1,362 @@
+{
+ "cur": "list-mercado-mes",
+ "theme": "dark",
+ "hideDone": false,
+ "cat": "all",
+ "customCats": [
+  { "n": "Farmácia", "e": "💊", "h": 195, "custom": true },
+  { "n": "Feira", "e": "🥬", "h": 115, "custom": true },
+  { "n": "Auto & Casa", "e": "🛠️", "h": 35, "custom": true }
+ ],
+ "lists": [
+  {
+   "id": "list-mercado-mes",
+   "name": "Mercado do Mês",
+   "budget": 65000,
+   "order": [
+    "Hortifruti",
+    "Açougue",
+    "Laticínios",
+    "Mercearia",
+    "Bebidas",
+    "Limpeza",
+    "Feira",
+    "Sem categoria"
+   ],
+   "col": ["Limpeza"],
+   "items": [
+    { "id": "i-mm-1", "name": "Banana Prata", "qty": 1.45, "price": 799, "pp": 699, "unit": "kg", "cat": "Hortifruti", "done": true },
+    { "id": "i-mm-2", "name": "Tomate Italiano", "qty": 0.85, "price": 990, "pp": 1150, "unit": "kg", "cat": "Hortifruti", "done": false },
+    { "id": "i-mm-3", "name": "Abacate", "qty": 1.2, "price": 0, "unit": "kg", "cat": "Hortifruti", "done": false },
+    { "id": "i-mm-4", "name": "Patinho Moído", "qty": 1.5, "price": 4290, "pp": 4490, "unit": "kg", "cat": "Açougue", "done": true },
+    { "id": "i-mm-5", "name": "Peito de Frango", "qty": 2, "price": 2190, "unit": "kg", "cat": "Açougue", "done": false },
+    { "id": "i-mm-6", "name": "Leite Integral 1L", "qty": 6, "price": 549, "pp": 499, "unit": "un", "cat": "Laticínios", "done": true },
+    { "id": "i-mm-7", "name": "Queijo Mussarela", "qty": 0.4, "price": 5890, "unit": "kg", "cat": "Laticínios", "done": false },
+    { "id": "i-mm-8", "name": "Iogurte Natural", "qty": 4, "price": 389, "unit": "un", "cat": "Laticínios", "done": false, "skipped": true },
+    { "id": "i-mm-9", "name": "Arroz Tipo 1 5kg", "qty": 2, "price": 2990, "pp": 2790, "unit": "un", "cat": "Mercearia", "done": true },
+    { "id": "i-mm-10", "name": "Feijão Carioca 1kg", "qty": 3, "price": 789, "unit": "un", "cat": "Mercearia", "done": false },
+    { "id": "i-mm-11", "name": "Azeite Extra Virgem 500ml", "qty": 1, "price": 4590, "pp": 4890, "unit": "un", "cat": "Mercearia", "done": false },
+    { "id": "i-mm-12", "name": "Sal Refinado 1kg", "qty": 1, "price": 0, "unit": "un", "cat": "Mercearia", "done": false, "skipped": true },
+    { "id": "i-mm-13", "name": "Café Torrado 500g", "qty": 2, "price": 2490, "pp": 2150, "unit": "un", "cat": "Bebidas", "done": false },
+    { "id": "i-mm-14", "name": "Coca-Cola 2L", "qty": 2, "price": 1099, "unit": "un", "cat": "Bebidas", "done": true },
+    { "id": "i-mm-15", "name": "Detergente Neutro", "qty": 4, "price": 269, "unit": "un", "cat": "Limpeza", "done": true },
+    { "id": "i-mm-16", "name": "Sabão em Pó 1.6kg", "qty": 1, "price": 2390, "pp": 2490, "unit": "un", "cat": "Limpeza", "done": false },
+    { "id": "i-mm-17", "name": "Ovos Brancos 20un", "qty": 1, "price": 1890, "unit": "un", "cat": "Feira", "done": false },
+    { "id": "i-mm-18", "name": "Cheiro-Verde", "qty": 2, "price": 350, "unit": "un", "cat": "Feira", "done": true },
+    { "id": "i-mm-19", "name": "Saco para Lixo 50L", "qty": 1, "price": 1490, "unit": "un", "cat": "Sem categoria", "done": false }
+   ]
+  },
+  {
+   "id": "list-churrasco",
+   "name": "Churrasco & Fim de Semana",
+   "budget": 28000,
+   "order": ["Açougue", "Bebidas", "Padaria", "Hortifruti"],
+   "col": [],
+   "items": [
+    { "id": "i-ch-1", "name": "Picanha Bovina", "qty": 1.6, "price": 7990, "unit": "kg", "cat": "Açougue", "done": true },
+    { "id": "i-ch-2", "name": "Linguiça Toscana", "qty": 1, "price": 2490, "unit": "kg", "cat": "Açougue", "done": false },
+    { "id": "i-ch-3", "name": "Cerveja Lata 350ml", "qty": 12, "price": 449, "unit": "un", "cat": "Bebidas", "done": true },
+    { "id": "i-ch-4", "name": "Água com Gás 500ml", "qty": 6, "price": 299, "unit": "un", "cat": "Bebidas", "done": false },
+    { "id": "i-ch-5", "name": "Pão de Alho", "qty": 2, "price": 1450, "unit": "un", "cat": "Padaria", "done": false },
+    { "id": "i-ch-6", "name": "Limão Taiti", "qty": 0.6, "price": 690, "unit": "kg", "cat": "Hortifruti", "done": true }
+   ]
+  },
+  {
+   "id": "list-farmacia",
+   "name": "Farmácia & Casa",
+   "budget": 0,
+   "order": ["Farmácia", "Higiene", "Auto & Casa", "Pets"],
+   "col": [],
+   "items": [
+    { "id": "i-fa-1", "name": "Dipirona 500mg", "qty": 2, "price": 890, "unit": "un", "cat": "Farmácia", "done": false },
+    { "id": "i-fa-2", "name": "Protetor Solar FPS 50", "qty": 1, "price": 6490, "unit": "un", "cat": "Farmácia", "done": false },
+    { "id": "i-fa-3", "name": "Creme Dental", "qty": 3, "price": 649, "unit": "un", "cat": "Higiene", "done": true },
+    { "id": "i-fa-4", "name": "Sabonete Líquido", "qty": 1, "price": 0, "unit": "un", "cat": "Higiene", "done": false },
+    { "id": "i-fa-5", "name": "Lâmpada LED 9W", "qty": 2, "price": 1190, "unit": "un", "cat": "Auto & Casa", "done": false },
+    { "id": "i-fa-6", "name": "Ração Cães 10kg", "qty": 1, "price": 12990, "pp": 11990, "unit": "un", "cat": "Pets", "done": false }
+   ]
+  }
+ ],
+ "records": [
+  {
+   "id": "rec-5d",
+   "name": "Mercado do Mês",
+   "date": 1794240000000,
+   "items": [
+    { "id": "r1-1", "name": "Banana Prata", "qty": 1.3, "price": 699, "unit": "kg", "cat": "Hortifruti", "done": true },
+    { "id": "r1-2", "name": "Tomate Italiano", "qty": 1.1, "price": 1150, "unit": "kg", "cat": "Hortifruti", "done": true },
+    { "id": "r1-3", "name": "Patinho Moído", "qty": 1.4, "price": 4490, "unit": "kg", "cat": "Açougue", "done": true },
+    { "id": "r1-4", "name": "Leite Integral 1L", "qty": 6, "price": 499, "unit": "un", "cat": "Laticínios", "done": true },
+    { "id": "r1-5", "name": "Iogurte Natural", "qty": 3, "price": 389, "unit": "un", "cat": "Laticínios", "done": false, "skipped": true },
+    { "id": "r1-6", "name": "Arroz Tipo 1 5kg", "qty": 1, "price": 2790, "unit": "un", "cat": "Mercearia", "done": true },
+    { "id": "r1-7", "name": "Café Torrado 500g", "qty": 2, "price": 2150, "unit": "un", "cat": "Bebidas", "done": true }
+   ]
+  },
+  {
+   "id": "rec-22d",
+   "name": "Feira",
+   "date": 1792770000000,
+   "catMeta": {
+    "Feira": { "e": "🥬", "h": 115 }
+   },
+   "items": [
+    { "id": "r2-1", "name": "Banana Prata", "qty": 1.8, "price": 649, "unit": "kg", "cat": "Feira", "done": true },
+    { "id": "r2-2", "name": "Tomate Italiano", "qty": 1.0, "price": 890, "unit": "kg", "cat": "Hortifruti", "done": true },
+    { "id": "r2-3", "name": "Ovos Brancos 20un", "qty": 2, "price": 1790, "unit": "un", "cat": "Feira", "done": true },
+    { "id": "r2-4", "name": "Cheiro-Verde", "qty": 3, "price": 300, "unit": "un", "cat": "Feira", "done": true }
+   ]
+  },
+  {
+   "id": "rec-65d",
+   "name": "Atacadão",
+   "date": 1789050000000,
+   "items": [
+    { "id": "r3-1", "name": "Arroz Tipo 1 5kg", "qty": 2, "price": 2690, "unit": "un", "cat": "Mercearia", "done": true },
+    { "id": "r3-2", "name": "Feijão Carioca 1kg", "qty": 4, "price": 749, "unit": "un", "cat": "Mercearia", "done": true },
+    { "id": "r3-3", "name": "Azeite Extra Virgem 500ml", "qty": 2, "price": 4890, "unit": "un", "cat": "Mercearia", "done": true },
+    { "id": "r3-4", "name": "Leite Integral 1L", "qty": 12, "price": 479, "unit": "un", "cat": "Laticínios", "done": true },
+    { "id": "r3-5", "name": "Sabão em Pó 1.6kg", "qty": 2, "price": 2490, "unit": "un", "cat": "Limpeza", "done": true },
+    { "id": "r3-6", "name": "Café Torrado 500g", "qty": 3, "price": 1990, "unit": "un", "cat": "Bebidas", "done": true }
+   ]
+  },
+  {
+   "id": "rec-140d",
+   "name": "Farmácia & Casa",
+   "date": 1782570000000,
+   "catMeta": {
+    "Farmácia": { "e": "💊", "h": 195 },
+    "Empório": { "e": "🧺", "h": 28 }
+   },
+   "items": [
+    { "id": "r4-1", "name": "Dipirona 500mg", "qty": 2, "price": 850, "unit": "un", "cat": "Farmácia", "done": true },
+    { "id": "r4-2", "name": "Protetor Solar FPS 50", "qty": 1, "price": 5990, "unit": "un", "cat": "Farmácia", "done": true },
+    { "id": "r4-3", "name": "Creme Dental", "qty": 4, "price": 599, "unit": "un", "cat": "Higiene", "done": true },
+    { "id": "r4-4", "name": "Ração Cães 10kg", "qty": 1, "price": 11990, "unit": "un", "cat": "Pets", "done": true },
+    { "id": "r4-5", "name": "Castanha-do-Pará", "qty": 0.35, "price": 8990, "unit": "kg", "cat": "Empório", "done": true }
+   ]
+  },
+  {
+   "id": "rec-240d",
+   "name": "Mercado do Mês",
+   "date": 1773930000000,
+   "items": [
+    { "id": "r5-1", "name": "Arroz Tipo 1 5kg", "qty": 2, "price": 2550, "unit": "un", "cat": "Mercearia", "done": true },
+    { "id": "r5-2", "name": "Patinho Moído", "qty": 1.2, "price": 4190, "unit": "kg", "cat": "Açougue", "done": true },
+    { "id": "r5-3", "name": "Coca-Cola 2L", "qty": 2, "price": 999, "unit": "un", "cat": "Bebidas", "done": true },
+    { "id": "r5-4", "name": "Detergente Neutro", "qty": 5, "price": 249, "unit": "un", "cat": "Limpeza", "done": true },
+    { "id": "r5-5", "name": "Queijo Mussarela", "qty": 0.5, "price": 5490, "unit": "kg", "cat": "Laticínios", "done": true }
+   ]
+  },
+  {
+   "id": "rec-370d",
+   "name": "Atacadão",
+   "date": 1762700000000,
+   "items": [
+    { "id": "r6-1", "name": "Arroz Tipo 1 5kg", "qty": 2, "price": 2390, "unit": "un", "cat": "Mercearia", "done": true },
+    { "id": "r6-2", "name": "Café Torrado 500g", "qty": 2, "price": 1790, "unit": "un", "cat": "Bebidas", "done": true },
+    { "id": "r6-3", "name": "Leite Integral 1L", "qty": 12, "price": 449, "unit": "un", "cat": "Laticínios", "done": true },
+    { "id": "r6-4", "name": "Azeite Extra Virgem 500ml", "qty": 1, "price": 4290, "unit": "un", "cat": "Mercearia", "done": true }
+   ]
+  }
+ ],
+ "products": [
+  {
+   "id": "p-arroz",
+   "name": "Arroz Tipo 1 5kg",
+   "cat": "Mercearia",
+   "unit": "un",
+   "prices": [
+    { "price": 2390, "unit": "un", "date": 1762700000000, "list": "Atacadão", "recId": "rec-370d" },
+    { "price": 2550, "unit": "un", "date": 1773930000000, "list": "Mercado do Mês", "recId": "rec-240d" },
+    { "price": 2690, "unit": "un", "date": 1789050000000, "list": "Atacadão", "recId": "rec-65d" },
+    { "price": 2790, "unit": "un", "date": 1794240000000, "list": "Mercado do Mês", "recId": "rec-5d" },
+    { "price": 2990, "unit": "un", "date": 1794585600000, "list": "Pesquisa Manual" }
+   ]
+  },
+  {
+   "id": "p-feijao",
+   "name": "Feijão Carioca 1kg",
+   "cat": "Mercearia",
+   "unit": "un",
+   "prices": [
+    { "price": 749, "unit": "un", "date": 1789050000000, "list": "Atacadão", "recId": "rec-65d" },
+    { "price": 789, "unit": "un", "date": 1794499200000, "list": "Cotação Rápida" }
+   ]
+  },
+  {
+   "id": "p-azeite",
+   "name": "Azeite Extra Virgem 500ml",
+   "cat": "Mercearia",
+   "unit": "un",
+   "prices": [
+    { "price": 4290, "unit": "un", "date": 1762700000000, "list": "Atacadão", "recId": "rec-370d" },
+    { "price": 4890, "unit": "un", "date": 1789050000000, "list": "Atacadão", "recId": "rec-65d" },
+    { "price": 4590, "unit": "un", "date": 1794412800000, "list": "Promoção" }
+   ]
+  },
+  {
+   "id": "p-cafe",
+   "name": "Café Torrado 500g",
+   "cat": "Bebidas",
+   "unit": "un",
+   "prices": [
+    { "price": 1790, "unit": "un", "date": 1762700000000, "list": "Atacadão", "recId": "rec-370d" },
+    { "price": 1990, "unit": "un", "date": 1789050000000, "list": "Atacadão", "recId": "rec-65d" },
+    { "price": 2150, "unit": "un", "date": 1794240000000, "list": "Mercado do Mês", "recId": "rec-5d" }
+   ]
+  },
+  {
+   "id": "p-coca",
+   "name": "Coca-Cola 2L",
+   "cat": "Bebidas",
+   "unit": "un",
+   "prices": [
+    { "price": 999, "unit": "un", "date": 1773930000000, "list": "Mercado do Mês", "recId": "rec-240d" },
+    { "price": 1099, "unit": "un", "date": 1794326400000, "list": "Mercado do Mês" }
+   ]
+  },
+  {
+   "id": "p-leite",
+   "name": "Leite Integral 1L",
+   "cat": "Laticínios",
+   "unit": "un",
+   "prices": [
+    { "price": 449, "unit": "un", "date": 1762700000000, "list": "Atacadão", "recId": "rec-370d" },
+    { "price": 479, "unit": "un", "date": 1789050000000, "list": "Atacadão", "recId": "rec-65d" },
+    { "price": 499, "unit": "un", "date": 1794240000000, "list": "Mercado do Mês", "recId": "rec-5d" }
+   ]
+  },
+  {
+   "id": "p-mussarela",
+   "name": "Queijo Mussarela",
+   "cat": "Laticínios",
+   "unit": "kg",
+   "prices": [
+    { "price": 5490, "unit": "kg", "date": 1773930000000, "list": "Mercado do Mês", "recId": "rec-240d" },
+    { "price": 5890, "unit": "kg", "date": 1794153600000, "list": "Padaria" }
+   ]
+  },
+  {
+   "id": "p-banana",
+   "name": "Banana Prata",
+   "cat": "Hortifruti",
+   "unit": "kg",
+   "prices": [
+    { "price": 649, "unit": "kg", "date": 1792770000000, "list": "Feira", "recId": "rec-22d" },
+    { "price": 699, "unit": "kg", "date": 1794240000000, "list": "Mercado do Mês", "recId": "rec-5d" }
+   ]
+  },
+  {
+   "id": "p-tomate",
+   "name": "Tomate Italiano",
+   "cat": "Hortifruti",
+   "unit": "kg",
+   "prices": [
+    { "price": 890, "unit": "kg", "date": 1792770000000, "list": "Feira", "recId": "rec-22d" },
+    { "price": 1150, "unit": "kg", "date": 1794240000000, "list": "Mercado do Mês", "recId": "rec-5d" }
+   ]
+  },
+  {
+   "id": "p-patinho",
+   "name": "Patinho Moído",
+   "cat": "Açougue",
+   "unit": "kg",
+   "prices": [
+    { "price": 4190, "unit": "kg", "date": 1773930000000, "list": "Mercado do Mês", "recId": "rec-240d" },
+    { "price": 4490, "unit": "kg", "date": 1794240000000, "list": "Mercado do Mês", "recId": "rec-5d" }
+   ]
+  },
+  {
+   "id": "p-detergente",
+   "name": "Detergente Neutro",
+   "cat": "Limpeza",
+   "unit": "un",
+   "prices": [
+    { "price": 249, "unit": "un", "date": 1773930000000, "list": "Mercado do Mês", "recId": "rec-240d" },
+    { "price": 269, "unit": "un", "date": 1794067200000, "list": "Mercado" }
+   ]
+  },
+  {
+   "id": "p-sabao",
+   "name": "Sabão em Pó 1.6kg",
+   "cat": "Limpeza",
+   "unit": "un",
+   "prices": [
+    { "price": 2490, "unit": "un", "date": 1789050000000, "list": "Atacadão", "recId": "rec-65d" },
+    { "price": 2390, "unit": "un", "date": 1794326400000, "list": "Oferta" }
+   ]
+  },
+  {
+   "id": "p-ovos",
+   "name": "Ovos Brancos 20un",
+   "cat": "Feira",
+   "unit": "un",
+   "prices": [
+    { "price": 1790, "unit": "un", "date": 1792770000000, "list": "Feira", "recId": "rec-22d" }
+   ]
+  },
+  {
+   "id": "p-cheiro",
+   "name": "Cheiro-Verde",
+   "cat": "Feira",
+   "unit": "un",
+   "prices": [
+    { "price": 300, "unit": "un", "date": 1792770000000, "list": "Feira", "recId": "rec-22d" }
+   ]
+  },
+  {
+   "id": "p-dipirona",
+   "name": "Dipirona 500mg",
+   "cat": "Farmácia",
+   "unit": "un",
+   "prices": [
+    { "price": 850, "unit": "un", "date": 1782570000000, "list": "Farmácia & Casa", "recId": "rec-140d" }
+   ]
+  },
+  {
+   "id": "p-protetor",
+   "name": "Protetor Solar FPS 50",
+   "cat": "Farmácia",
+   "unit": "un",
+   "prices": [
+    { "price": 5990, "unit": "un", "date": 1782570000000, "list": "Farmácia & Casa", "recId": "rec-140d" }
+   ]
+  },
+  {
+   "id": "p-creme",
+   "name": "Creme Dental",
+   "cat": "Higiene",
+   "unit": "un",
+   "prices": [
+    { "price": 599, "unit": "un", "date": 1782570000000, "list": "Farmácia & Casa", "recId": "rec-140d" }
+   ]
+  },
+  {
+   "id": "p-racao",
+   "name": "Ração Cães 10kg",
+   "cat": "Pets",
+   "unit": "un",
+   "prices": [
+    { "price": 11990, "unit": "un", "date": 1782570000000, "list": "Farmácia & Casa", "recId": "rec-140d" }
+   ]
+  },
+  {
+   "id": "p-castanha",
+   "name": "Castanha-do-Pará",
+   "cat": "Empório",
+   "unit": "kg",
+   "catMeta": { "e": "🧺", "h": 28 },
+   "prices": [
+    { "price": 8990, "unit": "kg", "date": 1782570000000, "list": "Farmácia & Casa", "recId": "rec-140d" }
+   ]
+  },
+  {
+   "id": "p-lampada",
+   "name": "Lâmpada LED 9W",
+   "cat": "Auto & Casa",
+   "unit": "un",
+   "prices": []
+  }
+ ]
+}
+
