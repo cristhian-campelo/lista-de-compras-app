@@ -803,21 +803,9 @@ dialog label{display:block;font-size:13px;font-weight:600;color:var(--muted);mar
 #tut #tutBody,#ai .ai-scroll{flex:1;min-height:0;max-height:none;overflow-y:auto;overscroll-behavior:contain;padding:2px 2px 6px}
 #tut .acts,#ai .acts{margin-top:12px}
 .nav-ai-btn svg{width:19px;height:19px}
-.ai-in-wrap{position:relative;display:flex;align-items:stretch}
-.ai-ta{width:100%;min-height:106px;max-height:190px;resize:vertical;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);padding:10px 54px 10px 12px;font:500 14.5px/1.45 Manrope,system-ui,-apple-system,sans-serif;transition:border-color .15s,box-shadow .15s}
+.ai-ta{width:100%;min-height:118px;max-height:200px;resize:vertical;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);padding:11px 12px;font:500 14.5px/1.45 Manrope,system-ui,-apple-system,sans-serif;transition:border-color .15s,box-shadow .15s}
+.ai-ta::placeholder{color:var(--muted);opacity:.68}
 .ai-ta:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}
-.ai-mic{position:absolute;right:8px;top:8px;width:38px;height:38px;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:grid;place-items:center;box-shadow:0 2px 6px rgba(0,0,0,.07);transition:all .18s ease}
-.ai-mic svg{width:18px;height:18px;display:block}
-.ai-mic:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
-.ai-mic:active{transform:scale(.92)}
-.ai-mic.rec{background:#ef4444;border-color:#ef4444;color:#fff;animation:micPulse 1.3s ease-in-out infinite}
-@keyframes micPulse{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.45)}50%{box-shadow:0 0 0 7px rgba(239,68,68,0)}}
-:root[data-theme="dark"] .ai-mic:not(.rec):not(:hover){background:#232730;box-shadow:0 2px 6px rgba(0,0,0,.38)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ai-mic:not(.rec):not(:hover){background:#232730;box-shadow:0 2px 6px rgba(0,0,0,.38)}}
-.ai-mic-st{margin-top:6px;padding:6px 10px;border-radius:9px;background:color-mix(in srgb,var(--accent) 10%,var(--bg));border:1px solid color-mix(in srgb,var(--accent) 28%,var(--line));font-size:12px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:6px}
-.ai-mic-st.rec{background:color-mix(in srgb,#ef4444 10%,var(--bg));border-color:color-mix(in srgb,#ef4444 35%,var(--line));color:#dc2626}
-:root[data-theme="dark"] .ai-mic-st.rec{color:#f87171}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ai-mic-st.rec{color:#f87171}}
 .ai-help{margin-top:8px;border:1px solid var(--line);border-radius:12px;background:var(--bg);padding:8px 11px;font-size:12px;color:var(--muted)}
 .ai-help summary{cursor:pointer;font-weight:700;color:var(--ink);list-style:none;display:flex;align-items:center;justify-content:space-between;gap:8px}
 .ai-help summary::-webkit-details-marker{display:none}
@@ -827,10 +815,15 @@ dialog label{display:block;font-size:13px;font-weight:600;color:var(--muted);mar
 .ai-help-list b{color:var(--ink)}
 .ai-chips{display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 0;margin-top:8px}
 .ai-chips::-webkit-scrollbar{display:none}
-.ai-chip{flex:none;height:30px;padding:0 10px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--muted);font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;transition:all .16s ease}
-.ai-chip:hover{color:var(--ink);border-color:var(--accent);background:var(--soft)}
-:root[data-theme="dark"] .ai-chip:not(:hover){background:#232730}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ai-chip:not(:hover){background:#232730}}
+.ai-chip{flex:none;height:30px;padding:0 11px;border-radius:999px;background:var(--bg);border:1.5px solid var(--line);color:var(--muted);font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;transition:all .16s ease}
+.ai-chip:hover{color:var(--ink);border-color:var(--muted)}
+.ai-chip[aria-pressed="true"]{--rgb-bg:var(--g1);color:var(--ink);font-weight:800;border:1.5px solid transparent;background-color:var(--rgb-bg);background-image:linear-gradient(var(--rgb-bg),var(--rgb-bg)),linear-gradient(135deg,#a855f7,#f97316,#06b6d4,#ef4444);background-origin:border-box;background-clip:padding-box,border-box;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+:root[data-theme="dark"] .ai-chip:not([aria-pressed="true"]):not(:hover){background:#232730}
+:root[data-theme="dark"] .ai-chip[aria-pressed="true"]{--rgb-bg:#232730;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.38)}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .ai-chip:not([aria-pressed="true"]):not(:hover){background:#232730}
+  :root:not([data-theme="light"]) .ai-chip[aria-pressed="true"]{--rgb-bg:#232730;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.38)}
+}
 .ai-bridge{margin-top:10px;padding:10px 12px;border-radius:14px;background:var(--bg);border:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
 .ai-bridge-top{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;font-weight:800;color:var(--ink)}
 .ai-bridge-top span{display:inline-flex;align-items:center;gap:6px;min-width:0}
@@ -1372,29 +1365,23 @@ dialog label{display:block;font-size:13px;font-weight:600;color:var(--muted);mar
     </button>
   </div>
   <div class="ai-scroll">
-    <label for="aiIn" style="margin-top:0">Digite, toque no microfone para ditar ou cole do Gemini</label>
-    <div class="ai-in-wrap">
-      <textarea id="aiIn" class="ai-ta" enterkeyhint="enter" placeholder="Ex.: dois arroz 5kg 29,90, um quilo e meio de tomate, 6 leite&#10;Ou comandos:&#10;• marcar hortifruti · orçamento 500 · criar lista Churrasco"></textarea>
-      <button type="button" class="ai-mic" id="aiMic" aria-label="Ditar por voz" aria-pressed="false" title="Ditar itens ou comandos por voz">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
-      </button>
-    </div>
-    <div class="ai-mic-st" id="aiMicSt" hidden></div>
+    <label for="aiIn" style="margin-top:0">Digite itens ou comandos (toque nos botões para ver exemplos de fundo)</label>
+    <textarea id="aiIn" class="ai-ta" enterkeyhint="enter" placeholder="Padrões (1 item por linha ou separados por vírgula):&#10;2 Arroz 5kg - 29,90&#10;1,5kg Tomate 8,50/kg&#10;6 Leite integral&#10;Café 500g = 18,90 (Mercearia)"></textarea>
     <div class="ai-chips" id="aiChips">
-      <button type="button" class="ai-chip" data-ai-tpl="2 arroz 5kg por 29,90, 1.5kg tomate, 6 leite integral">Vários itens</button>
-      <button type="button" class="ai-chip" data-ai-tpl="marcar hortifruti">Marcar categoria</button>
-      <button type="button" class="ai-chip" data-ai-tpl="desmarcar tudo">Desmarcar tudo</button>
-      <button type="button" class="ai-chip" data-ai-tpl="orçamento 500">Orçamento</button>
-      <button type="button" class="ai-chip" data-ai-tpl="criar lista Churrasco&#10;1.5kg picanha 79,90/kg&#10;12 cerveja lata 350ml&#10;2 pão de alho">Nova lista + itens</button>
+      <button type="button" class="ai-chip" aria-pressed="true" data-ai-tpl="Padrões (1 item por linha ou separados por vírgula):&#10;2 Arroz 5kg - 29,90&#10;1,5kg Tomate 8,50/kg&#10;6 Leite integral&#10;Café 500g = 18,90 (Mercearia)">Vários itens</button>
+      <button type="button" class="ai-chip" aria-pressed="false" data-ai-tpl="Cria a categoria (ou usa se já existir) e põe os itens abaixo nela:&#10;categoria Bebidas Geladas&#10;6 Refrigerante 2L - 8,99&#10;2 Água mineral 1,5L - 3,50">Categoria + itens</button>
+      <button type="button" class="ai-chip" aria-pressed="false" data-ai-tpl="criar lista Churrasco&#10;orçamento 450&#10;1,5kg Picanha 79,90/kg&#10;12 Cerveja lata 350ml&#10;2 Pão de alho">Nova lista + itens</button>
+      <button type="button" class="ai-chip" aria-pressed="false" data-ai-tpl="Definir ou remover orçamento da lista atual:&#10;orçamento 500&#10;sem orçamento">Orçamento</button>
+      <button type="button" class="ai-chip" aria-pressed="false" data-ai-tpl="Comandos disponíveis por escrito:&#10;marcar hortifruti · desmarcar tudo&#10;mudar preço do café para 22,50&#10;mover sal para Mercearia&#10;desistir do iogurte · excluir batata">Comandos</button>
     </div>
     <details class="ai-help" id="aiHelp">
-      <summary>Guia rápido do Assistente (voz, formatos e comandos)</summary>
+      <summary>Guia rápido de formatos e comandos</summary>
       <ul class="ai-help-list">
-        <li><b>Como funciona:</b> digite, cole do Gemini ou toque no 🎤 para ditar. Confira a prévia abaixo — <b>Enter apenas quebra linha</b> e nada muda na lista até tocar em <b>Aplicar na lista</b>.</li>
-        <li><b>Ditado corrido:</b> <i>"dois arroz 5kg três leites um quilo e meio de tomate e meio quilo de queijo"</i> · <i>"um vírgula cinco kg de banana"</i></li>
-        <li><b>Pesos, litros e unidades:</b> <i>"1,5kg tomate"</i>, <i>"500g presunto"</i>, <i>"2 litros de leite"</i>, <i>"meia dúzia de ovos"</i>, <i>"Coca 2L x2"</i></li>
-        <li><b>Preços e formatos do Gemini:</b> <i>"2 arroz R$ 29,90"</i>, <i>"Arroz 5kg - 29,90"</i>, <i>"tomate 9,90 o kg"</i>, <i>"2 leite total 11,00"</i>, <i>"Leite | 6 un | R$ 5,49 | Laticínios"</i></li>
-        <li><b>Comandos rápidos (pode juntar com vírgula ou quebra de linha):</b> <i>"criar lista Feira"</i>, <i>"orçamento 600"</i>, <i>"marcar hortifruti"</i>, <i>"peguei leite"</i>, <i>"desmarcar tudo"</i>, <i>"mudar preço do café para 22,50"</i>, <i>"mover sal para Mercearia"</i>, <i>"desistir do iogurte"</i>, <i>"excluir batata"</i>, <i>"finalizar compra"</i></li>
+        <li><b>Como usar:</b> escreva ou cole da IA externa e confira a prévia abaixo. <b>Enter apenas quebra linha</b> e nada muda até tocar em <b>Aplicar na lista</b>.</li>
+        <li><b>Padrão de itens:</b> <i>"2 Arroz 5kg - 29,90"</i> · <i>"1,5kg Tomate 8,50/kg"</i> · <i>"500g Presunto"</i> · <i>"6 Leite integral"</i> (categoria e preço salvo detectados automaticamente).</li>
+        <li><b>Categoria + itens abaixo:</b> escreva <i>"categoria Pet Shop"</i> (ou <i>"criar categoria Pet Shop"</i>). Se já existir, usa a existente; todos os itens das linhas abaixo entram nela.</li>
+        <li><b>Preços e formatos do Gemini:</b> <i>"Café = 18,90"</i>, <i>"2 leite total 11,00"</i>, <i>"Arroz (Mercearia)"</i>, <i>"Leite | 6 un | R$ 5,49 | Laticínios"</i>.</li>
+        <li><b>Comandos escritos:</b> <i>"criar lista Feira"</i>, <i>"abrir lista Mensal"</i>, <i>"renomear lista para Rancho"</i>, <i>"orçamento 500"</i>, <i>"sem orçamento"</i>, <i>"marcar hortifruti"</i>, <i>"peguei leite"</i>, <i>"desmarcar tudo"</i>, <i>"ocultar/mostrar marcados"</i>, <i>"mudar preço do café para 22,50"</i>, <i>"mudar quantidade do arroz para 3"</i>, <i>"mover sal para Mercearia"</i>, <i>"desistir do iogurte"</i>, <i>"restaurar iogurte"</i>, <i>"excluir batata"</i>, <i>"limpar categoria Açougue"</i>, <i>"finalizar compra"</i>.</li>
       </ul>
     </details>
     <div class="ai-bridge">
@@ -5061,7 +5048,7 @@ function matchCatName(raw) {
   return alias && okc(alias) ? alias : null;
 }
 
-function inferItemDetails(name, forcedCat) {
+function inferItemDetails(name, forcedCat, allowedCats) {
   const dbHit = findProductExact(name);
   let cat = forcedCat || null;
   if (!cat && dbHit && dbHit.c && okc(dbHit.c)) cat = dbHit.c;
@@ -5098,8 +5085,9 @@ function inferItemDetails(name, forcedCat) {
       cat = best || "Sem categoria";
     }
   }
+  const validCat = okc(cat) ? cat : (allowedCats && allowedCats.get(norm(cat))) || "Sem categoria";
   return {
-    cat: okc(cat) ? cat : "Sem categoria",
+    cat: validCat,
     unit: dbHit ? dbHit.u : null,
     price: dbHit && dbHit.p > 0 ? dbHit.p : 0,
     fromDb: !!dbHit
@@ -5216,7 +5204,7 @@ function splitAssistantSegments(raw) {
       out.push(noEmjHead);
       continue;
     }
-    const cmdLineRe = /^(cria(?:r)? lista|nova lista|troca(?:r)?|abr(?:ir|e) lista|usa(?:r)? lista|ir para lista|renome(?:ar|ia) lista|mudar (?:o )?nome|cria(?:r)? categoria|nova categoria|adiciona(?:r)? categoria|orcamento|definir orcamento|limite |teto |sem orcamento|marca(?:r)? |desmarca(?:r)? |peguei |ja peguei |no carrinho |tira(?:r)? do carrinho |oculta(?:r)? |escond(?:er|e) |mostra(?:r)? |exib(?:ir|e) |limpa(?:r)? |exclui(?:r)? |remov(?:er|e) |apaga(?:r)? |tira(?:r)? |desist(?:ir|e) |pula(?:r)? |nao (?:vou levar|levo) |restaura(?:r)? |volta(?:r)? |mov(?:er|e) |coloca(?:r)? .+ (?:categoria|para|na|no|em) |muda(?:r)? preco|atualiza(?:r)? preco|registra(?:r)? |finaliza(?:r)? |fecha(?:r)? compra)/;
+    const cmdLineRe = /^(cria(?:r)? lista|nova lista|troca(?:r)?|abr(?:ir|e) lista|usa(?:r)? lista|ir para lista|renome(?:ar|ia) lista|mudar (?:o )?nome|(?:cria(?:r)? |nova |adiciona(?:r)? |usa(?:r)? )?categoria |orcamento|definir orcamento|limite |teto |sem orcamento|marca(?:r)? |desmarca(?:r)? |peguei |ja peguei |no carrinho |tira(?:r)? do carrinho |oculta(?:r)? |escond(?:er|e) |mostra(?:r)? |exib(?:ir|e) |limpa(?:r)? |exclui(?:r)? |remov(?:er|e) |apaga(?:r)? |tira(?:r)? |desist(?:ir|e) |pula(?:r)? |nao (?:vou levar|levo) |restaura(?:r)? |volta(?:r)? |mov(?:er|e) |coloca(?:r)? .+ (?:categoria|para|na|no|em) |muda(?:r)? preco|atualiza(?:r)? preco|registra(?:r)? |finaliza(?:r)? |fecha(?:r)? compra)/;
     const hasComma = /,(?=\s|$)/.test(normLine);
     let rough = normLine
       .split(/;|,(?=\s|$)|\s+(?:e\s+tamb[eé]m|e\s+mais|e\s+ainda|e\s+depois)\s+/i)
@@ -5258,7 +5246,10 @@ function parseCommandSegment(seg) {
   if ((m = /^(?:cria(?:r)?|nova)\s+lista\s+(.+)$/i.exec(cleaned))) return { type: "newList", name: m[1].trim().slice(0, 40) };
   if ((m = /^(?:troca(?:r)?(?:\s+para|\s+de)?|abr(?:ir|e)|usa(?:r)?|ir\s+para)\s+(?:a\s+)?lista\s+(.+)$/i.exec(cleaned))) return { type: "switchList", name: m[1].trim() };
   if ((m = /^(?:renome(?:ar|ia)|muda(?:r)?\s+(?:o\s+)?nome\s+da)\s+lista\s+(?:atual\s+)?(?:para|pra)\s+(.+)$/i.exec(cleaned))) return { type: "renameList", name: m[1].trim().slice(0, 40) };
-  if ((m = /^(?:cria(?:r)?|nova|adiciona(?:r)?)\s+categoria\s+(.+)$/i.exec(cleaned))) return { type: "createCat", name: m[1].trim().slice(0, 32) };
+  if ((m = /^(?:(?:cria(?:r)?|nova|adiciona(?:r)?|usa(?:r)?)\s+)?categoria\s+(.+?):?$/i.exec(cleaned))) {
+    const cname = m[1].trim().replace(/:+$/, "").trim().slice(0, 32);
+    if (cname) return { type: "createCat", name: cname };
+  }
   if (/^(?:(?:remov(?:er|e)|tira(?:r)?|limpa(?:r)?|zera(?:r)?|desativa(?:r)?)\s+(?:o\s+)?|sem\s+)(?:orcamento|limite|teto)$/i.test(n)) return { type: "budget", cents: 0 };
   if ((m = /^(?:defini(?:r|e)?\s+|muda(?:r|a)?\s+|coloca(?:r|a)?\s+|ajusta(?:r|a)?\s+|deixa(?:r|a)?\s+)?(?:o\s+)?(?:orcamento|limite|teto)(?:\s+da\s+lista)?(?:\s+de|\s+para|\s+pra|\s+em)?\s+(?:r\$\s*)?(\d+(?:[.,]\d{1,2})?)$/i.exec(n))) {
     const c = parseMoneyToken(m[1]);
@@ -5311,7 +5302,12 @@ function parseCommandSegment(seg) {
   return null;
 }
 
-function parseItemSegment(seg, ctxCat) {
+function parseItemSegment(seg, ctxCat, allowedCats) {
+  const resCat = raw => {
+    const mc = matchCatName(raw);
+    if (mc) return mc;
+    return allowedCats && allowedCats.get(norm(raw)) || null;
+  };
   let done = /^\s*(?:\[[xX]\]|☑|✅|✔)/.test(seg);
   let s = seg
     .replace(/^[-*•☐☑✅✓✔\s]+/, "")
@@ -5332,12 +5328,12 @@ function parseItemSegment(seg, ctxCat) {
 
   // Extrai hashtag explícita de categoria (#mercearia) ou [Cat] / (Cat) no fim
   s = s.replace(/\s+#([A-Za-zÀ-ÿ0-9_-]{3,28})\s*$/, (full, tag) => {
-    const mc = matchCatName(tag.replace(/[-_]/g, " "));
+    const mc = resCat(tag.replace(/[-_]/g, " "));
     if (mc) { forcedCat = mc; return " "; }
     return full;
   }).trim();
   s = s.replace(/\s*[\[(]([^\]()]{2,32})[\])]\s*$/, (full, inner) => {
-    const mc = matchCatName(inner);
+    const mc = resCat(inner);
     if (mc) { forcedCat = mc; return " "; }
     return full;
   }).trim();
@@ -5352,7 +5348,7 @@ function parseItemSegment(seg, ctxCat) {
         const mp = parseMoneyToken(col);
         if (mp !== null) { price = mp; continue; }
       }
-      const mc = matchCatName(col);
+      const mc = resCat(col);
       if (mc && !forcedCat) { forcedCat = mc; continue; }
       const mq = /^(\d+(?:[.,]\d+)?)\s*(kg|kilos?|quilos?|g|gr|gramas?|un|und|unid|unidades?|x)?$/i.exec(col);
       if (mq && qty === null) {
@@ -5372,7 +5368,7 @@ function parseItemSegment(seg, ctxCat) {
 
   // Categoria separada após " - Categoria" no fim
   s = s.replace(/\s+[-–—]\s+([A-Za-zÀ-ÿ &]{3,28})\s*$/, (full, catTail) => {
-    const mc = matchCatName(catTail);
+    const mc = resCat(catTail);
     if (mc && !forcedCat) { forcedCat = mc; return ""; }
     return full;
   }).trim();
@@ -5469,7 +5465,7 @@ function parseItemSegment(seg, ctxCat) {
   s = s.replace(/^[\-–—:|]+|[\-–—:|]+$/g, "").trim().slice(0, 120);
   if (!s) return null;
   const name = s.charAt(0).toUpperCase() + s.slice(1);
-  const info = inferItemDetails(name, forcedCat || ctxCat);
+  const info = inferItemDetails(name, forcedCat || ctxCat, allowedCats);
   const finalUnit = unit || info.unit || "un";
   const rawQty = qty !== null ? qty : 1;
   const finalQty = finalUnit === "kg" ? Math.max(.001, Math.round(rawQty * 1000) / 1000) : Math.max(1, Math.min(999, Math.round(rawQty)));
@@ -5492,16 +5488,39 @@ function parseItemSegment(seg, ctxCat) {
 function parseAssistantInput(raw) {
   const segs = splitAssistantSegments(raw);
   const actions = [];
+  const pendingCats = new Map();
   let ctxCat = null;
   for (const seg of segs) {
     const hMatch = /^(?:#{1,6}\s*|\*\*)(.+?)(?:\*\*)?:?$/.exec(seg) || /^([A-Za-zÀ-ÿ0-9 &/-]{2,32}):$/.exec(seg);
     if (hMatch) {
-      const hc = matchCatName(hMatch[1].replace(/[:*#]/g, "").trim());
+      const rawH = hMatch[1].replace(/[:*#]/g, "").trim();
+      const hc = matchCatName(rawH) || pendingCats.get(norm(rawH)) || null;
       if (hc) { ctxCat = hc; continue; }
     }
     const cmd = parseCommandSegment(seg);
-    if (cmd) { actions.push(cmd); continue; }
-    const item = parseItemSegment(seg, ctxCat);
+    if (cmd) {
+      if (cmd.type === "createCat") {
+        const key = norm(cmd.name);
+        const exactExisting = getCats().find(c => norm(c.n) === key);
+        const alreadyPending = pendingCats.get(key);
+        if (exactExisting) {
+          ctxCat = exactExisting.n;
+          actions.push({ type: "useCat", name: exactExisting.n });
+        } else if (alreadyPending) {
+          ctxCat = alreadyPending;
+          actions.push({ type: "useCat", name: alreadyPending });
+        } else {
+          pendingCats.set(key, cmd.name);
+          ctxCat = cmd.name;
+          actions.push(cmd);
+        }
+        continue;
+      }
+      if (cmd.type === "newList" || cmd.type === "switchList" || cmd.type === "clearList") ctxCat = null;
+      actions.push(cmd);
+      continue;
+    }
+    const item = parseItemSegment(seg, ctxCat, pendingCats);
     if (item) actions.push(item);
   }
   return actions;
@@ -5512,7 +5531,8 @@ function cmdPreviewMeta(act) {
     case "newList": return { title: `Criar / abrir lista “${act.name}”`, sub: "Nova lista ativa", badge: "Lista" };
     case "switchList": return { title: `Trocar para lista “${act.name}”`, sub: "Mudar lista ativa", badge: "Lista" };
     case "renameList": return { title: `Renomear lista para “${act.name}”`, sub: "Nome da lista atual", badge: "Lista" };
-    case "createCat": return { title: `Criar categoria “${act.name}”`, sub: "Nova categoria personalizada", badge: "Categoria" };
+    case "createCat": return { title: `Criar categoria “${act.name}”`, sub: "Itens abaixo entram nesta categoria", badge: "Categoria" };
+    case "useCat": return { title: `Usar categoria “${act.name}”`, sub: "Já existe · itens abaixo entram nela", badge: "Categoria" };
     case "budget": return { title: act.cents > 0 ? `Definir orçamento: ${brl(act.cents)}` : "Desativar orçamento da lista", sub: "Orçamento da lista", badge: "Orçamento" };
     case "toggleAll": return { title: act.target ? "Marcar todos os itens" : "Desmarcar todos os itens", sub: "Toda a lista", badge: "Ação" };
     case "hideDone": return { title: act.value ? "Ocultar itens marcados" : "Mostrar itens marcados", sub: "Visualização", badge: "Filtro" };
@@ -5555,8 +5575,9 @@ function renderAssistantPreview() {
     actions.slice(0, 30).map(act => {
       if (act.type === "add") {
         const cc = CAT(act.cat);
+        const catLabel = act.cat && act.cat !== "Sem categoria" ? act.cat : cc.n;
         const dup = curList.items.some(i => norm(i.name) === norm(act.name) && i.unit === act.unit);
-        const subParts = [qLabel(act.qty, act.unit), cc.n];
+        const subParts = [qLabel(act.qty, act.unit), catLabel];
         if (act.fromDb) subParts.push("do banco");
         if (act.done) subParts.push("marcado");
         if (dup) subParts.push("somar ao existente");
@@ -5599,6 +5620,8 @@ async function applyAssistantActions() {
         S.customCats.push({ n: act.name, e: "🏷️", h: Math.floor(Math.random() * 12) * 30, custom: true });
         cmdRun++;
       }
+    } else if (act.type === "useCat") {
+      if (act.name && okc(act.name)) bump(act.name, l);
     } else if (act.type === "budget") {
       l.budget = act.cents;
       cmdRun++;
@@ -5703,75 +5726,14 @@ function buildGeminiPrompt() {
   return `Gere uma lista de compras no formato exato abaixo (1 item por linha, sem texto extra antes ou depois):\nNome do item | Quantidade (un ou kg) | Categoria\n\nUse apenas estas categorias quando possível: ${cats}.\nExemplo:\nArroz 5kg | 2 un | Mercearia\nTomate Italiano | 1,5 kg | Hortifruti\n\nPedido: `;
 }
 
-// Reconhecimento de voz nativo do navegador (Web Speech API) ao lado da caixa do assistente
-let aiSpeech = null, aiRecActive = false;
-function setAiMicUI(on, msg = "", isRec = false) {
-  const b = $("aiMic"), st = $("aiMicSt");
-  if (!b || !st) return;
-  b.classList.toggle("rec", !!isRec);
-  b.setAttribute("aria-pressed", String(!!isRec));
-  st.classList.toggle("rec", !!isRec);
-  st.hidden = !msg;
-  if (msg) st.textContent = msg;
-}
-function stopAiMic() {
-  aiRecActive = false;
-  if (aiSpeech) { try { aiSpeech.stop(); } catch (e) {} }
-  setAiMicUI(false, "", false);
-}
-function toggleAiMic() {
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SR) {
-    setAiMicUI(false, "Ditado direto indisponível neste navegador — use o microfone do teclado.", false);
-    $("aiIn").focus();
-    return;
-  }
-  if (aiRecActive) { stopAiMic(); return; }
-  const baseText = $("aiIn").value.trim();
-  let finalChunk = "";
-  const rec = new SR();
-  aiSpeech = rec;
-  aiRecActive = true;
-  rec.lang = "pt-BR";
-  rec.continuous = true;
-  rec.interimResults = true;
-  setAiMicUI(true, "Ouvindo em português… fale os itens ou comandos (toque para parar)", true);
-  rec.onresult = ev => {
-    let interim = "";
-    for (let i = ev.resultIndex; i < ev.results.length; i++) {
-      const tr = (ev.results[i][0] && ev.results[i][0].transcript) || "";
-      if (ev.results[i].isFinal) finalChunk += (finalChunk ? ", " : "") + tr.trim();
-      else interim += (interim ? " " : "") + tr.trim();
-    }
-    const combined = [baseText, finalChunk, interim].filter(Boolean).join(baseText ? "\n" : ", ").replace(/,\s*\n/g, "\n");
-    $("aiIn").value = combined;
-    renderAssistantPreview();
-  };
-  rec.onerror = ev => {
-    const code = ev && ev.error;
-    const msg = code === "not-allowed" || code === "service-not-allowed"
-      ? "Permissão do microfone negada nas configurações do navegador."
-      : (code === "network" ? "Ditado por voz precisa de internet neste aparelho ou use o microfone do teclado." : "");
-    aiRecActive = false;
-    setAiMicUI(false, msg, false);
-  };
-  rec.onend = () => {
-    const wasRec = aiRecActive;
-    aiRecActive = false;
-    if (wasRec) setAiMicUI(false, "", false);
-  };
-  try { rec.start(); } catch (e) { aiRecActive = false; setAiMicUI(false, "Não foi possível iniciar o microfone.", false); }
-}
-
 function openAssistant() {
-  setAiMicUI(false, "", false);
+  const activeChip = $("aiChips").querySelector('.ai-chip[aria-pressed="true"]') || $("aiChips").querySelector("[data-ai-tpl]");
+  if (activeChip && activeChip.dataset.aiTpl) $("aiIn").placeholder = activeChip.dataset.aiTpl;
   openD("ai");
   renderAssistantPreview();
   setTimeout(() => { $("aiIn").focus(); }, 60);
 }
 $("aiBtn").onclick = openAssistant;
-$("aiMic").onclick = toggleAiMic;
-$("ai").addEventListener("close", stopAiMic);
 $("aiIn").addEventListener("input", renderAssistantPreview);
 $("aiIn").addEventListener("keydown", e => {
   if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); }
@@ -5780,9 +5742,8 @@ $("aiIn").addEventListener("keydown", e => {
 $("aiChips").addEventListener("click", e => {
   const b = e.target.closest("[data-ai-tpl]");
   if (!b) return;
-  stopAiMic();
-  $("aiIn").value = b.dataset.aiTpl;
-  renderAssistantPreview();
+  $("aiChips").querySelectorAll(".ai-chip").forEach(btn => btn.setAttribute("aria-pressed", btn === b ? "true" : "false"));
+  $("aiIn").placeholder = b.dataset.aiTpl;
   $("aiIn").focus();
 });
 $("aiCopyPrompt").onclick = async () => {
@@ -5797,7 +5758,6 @@ $("aiCopyPrompt").onclick = async () => {
   }
 };
 $("aiPaste").onclick = async () => {
-  stopAiMic();
   try {
     const t = await navigator.clipboard.readText();
     if (!t || !t.trim()) { toast("Nada copiado na área de transferência"); return; }
@@ -5810,12 +5770,11 @@ $("aiPaste").onclick = async () => {
   }
 };
 $("aiClear").onclick = () => {
-  stopAiMic();
   $("aiIn").value = "";
   renderAssistantPreview();
   $("aiIn").focus();
 };
-$("aiApply").onclick = () => { stopAiMic(); applyAssistantActions(); };
+$("aiApply").onclick = applyAssistantActions;
 
 /* =========================================================
    Início
