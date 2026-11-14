@@ -789,6 +789,10 @@ dialog label{display:block;font-size:13px;font-weight:600;color:var(--muted);mar
 .am-submit:active{transform:scale(.97)}
 :root[data-theme="dark"] .dlg-x,:root[data-theme="dark"] .am-submit{background:#232730}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .dlg-x,:root:not([data-theme="light"]) .am-submit{background:#232730}}
+#tutSeg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));height:auto;gap:4px}
+#tutSeg button{height:36px;padding:0 8px;font-size:12.5px;gap:5px;min-width:0}
+#tutSeg button svg{width:15px;height:15px}
+
 /* ---------- Aviso (toast) ---------- */
 #toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;display:flex;gap:14px;align-items:center;opacity:0;pointer-events:none;transition:.25s;z-index:30;font-size:14px;white-space:nowrap;max-width:calc(100vw - 32px);box-shadow:0 8px 24px rgba(0,0,0,.22)}
 #toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
@@ -2097,83 +2101,63 @@ const GUIDES = {
     title: "Guia rápido · Lista de compras",
     html: `
       <div class="gbox">
-        <div class="gbox-top"><span class="g-ico">${ico("home")}</span><span>1. Monte a lista com busca inteligente</span><span class="gbox-tag">Banco de produtos</span></div>
-        <p>• Ao digitar o nome do item (ex.: <i>Ab...</i>), aparece uma lista de recomendações puxada diretamente do seu <b>Banco de Produtos</b>, exibindo categoria, ícone e <b>último valor por unidade ou quilo</b>.</p>
-        <p>• O <b>preço e a categoria são opcionais</b> — itens ainda sem valor ficam destacados com um <b>filete vermelho suave na borda esquerda</b> e aviso no topo do grupo para preencher no mercado.</p>
+        <div class="gbox-top"><span class="g-ico">${ico("plus")}</span><span>1. Adicione rápido e com sugestões</span><span class="gbox-tag">Banco local</span></div>
+        <p>• Toque no <b>+</b> no fim da lista ou no <b>+</b> discreto ao final de cada categoria. Ao digitar, aparecem sugestões com ícone, cor e <b>últimos preços</b> do seu Banco de Produtos.</p>
+        <p>• Preço e categoria são opcionais. Itens com preço zerado mostram um <b>filete vermelho</b> na borda esquerda.</p>
       </div>
       <div class="gbox">
-        <div class="gbox-top"><span class="g-ico">${ico("cart")}</span><span>2. No mercado: marcar, quantidade e preços</span></div>
-        <p>• Toque na caixinha à esquerda do item para marcá-lo (<b>No carrinho</b>) com fundo listrado verde-água e risco gradual.</p>
-        <p>• Use os botões <b>− / +</b> na etiqueta do próprio card para alterar quantidades sem abrir formulários, ou toque no lápis azul para editar e consultar a <b>barra compacta com os 4 últimos valores pagos</b> por aquele produto.</p>
-        <p>• No topo, ao lado de Guia: use a <b>caixinha</b> para marcar ou desmarcar todos os itens de uma vez, a <b>lixeira</b> para limpar a lista inteira (ambos com opção de <b>Desfazer</b>) e o <b>olho</b> para ocultar/mostrar itens marcados.</p>
+        <div class="gbox-top"><span class="g-ico">${ico("cart")}</span><span>2. Cards práticos no mercado</span></div>
+        <p>• Marque a caixa à esquerda para colocar <b>No carrinho</b>. Use <b>− / +</b> na etiqueta para ajustar quantidade ou toque no <b>valor grande</b>, nome ou lápis para editar e ver os <b>4 últimos preços pagos</b>.</p>
+        <p>• Use a <b>alça superior</b> de cada categoria para marcar ou limpar apenas aquela seção, ou os 3 botões no topo da lista inteira.</p>
       </div>
       <div class="gbox">
-        <div class="gbox-top"><span class="g-ico">${ico("skip")}</span><span>3. Desistir da compra vs. Excluir</span></div>
-        <p>• <b>Botão amarelo (Desistir):</b> envia o item para o bloco separado <b>Desistência da compra</b> (listras amarelas e fora dos totais do topo), com botão verde para restaurar.</p>
-        <p>• <b>Botão vermelho (Excluir):</b> remove o item da lista (ou deslize o item para a esquerda).</p>
+        <div class="gbox-top"><span class="g-ico">${ico("skip")}</span><span>3. Desistência, Orçamento e Topo compacto</span></div>
+        <p>• <b>Amarelo (Desistir):</b> separa o item em <b>Desistência da compra</b> sem somar no total. <b>Vermelho:</b> apaga (ou deslize para a esquerda).</p>
+        <p>• Arraste ou toque na setinha do topo para minimizar o resumo e ganhar espaço — se houver <b>Orçamento</b>, a barra de progresso continua visível.</p>
       </div>
       <div class="gbox">
-        <div class="gbox-top"><span class="g-ico">${ico("tag")}</span><span>4. Categorias personalizadas e Orçamento</span></div>
-        <p>• Crie categorias com ícone e cor em <i>Escolher categoria</i>; elas ficam organizadas em <b>Suas Categorias</b> no topo (excluí-las não apaga compras salvas no Histórico).</p>
-        <p>• Toque em <b>Definir orçamento</b> no resumo ou no menu para acompanhar o limite da lista.</p>
-      </div>
-      <div class="gbox">
-        <div class="gbox-top"><span class="g-ico">${ico("checkCircle")}</span><span>5. Registrar compra no histórico</span></div>
-        <p>Ao finalizar no caixa, os itens comprados alimentam automaticamente o seu <b>Banco de Produtos</b> com seus valores por unidade/kg, mesmo que no futuro você limpe a lista ou exclua registros antigos do histórico.</p>
+        <div class="gbox-top"><span class="g-ico">${ico("checkCircle")}</span><span>4. Finalizar compra</span></div>
+        <p>Ao terminar no caixa, toque em <b>Registrar compra no histórico</b>. A compra vai para o Histórico e atualiza automaticamente seu Banco de Produtos.</p>
       </div>`
   },
   hist: {
     title: "Guia rápido · Histórico de compras",
     html: `
       <div class="gbox">
-        <div class="gbox-top"><span class="g-ico">${ico("history")}</span><span>1. Consulte e gerencie suas compras</span></div>
-        <p>Todas as compras finalizadas ficam salvas localmente por data, mostrando também se houve itens em <b>Desistência</b>. Excluir um registro aqui <b>não apaga</b> os produtos já aprendidos no seu Banco de Produtos.</p>
+        <div class="gbox-top"><span class="g-ico">${ico("history")}</span><span>1. Busca, filtros e ordenação</span></div>
+        <p>• Pesquise qualquer compra por <b>nome, data ou produto</b>. Use os atalhos abaixo da busca para ordenar por <b>Data</b> ou <b>Valor</b>, ou filtrar compras com desistência.</p>
+        <p>• Excluir registros (individualmente ou tudo pelo menu <b>···</b>) não apaga seus itens salvos no Banco de Produtos.</p>
       </div>
       <div class="gbox">
-        <div class="gbox-top"><span class="g-ico">${ico("target")}</span><span>2. Busca inteligente de preços e produtos</span></div>
-        <p>Pesquise pelo <b>nome da lista</b>, pela <b>data</b> ou por um <b>produto</b> (ex.: <i>Arroz</i>, <i>Café</i>) para rever quando comprou e quanto pagou em cada ida ao mercado.</p>
-      </div>
-      <div class="gbox">
-        <div class="gbox-top"><span class="g-ico">${ico("edit")}</span><span>3. Recibo detalhado e edição persistente</span></div>
-        <p>Ao abrir uma compra você vê o resumo em 4 indicadores (lista, itens pagos, desistências e data) e pode:</p>
-        <p>• <b>Compartilhar:</b> enviar no WhatsApp, copiar texto ou baixar Excel/CSV (considerando apenas os itens pagos).</p>
-        <p>• <b>Editar:</b> ajustar quantidades com <b>− / +</b> direto nos cards, alterar preços com apoio do histórico do item, incluir itens esquecidos, mover ou restaurar itens de <b>Desistência</b> e salvar tudo no aparelho.</p>
+        <div class="gbox-top"><span class="g-ico">${ico("edit")}</span><span>2. Recibo completo e edição</span></div>
+        <p>• Toque em uma compra para ver os totais e itens por categoria, <b>Compartilhar</b> (WhatsApp, texto ou Excel/CSV) ou tocar em <b>Editar</b> para ajustar quantidades, preços e desistências.</p>
       </div>`
   },
   prod: {
     title: "Guia rápido · Banco de produtos",
     html: `
       <div class="gbox">
-        <div class="gbox-top"><span class="g-ico">${ico("database")}</span><span>1. Catálogo independente alimentado pelas compras</span><span class="gbox-tag">Independente</span></div>
-        <p>• Cada vez que você <b>registra uma compra</b> no Histórico, os produtos comprados e seus valores por <b>un/kg</b> são salvos neste catálogo local organizado por categorias.</p>
-        <p>• O catálogo é <b>totalmente independente</b>: limpar a lista de compras ou excluir recibos do Histórico de Compras <b>não apaga</b> seus produtos nem o histórico de preços deles.</p>
+        <div class="gbox-top"><span class="g-ico">${ico("database")}</span><span>1. Catálogo independente</span><span class="gbox-tag">Sempre salvo</span></div>
+        <p>• Alimentado automaticamente quando você finaliza compras — continua intacto mesmo limpando listas ou apagando recibos do Histórico.</p>
+        <p>• Busque pelo nome, filtre (<b>Sem valor, kg, un</b>) e ordene por <b>A–Z</b> ou <b>Preço</b>.</p>
       </div>
       <div class="gbox">
-        <div class="gbox-top"><span class="g-ico">${ico("checkSquare")}</span><span>2. Criar, editar, selecionar vários e mover</span></div>
-        <p>• Crie produtos manualmente em <b>+ Novo produto</b> ou pelo botão <b>+</b> de cada categoria, edite nome/categoria/unidade ou exclua itens individuais.</p>
-        <p>• Marque as caixinhas à esquerda dos produtos (ou use <b>Selecionar todos</b>) para <b>mudar a categoria</b> ou <b>excluir vários produtos de uma só vez</b>.</p>
-      </div>
-      <div class="gbox">
-        <div class="gbox-top"><span class="g-ico">${ico("arrowUpDown")}</span><span>3. Histórico completo de valores por produto</span></div>
-        <p>• Toque em qualquer produto para abrir a ficha completa com <b>Último valor, Menor, Maior e Média</b>.</p>
-        <p>• Ordene os registros por <b>Data</b> ou <b>Valor</b> (crescente ou decrescente) e adicione, edite ou exclua valores individuais quando quiser.</p>
+        <div class="gbox-top"><span class="g-ico">${ico("checkSquare")}</span><span>2. Ficha de preços e ações em lote</span></div>
+        <p>• Toque em um produto para ver <b>Último, Menor, Maior e Média</b> e adicionar ou editar registros antigos.</p>
+        <p>• Marque vários itens (ou <b>Selecionar todos</b>) para mudar a categoria ou excluir em lote. Para limpar tudo, abra o menu <b>···</b>.</p>
       </div>`
   },
   rep: {
     title: "Guia rápido · Relatórios de gastos",
     html: `
       <div class="gbox">
-        <div class="gbox-top"><span class="g-ico">${ico("chart")}</span><span>1. Gráfico de evolução (Valor × Data)</span></div>
-        <p>Os valores consideram somente o <b>total pago</b> (itens em desistência ficam fora da soma). <b>Toque em qualquer barra</b> do gráfico para inspecionar a compra correspondente.</p>
+        <div class="gbox-top"><span class="g-ico">${ico("chart")}</span><span>1. Gráfico comparativo com variação</span></div>
+        <p>• Mostra apenas o <b>total pago</b> (fora desistências). Cada barra exibe o valor exato e, entre uma compra e outra, aparece a <b>diferença (+ / −)</b> e a tendência.</p>
+        <p>• Deslize o gráfico horizontalmente quando tiver várias compras e toque em qualquer barra para ver detalhes.</p>
       </div>
       <div class="gbox">
-        <div class="gbox-top"><span class="g-ico">${ico("calendar")}</span><span>2. Filtros por período e categoria</span></div>
-        <p>• Alterne entre <b>30 dias, 2 meses, 3 meses, 6 meses, 1 ano</b> ou <b>Tudo</b>.</p>
-        <p>• Filtre por categoria (incluindo categorias personalizadas antigas já excluídas das listas, mantendo seu histórico fiel).</p>
-      </div>
-      <div class="gbox">
-        <div class="gbox-top"><span class="g-ico">${ico("trophy")}</span><span>3. Ranking de gastos por categoria</span></div>
-        <p>Acompanhe quanto cada seção representou no orçamento do período. Tocar em uma categoria do ranking filtra imediatamente as compras que tiveram itens dela.</p>
+        <div class="gbox-top"><span class="g-ico">${ico("trophy")}</span><span>2. Filtros, ranking e exportar imagem</span></div>
+        <p>• Combine períodos (30 dias até Tudo) com qualquer categoria do ranking. Pelo menu <b>···</b>, gere e compartilhe ou baixe uma <b>imagem do gráfico</b>.</p>
       </div>`
   }
 };

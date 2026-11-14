@@ -1,5 +1,5 @@
 // Troque a versão sempre que mudar fontes, ícones ou a biblioteca
-const V = "compras-v19";
+const V = "compras-v22";
 
 // Arquivos guardados na instalação. A biblioteca do Excel (xlsx.full.min.js, ~880 KB)
 // NÃO entra aqui: é baixada e guardada só quando o usuário exporta a primeira planilha.
