@@ -314,8 +314,8 @@ main>.wrap:not([hidden]){animation:viewIn .26s cubic-bezier(.22,1,.36,1)}
 .row{position:relative;z-index:1;display:flex;align-items:center;gap:6px;padding:7px 8px;min-height:58px;background:var(--surface);touch-action:pan-y;transition:transform .22s cubic-bezier(.22,1,.36,1)}
 .sw.drag .row{transition:none}
 .sw.open .row{transform:translateX(calc(-1 * var(--sw-w,182px)))}
-/* Fundo listrado: verde-água nos itens marcados e amarelo nos itens em desistência */
-.row::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity .4s ease;background:repeating-linear-gradient(-45deg,color-mix(in srgb,var(--ink) 3%,#3ecfae2e) 0 8px,#0000 8px 16px)}
+/* Fundo listrado na cor da categoria nos itens marcados e âmbar nos itens em desistência */
+.row::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity .4s ease;background:repeating-linear-gradient(-45deg,color-mix(in srgb,var(--ink) 3%,hsl(var(--h,210) 72% 54% / .19)) 0 8px,#0000 8px 16px)}
 .row.done::before{opacity:1}
 .card.skip-card .row::before{opacity:1;background:repeating-linear-gradient(-45deg,color-mix(in srgb,var(--ink) 3%,#f59e0b36) 0 8px,#0000 8px 16px)}
 .row.just-added{animation:rowIn .34s cubic-bezier(.22,1,.36,1)}
