@@ -36,7 +36,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{display:block!important;op
 .wrap{max-width:640px;margin:0 auto;padding:0 16px}
 
 /* ---------- Cabeçalho e Navegação (Estilo Uiverse Dock) ---------- */
-header{flex:none;background:var(--bg);padding:6px 0 8px}
+header{flex:none;background:var(--bg);padding:6px 0 4px;touch-action:none;user-select:none}
 .nav-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
 .nav{flex:1;min-width:0;display:flex;align-items:center;justify-content:space-around;height:40px;margin:0;padding:0 10px;border-radius:14px;background:var(--surface);box-shadow:0 6px 16px rgba(0,0,0,.07);border:1px solid var(--line)}
 .nav-menu-btn{width:40px;height:40px;flex:none;border-radius:14px;background:var(--surface);border:1px solid var(--line);box-shadow:0 6px 16px rgba(0,0,0,.07)}
@@ -102,9 +102,9 @@ header.hdr-min.hdr-has-back .top{margin-bottom:5px}
 header.hdr-min:not(.hdr-has-bud) .sum-card-wrap{grid-template-rows:0fr;opacity:0;pointer-events:none}
 header.hdr-min.hdr-has-bud .sum-card{padding:7px 11px}
 header.hdr-min.hdr-has-bud .bud{margin-top:0;padding-top:0;border-top:0}
-.hdr-handle{display:flex;align-items:center;justify-content:center;width:100%;height:20px;margin-top:2px;color:var(--muted);cursor:pointer;touch-action:none;padding:0;transition:color .18s ease}
+.hdr-handle{display:flex;align-items:center;justify-content:center;width:100%;height:26px;margin-top:2px;color:var(--muted);cursor:pointer;touch-action:none;padding:0;transition:color .18s ease}
 .hdr-handle:hover{color:var(--ink)}
-.hdr-handle svg{width:18px;height:18px;transition:transform .25s ease}
+.hdr-handle svg{width:19px;height:19px;transition:transform .25s ease}
 header.hdr-min .hdr-handle svg{transform:rotate(180deg)}
 
 .sum-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:10px 12px;box-shadow:0 4px 14px rgba(0,0,0,.05)}
@@ -279,43 +279,78 @@ main>.wrap:not([hidden]){animation:viewIn .26s cubic-bezier(.22,1,.36,1)}
 .cat-acts-row + .card{border-top-left-radius:0}
 :root[data-theme="dark"] .card{box-shadow:0 2px 10px rgba(0,0,0,.35)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .card{box-shadow:0 2px 10px rgba(0,0,0,.35)}}
-.sw{position:relative;overflow:hidden;background:var(--surface)}
+.sw{position:relative;overflow:hidden;background:var(--surface);--sw-w:139px}
+.sw[data-sw="2"]{--sw-w:94px}
+.sw[data-sw="3"]{--sw-w:139px}
 .sw:not(:last-child){margin-bottom:3px}
 .sw:not(:last-child)::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;z-index:2;pointer-events:none;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--bg) 85%,var(--line)) 10%,color-mix(in srgb,var(--bg) 85%,var(--line)) 90%,transparent)}
-.sw.drag{background:#dc2626}
-.bin{position:absolute;right:22px;top:50%;width:22px;height:22px;margin-top:-11px;color:#fff;opacity:0;pointer-events:none;transition:opacity .15s}
-.sw.drag .bin{opacity:1}
-.bin svg{width:100%;height:100%}
-.row{position:relative;z-index:1;display:flex;align-items:center;gap:6px;padding:8px 8px 8px 6px;min-height:62px;background:var(--surface);touch-action:pan-y}
+.sw-tray{position:absolute;top:0;right:0;bottom:0;z-index:0;display:flex;align-items:stretch;gap:4px;padding:4px;visibility:hidden;pointer-events:none}
+.sw.drag .sw-tray,.sw.open .sw-tray{visibility:visible;pointer-events:auto}
+.sw-act{width:41px;flex:none;display:inline-flex;align-items:center;justify-content:center;border-radius:10px;border:1px solid color-mix(in srgb,var(--line) 85%,transparent);outline:none;padding:0;margin:0;background:var(--g1);box-shadow:0 1px 4px rgba(0,0,0,.06);cursor:pointer;transition:all .2s ease}
+.sw-act svg{width:16px;height:16px;display:block;flex:none}
+.sw-act.ed-b{color:#2563eb}
+.sw-act.sk-b{color:#d97706}
+.sw-act.rs-b{color:#059669}
+.sw-act.rm-b{color:#dc2626}
+.sw-act.ed-b:hover{background:#2563eb;color:#fff;border-color:#2563eb}
+.sw-act.sk-b:hover{background:#f59e0b;color:#fff;border-color:#f59e0b}
+.sw-act.rs-b:hover{background:#10b981;color:#fff;border-color:#10b981}
+.sw-act.rm-b:hover{background:#ef4444;color:#fff;border-color:#ef4444}
+.sw-act:active{transform:scale(.94)}
+:root[data-theme="dark"] .sw-act:not(:hover){background:#232730;border-color:rgba(255,255,255,.06);box-shadow:0 2px 6px rgba(0,0,0,.35)}
+:root[data-theme="dark"] .sw-act.ed-b:not(:hover){color:#60a5fa}
+:root[data-theme="dark"] .sw-act.sk-b:not(:hover){color:#fbbf24}
+:root[data-theme="dark"] .sw-act.rs-b:not(:hover){color:#34d399}
+:root[data-theme="dark"] .sw-act.rm-b:not(:hover){color:#f87171}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .sw-act:not(:hover){background:#232730;border-color:rgba(255,255,255,.06);box-shadow:0 2px 6px rgba(0,0,0,.35)}
+  :root:not([data-theme="light"]) .sw-act.ed-b:not(:hover){color:#60a5fa}
+  :root:not([data-theme="light"]) .sw-act.sk-b:not(:hover){color:#fbbf24}
+  :root:not([data-theme="light"]) .sw-act.rs-b:not(:hover){color:#34d399}
+  :root:not([data-theme="light"]) .sw-act.rm-b:not(:hover){color:#f87171}
+}
+.row{position:relative;z-index:1;display:flex;align-items:center;gap:6px;padding:7px 8px;min-height:58px;background:var(--surface);touch-action:pan-y;transition:transform .22s cubic-bezier(.22,1,.36,1)}
+.sw.drag .row{transition:none}
+.sw.open .row{transform:translateX(calc(-1 * var(--sw-w,139px)))}
 /* Fundo listrado: verde-água nos itens marcados e amarelo nos itens em desistência */
 .row::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity .4s ease;background:repeating-linear-gradient(-45deg,color-mix(in srgb,var(--ink) 3%,#3ecfae2e) 0 8px,#0000 8px 16px)}
 .row.done::before{opacity:1}
 .card.skip-card .row::before{opacity:1;background:repeating-linear-gradient(-45deg,color-mix(in srgb,var(--ink) 3%,#f59e0b36) 0 8px,#0000 8px 16px)}
 .row.just-added{animation:rowIn .34s cubic-bezier(.22,1,.36,1)}
-.row.ro{padding:8px 14px;touch-action:auto}
+.row.ro{padding:8px 10px;touch-action:auto}
 /* Item sem valor: filete vermelho suave na lateral (mesma cor do preço) */
 .row.zero::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--zr);opacity:.85;pointer-events:none}
 
 /* Checkbox SVG Animado (SelfMadeSystem do design.txt) */
-.chk{width:40px;height:44px;flex:none;display:grid;place-items:center;cursor:pointer;padding:0}
+.chk{width:38px;height:40px;flex:none;display:grid;place-items:center;cursor:pointer;padding:0}
 .chk svg{width:22px;height:22px;overflow:visible;display:block;transition:transform .2s ease}
 .chk:hover svg{transform:scale(1.08)}
 .chk:active svg{transform:scale(.9)}
 .chk .path{fill:none;stroke:color-mix(in srgb,var(--ink) 34%,transparent);stroke-width:6.5;stroke-linecap:round;stroke-linejoin:round;transition:stroke-dasharray .45s cubic-bezier(.22,1,.36,1),stroke-dashoffset .45s cubic-bezier(.22,1,.36,1),stroke .3s ease;stroke-dasharray:241 9999999;stroke-dashoffset:0}
 .done .chk .path,.chk[aria-pressed="true"] .path{stroke:var(--accent);stroke-dasharray:70.5096664428711 9999999;stroke-dashoffset:-262.2723388671875}
 
-/* Nome e valor do item com risco gradual da esquerda para a direita (linha desenhada por pseudo-elemento) */
-.info{flex:1;min-width:0;text-align:left;padding:6px 0;display:flex;flex-direction:column;align-items:flex-start;cursor:pointer}
-.info .name{position:relative;display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700;font-size:15px;margin-bottom:4px;transition:color .35s ease}
-.row.list-row{padding:10px 10px 10px 6px;gap:6px;align-items:flex-start}
-.row.list-row .chk{margin-top:4px}
-.row.list-row .skip-ico{margin-top:8px}
-.row.list-row .info{padding:2px 0;gap:7px;width:100%;cursor:default}
-.row.list-row .info .name{white-space:normal;overflow:visible;text-overflow:clip;word-break:break-word;line-height:1.28;margin-bottom:0;font-size:15.5px;cursor:pointer}
-.row-l1{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%}
-.row-l2{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;width:100%;margin-top:1px}
-.row-tags{flex:1;min-width:0;display:flex;flex-wrap:wrap;align-items:center;gap:4px;min-height:28px;align-content:center}
-.row.list-row .row-acts{margin-left:auto;flex:none}
+/* Cards compactos em 2 linhas minimalistas (Ideia 2) + gaveta lateral de ações */
+.info{flex:1;min-width:0;text-align:left;padding:0;display:flex;flex-direction:column;align-items:flex-start;cursor:pointer}
+.info .name{position:relative;display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700;font-size:14.5px;margin-bottom:4px;transition:color .35s ease}
+.row.list-row{padding:8px 8px 8px 6px;gap:6px;align-items:center}
+.row.list-row .chk{margin:0}
+.row.list-row .skip-ico{margin:0 2px}
+.row.list-row .info{padding:0;gap:5px;width:100%;cursor:default}
+.row-top{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;min-width:0}
+.row-top-r{display:inline-flex;align-items:center;gap:3px;flex:none}
+.row.list-row .info .name{flex:1;min-width:0;white-space:normal;overflow:visible;text-overflow:clip;word-break:break-word;line-height:1.24;margin-bottom:0;font-size:14.5px;cursor:pointer}
+.row.ro .info .name{cursor:default}
+.row-sub{display:flex;align-items:center;gap:8px;flex-wrap:wrap;width:100%;min-height:24px}
+.row-meta{flex:1;min-width:0;display:flex;align-items:center;flex-wrap:wrap;gap:3px 6px;font-size:12px;font-weight:600;color:var(--muted);line-height:1.25;font-variant-numeric:tabular-nums}
+.rm-sep{opacity:.5;font-weight:700}
+.rm-zero{color:var(--zr);font-weight:700}
+.done .row-meta{opacity:.72}
+.sw-kebab{width:24px;height:30px;border-radius:8px;border:none;outline:none;background:transparent;color:var(--muted);display:inline-grid;place-items:center;padding:0;flex:none;cursor:pointer;transition:background .15s ease,color .15s ease}
+.sw-kebab svg{width:15px;height:15px;display:block}
+.sw-kebab:hover,.sw.open .sw-kebab{background:var(--bg);color:var(--ink)}
+.sw.open .sw-kebab{color:var(--accent)}
+:root[data-theme="dark"] .sw-kebab:hover,:root[data-theme="dark"] .sw.open .sw-kebab{background:#232730}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .sw-kebab:hover,:root:not([data-theme="light"]) .sw.open .sw-kebab{background:#232730}}
 .info .name::after,.line::after{content:"";position:absolute;left:0;right:0;top:52%;height:2px;margin-top:-1px;border-radius:2px;background:currentColor;transform:scaleX(0);transform-origin:left center;transition:transform .5s cubic-bezier(.65,0,.35,1);pointer-events:none}
 .line::after{left:8px;right:8px;transition-delay:.12s}
 .done .info .name,.card.skip-card .name{color:var(--muted)}
@@ -333,8 +368,8 @@ main>.wrap:not([hidden]){animation:viewIn .26s cubic-bezier(.22,1,.36,1)}
   :root:not([data-theme="light"]) .p-unit{background:#2e204c;color:#c4b5fd}
   :root:not([data-theme="light"]) .p-zero{background:#3a2e12;color:#fcd34d}
 }
-.pd{display:inline-flex;align-items:center;gap:2px;padding:2px 6px;border-radius:7px;font-size:11px;font-weight:800;line-height:1.35}
-.pd svg{width:12px;height:12px;flex:none}
+.pd{display:inline-flex;align-items:center;gap:2px;padding:1px 6px;border-radius:6px;font-size:11px;font-weight:800;line-height:1.35}
+.pd svg{width:11px;height:11px;flex:none}
 .pd.up{color:#c2410c;background:#ffedd5}
 .pd.dn{color:#047857;background:#dcfce7}
 :root[data-theme="dark"] .pd.up{color:#fdba74;background:#3b2110}
@@ -343,51 +378,34 @@ main>.wrap:not([hidden]){animation:viewIn .26s cubic-bezier(.22,1,.36,1)}
   :root:not([data-theme="light"]) .pd.up{color:#fdba74;background:#3b2110}
   :root:not([data-theme="light"]) .pd.dn{color:#6ee7b7;background:#123127}
 }
-.line{position:relative;height:34px;padding:0 10px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap;background:var(--bg);color:var(--accent);border:none;outline:none;box-shadow:0 2px 6px rgba(0,0,0,.08);transition:all .25s ease;flex:none;cursor:pointer}
-.line.line-lg{height:auto;min-height:42px;padding:5px 15px;border-radius:12px;font-size:19px;font-weight:800;letter-spacing:-.02em}
-.line:hover{background:var(--accent);color:var(--accent-ink);box-shadow:0 6px 14px rgba(16,185,129,.35);transform:translateY(-2px)}
+.line{position:relative;height:30px;padding:0 10px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;font-size:13.5px;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap;background:var(--bg);color:var(--accent);border:none;outline:none;box-shadow:0 1px 4px rgba(0,0,0,.08);transition:all .22s ease;flex:none;cursor:pointer}
+.line.line-lg{height:31px;min-height:31px;padding:0 10px;border-radius:9px;font-size:14.5px;font-weight:800;letter-spacing:-.02em}
+.line:hover{background:var(--accent);color:var(--accent-ink);box-shadow:0 6px 14px rgba(16,185,129,.35);transform:translateY(-1px)}
 .line:active{transform:translateY(0) scale(.94)}
+.row.ro .line{cursor:default}
+.row.ro .line:hover{background:var(--bg);color:var(--accent);box-shadow:0 1px 4px rgba(0,0,0,.08);transform:none}
 .line.zero-line{color:var(--zr)}
 .line.zero-line:hover{background:var(--zr);color:#fff;box-shadow:0 6px 14px rgba(229,83,75,.32)}
-:root[data-theme="dark"] .line:not(:hover){background:#232730;box-shadow:0 2px 6px rgba(0,0,0,.4)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .line:not(:hover){background:#232730;box-shadow:0 2px 6px rgba(0,0,0,.4)}}
+:root[data-theme="dark"] .line:not(:hover),:root[data-theme="dark"] .row.ro .line{background:#232730;box-shadow:0 2px 6px rgba(0,0,0,.4)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .line:not(:hover),:root:not([data-theme="light"]) .row.ro .line{background:#232730;box-shadow:0 2px 6px rgba(0,0,0,.4)}}
 .done .line{opacity:.7}
 .done .pills{opacity:.7}
 /* Botões de + e − da quantidade direto no card */
-.p-qty.qs{padding:3px 5px;gap:7px;font-size:12.5px}
-.qb{width:26px;height:24px;border-radius:7px;border:none;outline:none;padding:0;display:grid;place-items:center;color:inherit;background:color-mix(in srgb,var(--surface) 75%,transparent);box-shadow:0 1px 3px rgba(0,0,0,.1);cursor:pointer;transition:all .2s ease}
-.qb svg{width:14px;height:14px;display:block}
+.p-qty.qs{padding:2px 4px;gap:5px;font-size:12px;border-radius:7px}
+.qb{width:22px;height:21px;border-radius:6px;border:none;outline:none;padding:0;display:grid;place-items:center;color:inherit;background:color-mix(in srgb,var(--surface) 75%,transparent);box-shadow:0 1px 2px rgba(0,0,0,.1);cursor:pointer;transition:all .2s ease}
+.qb svg{width:12px;height:12px;display:block}
 .qb:hover{background:currentColor;box-shadow:0 3px 8px rgba(37,99,235,.3);transform:translateY(-1px)}
 .qb:hover svg{color:var(--surface)}
 .qb:active{transform:scale(.88)}
 .qb:disabled{opacity:.35;pointer-events:none}
-.qs output{min-width:34px;text-align:center;font-size:13px;font-weight:800}
+.qs output{min-width:26px;text-align:center;font-size:12.5px;font-weight:800}
 .qs.bump output{animation:qBump .3s ease}
 @keyframes qBump{0%{transform:scale(1)}40%{transform:scale(1.25)}100%{transform:scale(1)}}
-.row-acts{display:inline-flex;align-items:center;gap:6px;flex:none;margin-left:2px}
-.act-b,.rm{width:34px;height:34px;flex:none;display:inline-flex;align-items:center;justify-content:center;border-radius:10px;border:none;outline:none;background:var(--bg);box-shadow:0 2px 6px rgba(0,0,0,.08);transition:all .25s ease;cursor:pointer;padding:0}
-.act-b svg,.rm svg{width:16px;height:16px;display:block;flex:none;transition:transform .2s ease}
-.act-b.ed-b{color:#2563eb}
-.act-b.sk-b{color:#d97706}
-.act-b.rs-b{color:#059669}
-.act-b.rm-b,.rm{color:#dc2626}
-.act-b.ed-b:hover{background:#2563eb;color:#fff;box-shadow:0 6px 14px rgba(37,99,235,.35);transform:translateY(-2px)}
-.act-b.sk-b:hover{background:#f59e0b;color:#fff;box-shadow:0 6px 14px rgba(245,158,11,.35);transform:translateY(-2px)}
-.act-b.rs-b:hover{background:#10b981;color:#fff;box-shadow:0 6px 14px rgba(16,185,129,.35);transform:translateY(-2px)}
+.act-b,.rm{width:34px;height:34px;flex:none;display:inline-flex;align-items:center;justify-content:center;border-radius:10px;border:none;outline:none;background:var(--bg);color:#dc2626;box-shadow:0 2px 6px rgba(0,0,0,.08);transition:all .25s ease;cursor:pointer;padding:0}
+.act-b svg,.rm svg{width:16px;height:16px;display:block;flex:none}
 .act-b.rm-b:hover,.rm:hover{background:#ef4444;color:#fff;box-shadow:0 6px 14px rgba(239,68,68,.35);transform:translateY(-2px)}
-.act-b:active,.rm:active{transform:translateY(0) scale(.93);box-shadow:0 2px 4px rgba(0,0,0,.15)}
-:root[data-theme="dark"] .act-b:not(:hover),:root[data-theme="dark"] .rm:not(:hover){background:#232730;box-shadow:0 2px 6px rgba(0,0,0,.4)}
-:root[data-theme="dark"] .act-b.ed-b:not(:hover){color:#60a5fa}
-:root[data-theme="dark"] .act-b.sk-b:not(:hover){color:#fbbf24}
-:root[data-theme="dark"] .act-b.rs-b:not(:hover){color:#34d399}
-:root[data-theme="dark"] .act-b.rm-b:not(:hover),:root[data-theme="dark"] .rm:not(:hover){color:#f87171}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]) .act-b:not(:hover),:root:not([data-theme="light"]) .rm:not(:hover){background:#232730;box-shadow:0 2px 6px rgba(0,0,0,.4)}
-  :root:not([data-theme="light"]) .act-b.ed-b:not(:hover){color:#60a5fa}
-  :root:not([data-theme="light"]) .act-b.sk-b:not(:hover){color:#fbbf24}
-  :root:not([data-theme="light"]) .act-b.rs-b:not(:hover){color:#34d399}
-  :root:not([data-theme="light"]) .act-b.rm-b:not(:hover),:root:not([data-theme="light"]) .rm:not(:hover){color:#f87171}
-}
+:root[data-theme="dark"] .act-b:not(:hover),:root[data-theme="dark"] .rm:not(:hover){background:#232730;box-shadow:0 2px 6px rgba(0,0,0,.4);color:#f87171}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .act-b:not(:hover),:root:not([data-theme="light"]) .rm:not(:hover){background:#232730;box-shadow:0 2px 6px rgba(0,0,0,.4);color:#f87171}}
 /* Grupo de Desistência da compra */
 .skip-sep{margin:24px 0 0;border-top:2px dashed var(--line)}
 .skip-sep + .grp.skip-grp{margin-top:14px}
@@ -450,9 +468,12 @@ main>.wrap:not([hidden]){animation:viewIn .26s cubic-bezier(.22,1,.36,1)}
 .hc-arr svg{width:13px;height:13px}
 
 .hbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px}
-.hacts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.hacts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px}
 .hacts.two{grid-template-columns:1fr 1.3fr}
-.hacts button{height:42px;padding:0 10px;border-radius:12px;font-weight:700;font-size:13.5px;white-space:nowrap;background:var(--surface);border:none;box-shadow:0 2px 6px rgba(0,0,0,.08);display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:all .22s ease}
+.hacts.prod-acts{display:flex;align-items:center;gap:8px}
+.hacts.prod-acts button{flex:1 1 0;min-width:0}
+.hacts.prod-acts .del{flex:none;width:44px;padding:0}
+.hacts button{min-width:0;height:42px;padding:0 10px;border-radius:12px;font-weight:700;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:var(--surface);border:none;box-shadow:0 2px 6px rgba(0,0,0,.08);display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:all .22s ease}
 .hacts button:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.12)}
 .hacts button:active{transform:translateY(0) scale(.97)}
 .hacts button svg{width:16px;height:16px;flex:none}
@@ -460,10 +481,19 @@ main>.wrap:not([hidden]){animation:viewIn .26s cubic-bezier(.22,1,.36,1)}
 .hacts .pri:hover{box-shadow:0 6px 16px rgba(16,185,129,.42)}
 .hacts .del{color:#dc2626}
 .hacts .del:hover{background:#ef4444;color:#fff;box-shadow:0 6px 14px rgba(239,68,68,.35)}
-:root[data-theme="dark"] .hacts button:not(.pri):not(:hover){background:#232730;box-shadow:0 2px 6px rgba(0,0,0,.4)}
+.rgb-btn{--rgb-bg:var(--g1)!important;color:var(--ink)!important;font-weight:800!important;border:1.5px solid transparent!important;background-color:var(--rgb-bg)!important;background-image:linear-gradient(var(--rgb-bg),var(--rgb-bg)),linear-gradient(135deg,#a855f7,#f97316,#06b6d4,#ef4444)!important;background-origin:border-box!important;background-clip:padding-box,border-box!important;box-shadow:0 3px 10px rgba(0,0,0,.08)!important}
+.rgb-btn svg{color:var(--accent)}
+.rgb-btn:hover{color:var(--ink)!important;box-shadow:0 6px 16px rgba(0,0,0,.13)!important;transform:translateY(-1px)}
+:root[data-theme="dark"] .rgb-btn{--rgb-bg:#232730!important;color:#fff!important;box-shadow:0 4px 12px rgba(0,0,0,.38)!important}
+:root[data-theme="dark"] .rgb-btn:hover{color:#fff!important}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .rgb-btn{--rgb-bg:#232730!important;color:#fff!important;box-shadow:0 4px 12px rgba(0,0,0,.38)!important}
+  :root:not([data-theme="light"]) .rgb-btn:hover{color:#fff!important}
+}
+:root[data-theme="dark"] .hacts button:not(.pri):not(.rgb-btn):not(:hover){background:#232730;box-shadow:0 2px 6px rgba(0,0,0,.4)}
 :root[data-theme="dark"] .hacts .del:not(:hover){color:#f87171}
 @media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]) .hacts button:not(.pri):not(:hover){background:#232730;box-shadow:0 2px 6px rgba(0,0,0,.4)}
+  :root:not([data-theme="light"]) .hacts button:not(.pri):not(.rgb-btn):not(:hover){background:#232730;box-shadow:0 2px 6px rgba(0,0,0,.4)}
   :root:not([data-theme="light"]) .hacts .del:not(:hover){color:#f87171}
 }
 .ed-banner{margin-top:14px;padding:12px 14px;border-radius:16px;background:var(--surface);border:1px solid var(--line);box-shadow:0 4px 14px rgba(0,0,0,.06)}
@@ -678,17 +708,22 @@ dialog label{display:block;font-size:13px;font-weight:600;color:var(--muted);mar
 :root[data-theme="dark"] .ac-p,:root[data-theme="dark"] .ac-cnt{background:#1a1d1f}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ac-p,:root:not([data-theme="light"]) .ac-cnt{background:#1a1d1f}}
 /* Histórico minimalista de 1 linha na edição do item (até 4 últimos valores) */
-.ed-ph{display:flex;align-items:center;gap:6px;margin-top:7px;padding:5px 8px;border-radius:10px;background:var(--bg);border:1px solid var(--line);overflow-x:auto;white-space:nowrap}
+.ed-ph{display:flex;flex-direction:column;gap:6px;margin-top:7px;padding:7px 9px;border-radius:10px;background:var(--bg);border:1px solid var(--line)}
 .ed-ph[hidden]{display:none!important}
+.ed-ph-row{display:flex;align-items:center;gap:6px;min-width:0}
 .ed-ph-lbl{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;color:var(--muted);flex:none}
 .ed-ph-lbl svg{width:12px;height:12px;color:var(--accent);flex:none}
-.ed-ph-list{display:inline-flex;align-items:center;gap:5px;flex:1;min-width:0}
+.ed-ph-list{display:flex;align-items:center;gap:5px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none}
+.ed-ph-list::-webkit-scrollbar{display:none}
 .ed-ph-chip{flex:none;display:inline-flex;align-items:baseline;gap:4px;padding:3px 7px;border-radius:7px;background:var(--surface);border:1px solid var(--line);font-variant-numeric:tabular-nums;transition:all .16s ease}
 .ed-ph-chip:hover{border-color:var(--accent);background:var(--soft);transform:translateY(-1px)}
 :root[data-theme="dark"] .ed-ph-chip:not(:hover){background:#232730}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ed-ph-chip:not(:hover){background:#232730}}
 .ed-ph-v{font-size:11.5px;font-weight:800;color:var(--accent);white-space:nowrap}
 .ed-ph-d{font-size:10px;font-weight:600;color:var(--muted);white-space:nowrap}
+.ed-ph-diff{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:5px;border-top:1px dashed var(--line);font-size:11px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums}
+.ed-ph-ref{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ed-ph-ref b{color:var(--ink);font-weight:700}
 /* Banco de Dados de Produtos (#vProd) e Filtros/Ordenação */
 .pdb-bar{display:flex;align-items:center;gap:8px;margin-bottom:8px}
 .pdb-bar .h-search-w{flex:1 1 0;min-width:0;margin:0}
@@ -763,6 +798,10 @@ dialog label{display:block;font-size:13px;font-weight:600;color:var(--muted);mar
 .hue-b.on{border-color:var(--ink);transform:scale(1.1)}
 .opt em{margin-left:auto;flex:none;font-style:normal;color:var(--muted);font-weight:600;font-size:13.5px;font-variant-numeric:tabular-nums}
 .lst{max-height:min(60vh,420px);overflow-y:auto;padding:2px}
+#tut[open]{display:flex;flex-direction:column;max-height:min(86dvh,700px);overflow:hidden}
+#tut .dlg-hd,#tut #tutSeg,#tut .acts{flex:none}
+#tut #tutBody{flex:1;min-height:0;max-height:none;overflow-y:auto;overscroll-behavior:contain;padding:2px 2px 6px}
+#tut .acts{margin-top:12px}
 .gbox{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:10px;text-align:left;box-shadow:0 2px 6px rgba(0,0,0,.04);transition:border-color .15s,background .15s}
 .gbox-top{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;color:var(--ink);margin-bottom:6px}
 .gbox-top .g-ico{width:26px;height:26px;border-radius:8px;background:var(--soft);color:var(--accent);display:inline-grid;place-items:center;flex:none}
@@ -837,7 +876,7 @@ dialog label{display:block;font-size:13px;font-weight:600;color:var(--muted);mar
 /* ---------- Ajustes de tela ---------- */
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 @media (min-width:700px){.total,.bud-trig-v{font-size:36px}}
-@media (max-width:370px){.wrap{padding:0 12px}.total,.bud-trig-v{font-size:24px}.add{padding:0 14px}.row{gap:5px}.row-acts{gap:5px}.act-b{width:31px;height:31px}.line.line-lg{font-size:16.5px;min-height:38px;padding:4px 11px}.qw>*{width:100px}.step button{width:34px}}
+@media (max-width:370px){.wrap{padding:0 12px}.total,.bud-trig-v{font-size:24px}.add{padding:0 14px}.row{gap:5px}.row.list-row{padding:7px 6px 7px 4px;gap:4px}.sw-act{width:37px}.sw[data-sw="2"]{--sw-w:86px}.sw[data-sw="3"]{--sw-w:127px}.line.line-lg{font-size:13.5px;height:29px;min-height:29px;padding:0 8px}.hacts{gap:6px}.hacts button{font-size:12.5px;padding:0 7px}.hacts.prod-acts .del{width:40px}.qw>*{width:100px}.step button{width:34px}}
 /* teclado aberto ou tela baixa: cabeçalho compacto para sobrar espaço para a lista */
 @media (max-height:520px){header{padding:4px 0}.nav{height:36px}.nav-menu-btn{width:36px;height:36px}.nav-row{margin-bottom:4px}.top{margin-bottom:3px}.lsb{height:28px}.sum-card{padding:6px 10px}.total,.bud-trig-v{font-size:22px}.sum-grid,.sum-foot,.inst,.bud p{display:none}.bud{margin-top:4px;padding-top:4px}.grp{margin-top:10px}}
 </style>
@@ -1050,7 +1089,7 @@ dialog label{display:block;font-size:13px;font-weight:600;color:var(--muted);mar
     <button id="mDelAllHist" class="w" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg><span>Excluir todos os registros</span></button>
     <button id="mDelAllProd" class="w" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg><span>Excluir todos os produtos</span></button>
   </div>
-  <div class="acts"><button class="pri" id="mnOk">Pronto</button></div>
+  <div class="acts"><button class="pri rgb-btn" id="mnOk">Pronto</button></div>
 </dialog>
 
 <dialog id="ls">
@@ -1145,7 +1184,7 @@ dialog label{display:block;font-size:13px;font-weight:600;color:var(--muted);mar
     <button type="button" data-gt="rep"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg><span>Relatórios</span></button>
   </div>
   <div class="lst" id="tutBody"></div>
-  <div class="acts"><button type="button" class="pri" id="tutOk">Entendi</button></div>
+  <div class="acts"><button type="button" class="pri rgb-btn" id="tutOk">Entendi</button></div>
 </dialog>
 
 <dialog id="cp"><div class="dlg-hd"><h3 tabindex="-1" autofocus id="cpTitle">Escolher categoria</h3><button type="button" class="dlg-x" data-dlg-close aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div><div class="lst" id="cpl"></div></dialog>
@@ -2089,7 +2128,7 @@ document.addEventListener("click", e => {
     if (d && d.open) d.close();
   }
 });
-// Minimizar / expandir o painel do cabeçalho por toque ou arraste vertical
+// Minimizar / expandir o painel do cabeçalho por toque na seta ou arraste vertical em qualquer área do topo
 (function initHdrToggle() {
   const hdr = $("appHdr"), hdl = $("hdrHandle");
   if (!hdr || !hdl) return;
@@ -2099,30 +2138,33 @@ document.addEventListener("click", e => {
     hdl.setAttribute("aria-label", min ? "Expandir painel do topo" : "Minimizar painel do topo");
   };
   let drag = null, skipClick = false;
+  hdr.addEventListener("click", e => {
+    if (skipClick) { skipClick = false; e.stopPropagation(); e.preventDefault(); }
+  }, true);
   hdl.addEventListener("click", () => {
-    if (skipClick) { skipClick = false; return; }
     setMin(!hdr.classList.contains("hdr-min"));
   });
-  hdl.addEventListener("pointerdown", e => {
+  hdr.addEventListener("pointerdown", e => {
     if (!e.isPrimary) return;
-    drag = { y: e.clientY, id: e.pointerId, moved: false };
-    try { hdl.setPointerCapture(e.pointerId); } catch (x) {}
+    drag = { x: e.clientX, y: e.clientY, id: e.pointerId, moved: false };
   });
-  hdl.addEventListener("pointermove", e => {
+  hdr.addEventListener("pointermove", e => {
     if (!drag || e.pointerId !== drag.id) return;
-    const dy = e.clientY - drag.y;
-    if (Math.abs(dy) > 16) {
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    if (!drag.moved) {
+      if (Math.abs(dy) <= 12 || Math.abs(dy) < Math.abs(dx) * 1.15) return;
       drag.moved = true;
-      setMin(dy < 0);
+      try { hdr.setPointerCapture(e.pointerId); } catch (x) {}
     }
+    setMin(dy < 0);
   });
   const endDrag = e => {
     if (!drag || e.pointerId !== drag.id) return;
     if (drag.moved) skipClick = true;
     drag = null;
   };
-  hdl.addEventListener("pointerup", endDrag);
-  hdl.addEventListener("pointercancel", endDrag);
+  hdr.addEventListener("pointerup", endDrag);
+  hdr.addEventListener("pointercancel", endDrag);
 })();
 function setTab(t) {
   curTab = t;
@@ -2156,23 +2198,23 @@ const GUIDES = {
     title: "Guia rápido · Lista de compras",
     html: `
       <div class="gbox">
-        <div class="gbox-top"><span class="g-ico">${ico("plus")}</span><span>1. Adicione rápido e com sugestões</span><span class="gbox-tag">Banco local</span></div>
-        <p>• Toque no <b>+</b> no fim da lista ou no <b>+</b> discreto ao final de cada categoria. Ao digitar, aparecem sugestões com ícone, cor e <b>últimos preços</b> do seu Banco de Produtos.</p>
-        <p>• Preço e categoria são opcionais. Itens com preço zerado mostram um <b>filete vermelho</b> na borda esquerda.</p>
+        <div class="gbox-top"><span class="g-ico">${ico("plus")}</span><span>1. Adicione rápido e compare preços</span><span class="gbox-tag">Banco local</span></div>
+        <p>• Toque no <b>+</b> no fim da lista ou no <b>+</b> discreto ao final de cada categoria. Ao digitar, aparecem sugestões com ícone, cor e os <b>últimos preços pagos</b> no seu Banco de Produtos.</p>
+        <p>• Ao informar um valor diferente, uma linha abaixo dos últimos registros mostra a diferença exata em relação ao <b>último preço salvo</b>. Itens sem valor exibem um <b>filete vermelho</b> na borda esquerda.</p>
       </div>
       <div class="gbox">
-        <div class="gbox-top"><span class="g-ico">${ico("cart")}</span><span>2. Cards práticos no mercado</span></div>
-        <p>• Marque a caixa à esquerda para colocar <b>No carrinho</b>. Use <b>− / +</b> na etiqueta para ajustar quantidade ou toque no <b>valor grande</b>, nome ou lápis para editar e ver os <b>4 últimos preços pagos</b>.</p>
-        <p>• Use a <b>alça superior</b> de cada categoria para marcar ou limpar apenas aquela seção, ou os 3 botões no topo da lista inteira.</p>
+        <div class="gbox-top"><span class="g-ico">${ico("cart")}</span><span>2. Cards compactos e gaveta de ações</span></div>
+        <p>• Marque a caixa à esquerda para colocar <b>No carrinho</b>, use <b>− / +</b> para ajustar a quantidade e toque no <b>nome</b> ou <b>preço</b> para abrir a edição.</p>
+        <p>• <b>Deslize o card para a esquerda</b> (ou toque em <b>⋮</b> no PC/celular) para abrir os 3 botões laterais (<b>Editar</b>, <b>Desistir/Restaurar</b> e <b>Excluir</b>). Arraste para a direita ou toque fora para fechar.</p>
       </div>
       <div class="gbox">
-        <div class="gbox-top"><span class="g-ico">${ico("skip")}</span><span>3. Desistência, Orçamento e Topo compacto</span></div>
-        <p>• <b>Amarelo (Desistir):</b> separa o item em <b>Desistência da compra</b> sem somar no total. <b>Vermelho:</b> apaga (ou deslize para a esquerda).</p>
-        <p>• Arraste ou toque na setinha do topo para minimizar o resumo e ganhar espaço — se houver <b>Orçamento</b>, a barra de progresso continua visível.</p>
+        <div class="gbox-top"><span class="g-ico">${ico("skip")}</span><span>3. Ações por categoria, globais e Topo retrátil</span></div>
+        <p>• Use a <b>alça superior</b> de cada categoria para marcar ou excluir itens só daquela seção, ou os 3 botões no topo para afetar <b>Toda a lista (todas categorias)</b>.</p>
+        <p>• <b>Arraste verticalmente em qualquer ponto do painel do topo</b> (ou toque na seta) para minimizar ou expandir — se houver <b>Orçamento</b>, a barra de progresso continua visível.</p>
       </div>
       <div class="gbox">
         <div class="gbox-top"><span class="g-ico">${ico("checkCircle")}</span><span>4. Finalizar compra</span></div>
-        <p>Ao terminar no caixa, toque em <b>Registrar compra no histórico</b>. A compra vai para o Histórico e atualiza automaticamente seu Banco de Produtos.</p>
+        <p>Ao terminar no caixa, toque em <b>Registrar compra no histórico</b>. Os itens pagos vão para o Histórico e alimentam automaticamente seu Banco de Produtos.</p>
       </div>`
   },
   hist: {
@@ -2181,11 +2223,12 @@ const GUIDES = {
       <div class="gbox">
         <div class="gbox-top"><span class="g-ico">${ico("history")}</span><span>1. Busca, filtros e ordenação</span></div>
         <p>• Pesquise qualquer compra por <b>nome, data ou produto</b>. Use os atalhos abaixo da busca para ordenar por <b>Data</b> ou <b>Valor</b>, ou filtrar compras com desistência.</p>
-        <p>• Excluir registros (individualmente ou tudo pelo menu <b>···</b>) não apaga seus itens salvos no Banco de Produtos.</p>
+        <p>• Excluir recibos (individualmente ou todos pelo menu <b>···</b>) não apaga seus preços salvos no Banco de Produtos.</p>
       </div>
       <div class="gbox">
         <div class="gbox-top"><span class="g-ico">${ico("edit")}</span><span>2. Recibo completo e edição</span></div>
-        <p>• Toque em uma compra para ver os totais e itens por categoria, <b>Compartilhar</b> (WhatsApp, texto ou Excel/CSV) ou tocar em <b>Editar</b> para ajustar quantidades, preços e desistências.</p>
+        <p>• Toque em uma compra para ver os totais e itens por categoria, <b>Compartilhar</b> (WhatsApp, texto ou Excel/CSV) ou tocar em <b>Editar</b> para ajustar quantidades, valores e desistências.</p>
+        <p>• No modo de edição, deslize um item para a esquerda (ou toque em <b>⋮</b>) para abrir os botões rápidos de editar, desistir/restaurar ou excluir.</p>
       </div>`
   },
   prod: {
@@ -2193,12 +2236,12 @@ const GUIDES = {
     html: `
       <div class="gbox">
         <div class="gbox-top"><span class="g-ico">${ico("database")}</span><span>1. Catálogo independente</span><span class="gbox-tag">Sempre salvo</span></div>
-        <p>• Alimentado automaticamente quando você finaliza compras — continua intacto mesmo limpando listas ou apagando recibos do Histórico.</p>
+        <p>• Alimentado automaticamente quando você finaliza compras — continua salvo mesmo limpando listas ou apagando recibos do Histórico.</p>
         <p>• Busque pelo nome, filtre (<b>Sem valor, kg, un</b>) e ordene por <b>A–Z</b> ou <b>Preço</b>.</p>
       </div>
       <div class="gbox">
-        <div class="gbox-top"><span class="g-ico">${ico("checkSquare")}</span><span>2. Ficha de preços e ações em lote</span></div>
-        <p>• Toque em um produto para ver <b>Último, Menor, Maior e Média</b> e adicionar ou editar registros antigos.</p>
+        <div class="gbox-top"><span class="g-ico">${ico("checkSquare")}</span><span>2. Ficha de preços, gaveta e lote</span></div>
+        <p>• Toque no nome ou valor para ver <b>Último, Menor, Maior e Média</b>, registrar um novo preço, editar ou excluir o produto. Deslize qualquer card para a esquerda (ou toque em <b>⋮</b>) para editar/excluir direto.</p>
         <p>• Marque vários itens (ou <b>Selecionar todos</b>) para mudar a categoria ou excluir em lote. Para limpar tudo, abra o menu <b>···</b>.</p>
       </div>`
   },
@@ -2208,11 +2251,11 @@ const GUIDES = {
       <div class="gbox">
         <div class="gbox-top"><span class="g-ico">${ico("chart")}</span><span>1. Gráfico comparativo com variação</span></div>
         <p>• Mostra apenas o <b>total pago</b> (fora desistências). Cada barra exibe o valor exato e, entre uma compra e outra, aparece a <b>diferença (+ / −)</b> e a tendência.</p>
-        <p>• Deslize o gráfico horizontalmente quando tiver várias compras e toque em qualquer barra para ver detalhes.</p>
+        <p>• Deslize o gráfico horizontalmente quando tiver várias compras e toque em qualquer barra para destacar os detalhes.</p>
       </div>
       <div class="gbox">
         <div class="gbox-top"><span class="g-ico">${ico("trophy")}</span><span>2. Filtros, ranking e exportar imagem</span></div>
-        <p>• Combine períodos (30 dias até Tudo), escolha uma <b>Lista</b> específica (ex.: Mercado) ou qualquer categoria do ranking. Pelo menu <b>···</b>, compartilhe ou baixe uma <b>imagem do gráfico</b>.</p>
+        <p>• Combine períodos (30 dias até Tudo), filtre por <b>Lista</b> (ex.: Mercado) ou escolha qualquer categoria do ranking. Pelo menu <b>···</b>, compartilhe ou baixe uma <b>imagem do gráfico</b>.</p>
       </div>`
   }
 };
@@ -2244,6 +2287,9 @@ const SHARE_SVG = ico("share");
 const EDIT_SVG = ico("edit");
 const SKIP_SVG = ico("skip");
 const RESTORE_SVG = ico("restore");
+const KEBAB_SVG = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5.5" r="1.75"/><circle cx="12" cy="12" r="1.75"/><circle cx="12" cy="18.5" r="1.75"/></svg>';
+const SW_KEBAB = `<button type="button" class="sw-kebab" data-sw-tog aria-expanded="false" aria-label="Ações do card" title="Abrir ações (ou deslize para a esquerda)">${KEBAB_SVG}</button>`;
+const swTrayHTML = btns => `<div class="sw-tray" aria-hidden="true">${btns.join("")}</div>`;
 const CHK_SVG = '<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M 0 16 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 16 L 32 48 L 64 16 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 16" pathLength="575.0541381835938" class="path"></path></svg>';
 const activeOf = items => items.filter(i => !i.skipped);
 const skippedOf = items => items.filter(i => i.skipped);
@@ -2360,75 +2406,53 @@ function qtyCtrlHTML(i, mode = "list") {
   const minQ = isKg(i) ? 0.1 : 1;
   const qStr = isKg(i) ? `${fmtN(i.qty, 3)} kg` : `${i.qty} un`;
   const qOut = isKg(i) ? `${fmtN(i.qty, 3)} kg` : String(i.qty);
-  if (mode === "view") return `<span class="pill p-qty">${qStr}</span>`;
+  if (mode === "view") return `<span>${qStr}</span>`;
   return `<span class="pill p-qty qs"><button type="button" class="qb" ${mode === "editRec" ? "data-rqm" : "data-qm"} aria-label="Diminuir quantidade"${i.qty <= minQ + 1e-6 ? " disabled" : ""}>${MINUS_SVG}</button><output>${qOut}</output><button type="button" class="qb" ${mode === "editRec" ? "data-rqp" : "data-qp"} aria-label="Aumentar quantidade">${PLUS_SVG}</button></span>`;
 }
-const unitPillHTML = i => i.price ? `<span class="pill p-unit">${isKg(i) ? `${brl(i.price)}/kg` : `un. ${brl(i.price)}`}</span>` : "";
+const unitMetaHTML = i => i.price ? `<span>${isKg(i) ? `${brl(i.price)}/kg` : `un. ${brl(i.price)}`}</span>` : `<span class="rm-zero">Sem valor</span>`;
 
 function rowHTML(i, mode = "list") {
   const diff = mode === "list" && !i.skipped && i.pp != null && i.price && i.price !== i.pp ? i.price - i.pp : 0;
   const pd = diff ? `<span class="pd ${diff > 0 ? "up" : "dn"}" title="Comparado com a última compra">${ico(diff > 0 ? "trendUp" : "trendDown", 2.5)}<span>${brl(Math.abs(diff))}</span></span>` : "";
-  const uHtml = unitPillHTML(i);
+  const uHtml = unitMetaHTML(i);
   const lineCls = i.price ? "line line-lg" : "line line-lg zero-line";
   const addAnim = mode === "list" && lastAddedId && String(i.id) === String(lastAddedId) ? " just-added" : "";
   if (mode === "view") {
     return `<div class="sw"><div class="row list-row ro${i.skipped ? " skipped" : ""}${i.price ? "" : " zero"}">
       ${i.skipped ? `<span class="skip-ico" title="Item em desistência">${SKIP_SVG}</span>` : ""}
-      <div class="info">
-        <span class="name">${esc(i.name)}</span>
-        <div class="row-l1">${qtyCtrlHTML(i, "view")}<div class="${lineCls}">${brl(sub(i))}</div></div>
-        ${uHtml ? `<div class="row-l2"><div class="row-tags">${uHtml}</div></div>` : ""}
-      </div>
-    </div></div>`;
-  }
-  if (mode === "editRec") {
-    return `<div class="sw"><div class="row list-row${i.skipped ? " skipped" : ""}${i.price ? "" : " zero"}" data-id="${esc(i.id)}">
-      ${i.skipped ? `<span class="skip-ico" title="Item em desistência">${SKIP_SVG}</span>` : ""}
       <div class="info" style="${i.skipped ? "" : "padding-left:6px"}">
-        <span class="name" data-re>${esc(i.name)}</span>
-        <div class="row-l1">${qtyCtrlHTML(i, "editRec")}<button type="button" class="${lineCls}" data-re title="Editar item">${brl(sub(i))}</button></div>
-        <div class="row-l2">
-          <div class="row-tags">${uHtml}</div>
-          <div class="row-acts">
-            <button type="button" class="act-b ed-b" data-re title="Editar item" aria-label="Editar ${esc(i.name)}">${EDIT_SVG}</button>
-            <button type="button" class="act-b ${i.skipped ? "rs-b" : "sk-b"}" data-rskip title="${i.skipped ? "Restaurar para itens comprados" : "Mover para desistência"}" aria-label="${i.skipped ? "Restaurar" : "Desistir"} ${esc(i.name)}">${i.skipped ? RESTORE_SVG : SKIP_SVG}</button>
-            <button type="button" class="act-b rm-b" data-rd title="Excluir item" aria-label="Excluir ${esc(i.name)}">${TRASH}</button>
-          </div>
-        </div>
+        <div class="row-top"><span class="name">${esc(i.name)}</span><div class="row-top-r"><div class="${lineCls}">${brl(sub(i))}</div></div></div>
+        <div class="row-sub"><div class="row-meta">${qtyCtrlHTML(i, "view")}<span class="rm-sep">·</span>${uHtml}</div></div>
       </div>
     </div></div>`;
   }
-  if (i.skipped) {
-    return `<div class="sw"><span class="bin">${TRASH}</span>
-      <div class="row list-row skipped${addAnim}" data-id="${esc(i.id)}">
-        <span class="skip-ico" title="Item em desistência">${SKIP_SVG}</span>
-        <div class="info">
-          <span class="name" data-e>${esc(i.name)}</span>
-          <div class="row-l1">${qtyCtrlHTML(i, "list")}<button type="button" class="${lineCls}" data-e title="Toque para editar valor">${brl(sub(i))}</button></div>
-          <div class="row-l2">
-            <div class="row-tags">${uHtml}</div>
-            <div class="row-acts">
-              <button type="button" class="act-b ed-b" data-e title="Editar item" aria-label="Editar ${esc(i.name)}">${EDIT_SVG}</button>
-              <button type="button" class="act-b rs-b" data-skip title="Restaurar para a lista" aria-label="Restaurar ${esc(i.name)}">${RESTORE_SVG}</button>
-              <button type="button" class="act-b rm-b" data-d title="Excluir definitivamente" aria-label="Excluir ${esc(i.name)}">${TRASH}</button>
-            </div>
-          </div>
+  const isEditRec = mode === "editRec";
+  const editAttr = isEditRec ? "data-re" : "data-e";
+  const skipAttr = isEditRec ? "data-rskip" : "data-skip";
+  const delAttr = isEditRec ? "data-rd" : "data-d";
+  const skipTitle = i.skipped ? (isEditRec ? "Restaurar para itens comprados" : "Restaurar para a lista") : (isEditRec ? "Mover para desistência" : "Desistir da compra deste item");
+  const skipAria = `${i.skipped ? "Restaurar" : "Desistir"} ${esc(i.name)}`;
+  const leftEl = i.skipped
+    ? `<span class="skip-ico" title="Item em desistência">${SKIP_SVG}</span>`
+    : (isEditRec ? "" : `<button type="button" class="chk" data-t aria-pressed="${i.done}" aria-label="No carrinho: ${esc(i.name)}">${CHK_SVG}</button>`);
+  const infoStyle = !i.skipped && isEditRec ? ' style="padding-left:6px"' : "";
+  const rowCls = `row list-row${i.skipped ? " skipped" : (!isEditRec && i.done ? " done" : "")}${!i.skipped && !i.price ? " zero" : ""}${addAnim}`;
+  const tray = swTrayHTML([
+    `<button type="button" class="sw-act ed-b" ${editAttr} title="${isEditRec ? "Editar item" : "Editar / colocar preço"}" aria-label="Editar ${esc(i.name)}">${EDIT_SVG}</button>`,
+    `<button type="button" class="sw-act ${i.skipped ? "rs-b" : "sk-b"}" ${skipAttr} title="${skipTitle}" aria-label="${skipAria}">${i.skipped ? RESTORE_SVG : SKIP_SVG}</button>`,
+    `<button type="button" class="sw-act rm-b" ${delAttr} title="${!isEditRec && i.skipped ? "Excluir definitivamente" : "Excluir item"}" aria-label="Excluir ${esc(i.name)}">${TRASH}</button>`
+  ]);
+  return `<div class="sw" data-sw="3">${tray}
+    <div class="${rowCls}" data-id="${esc(i.id)}">
+      ${leftEl}
+      <div class="info"${infoStyle}>
+        <div class="row-top">
+          <span class="name" ${editAttr}>${esc(i.name)}</span>
+          <div class="row-top-r"><button type="button" class="${lineCls}" ${editAttr} title="${isEditRec ? "Editar item" : "Toque para editar valor"}">${brl(sub(i))}</button>${SW_KEBAB}</div>
         </div>
-      </div></div>`;
-  }
-  return `<div class="sw"><span class="bin">${TRASH}</span>
-    <div class="row list-row${i.done ? " done" : ""}${i.price ? "" : " zero"}${addAnim}" data-id="${esc(i.id)}">
-      <button type="button" class="chk" data-t aria-pressed="${i.done}" aria-label="No carrinho: ${esc(i.name)}">${CHK_SVG}</button>
-      <div class="info">
-        <span class="name" data-e>${esc(i.name)}</span>
-        <div class="row-l1">${qtyCtrlHTML(i, "list")}<button type="button" class="${lineCls}" data-e title="Toque para editar valor">${brl(sub(i))}</button></div>
-        <div class="row-l2">
-          <div class="row-tags">${uHtml}${pd}</div>
-          <div class="row-acts">
-            <button type="button" class="act-b ed-b" data-e title="Editar / colocar preço" aria-label="Editar ${esc(i.name)}">${EDIT_SVG}</button>
-            <button type="button" class="act-b sk-b" data-skip title="Desistir da compra deste item" aria-label="Desistir de ${esc(i.name)}">${SKIP_SVG}</button>
-            <button type="button" class="act-b rm-b" data-d title="Excluir item" aria-label="Excluir ${esc(i.name)}">${TRASH}</button>
-          </div>
+        <div class="row-sub">
+          ${qtyCtrlHTML(i, isEditRec ? "editRec" : "list")}
+          <div class="row-meta">${uHtml}${pd}</div>
         </div>
       </div>
     </div></div>`;
@@ -2919,24 +2943,18 @@ function renderProd() {
         const lastP = sortedP[0] || null;
         const sel = prodSelIds.has(p.id);
         const lineCls = lastP ? "line line-lg" : "line line-lg zero-line";
-        return `<div class="sw"><div class="row list-row${lastP ? "" : " zero"}" data-pid="${esc(p.id)}">
+        const tray = swTrayHTML([
+          `<button type="button" class="sw-act ed-b" data-ped="${esc(p.id)}" title="Editar produto" aria-label="Editar ${esc(p.name)}">${EDIT_SVG}</button>`,
+          `<button type="button" class="sw-act rm-b" data-pdel="${esc(p.id)}" title="Excluir produto" aria-label="Excluir ${esc(p.name)}">${TRASH}</button>`
+        ]);
+        return `<div class="sw" data-sw="2">${tray}<div class="row list-row${lastP ? "" : " zero"}" data-pid="${esc(p.id)}">
           <button type="button" class="chk" data-psel="${esc(p.id)}" aria-pressed="${sel}" aria-label="Selecionar ${esc(p.name)}">${CHK_SVG}</button>
           <div class="info">
-            <span class="name" data-open-prod="${esc(p.id)}">${esc(p.name)}</span>
-            <div class="row-l1">
-              <span class="pill p-qty">${p.unit === "kg" ? "Por kg" : "Por un"}</span>
-              <button type="button" class="${lineCls}" data-open-prod="${esc(p.id)}" title="Abrir histórico de preços">${lastP ? `${brl(lastP.price)}/${lastP.unit}` : "Sem valor"}</button>
+            <div class="row-top">
+              <span class="name" data-open-prod="${esc(p.id)}">${esc(p.name)}</span>
+              <div class="row-top-r"><button type="button" class="${lineCls}" data-open-prod="${esc(p.id)}" title="Abrir histórico de preços">${lastP ? `${brl(lastP.price)}/${lastP.unit}` : "Sem valor"}</button>${SW_KEBAB}</div>
             </div>
-            <div class="row-l2">
-              <div class="row-tags">
-                ${lastP ? `<span class="pill p-unit">${fmtShortDate(lastP.date)}</span>` : ""}
-                <span class="pill p-unit">${plural(p.prices.length, "registro", "registros")}</span>
-              </div>
-              <div class="row-acts">
-                <button type="button" class="act-b ed-b" data-ped="${esc(p.id)}" title="Editar produto" aria-label="Editar ${esc(p.name)}">${EDIT_SVG}</button>
-                <button type="button" class="act-b rm-b" data-pdel="${esc(p.id)}" title="Excluir produto" aria-label="Excluir ${esc(p.name)}">${TRASH}</button>
-              </div>
-            </div>
+            <div class="row-sub"><div class="row-meta"><span>${p.unit === "kg" ? "Por kg" : "Por un"}</span>${lastP ? `<span class="rm-sep">·</span><span>${fmtShortDate(lastP.date)}</span>` : ""}<span class="rm-sep">·</span><span>${plural(p.prices.length, "registro", "registros")}</span></div></div>
           </div>
         </div></div>`;
       }).join("");
@@ -2981,10 +2999,10 @@ function renderProd() {
     <div class="sc-box"><span class="sc-k">${ico("scale")}<span>Preço médio</span></span><b class="sc-v">${avgV ? `${brl(avgV)}/${prod.unit}` : "—"}</b></div>
     <div class="sc-box"><span class="sc-k">${ico("clock")}<span>Registros salvos</span></span><b class="sc-v">${chron.length}</b></div>`;
 
-  let h = `<div class="hacts">
-    <button type="button" class="pri" id="pdAddPrice">${PLUS_SVG}<span>Registrar valor</span></button>
+  let h = `<div class="hacts prod-acts">
+    <button type="button" class="pri rgb-btn" id="pdAddPrice">${PLUS_SVG}<span>Registrar valor</span></button>
     <button type="button" id="pdEdit">${EDIT_SVG}<span>Editar produto</span></button>
-    <button type="button" class="del" id="pdDel">${TRASH}<span>Excluir</span></button>
+    <button type="button" class="del" id="pdDel" title="Excluir produto" aria-label="Excluir produto">${TRASH}</button>
   </div>`;
 
   if (!chron.length) {
@@ -3014,22 +3032,21 @@ function renderProd() {
     </div>
   </div>`;
 
-  const rowsHtml = sorted.map(pr => `<div class="sw"><div class="row list-row" data-phid="${esc(pr.id)}">
-    <div class="info" style="padding-left:6px">
-      <span class="name" data-phed="${esc(pr.id)}">${fmtDate(pr.date)}</span>
-      <div class="row-l1">
-        <span class="pill p-qty">${pr.unit === "kg" ? "Por kg" : "Por un"}</span>
-        <button type="button" class="line line-lg" data-phed="${esc(pr.id)}" title="Editar este registro de valor">${brl(pr.price)}/${pr.unit}</button>
-      </div>
-      <div class="row-l2">
-        <div class="row-tags"><span class="pill p-unit">${esc(pr.list || "Registro manual")}</span></div>
-        <div class="row-acts">
-          <button type="button" class="act-b ed-b" data-phed="${esc(pr.id)}" title="Editar valor/data" aria-label="Editar valor de ${fmtDate(pr.date)}">${EDIT_SVG}</button>
-          <button type="button" class="act-b rm-b" data-phdel="${esc(pr.id)}" title="Excluir este registro" aria-label="Excluir valor de ${fmtDate(pr.date)}">${TRASH}</button>
+  const rowsHtml = sorted.map(pr => {
+    const tray = swTrayHTML([
+      `<button type="button" class="sw-act ed-b" data-phed="${esc(pr.id)}" title="Editar valor/data" aria-label="Editar valor de ${fmtDate(pr.date)}">${EDIT_SVG}</button>`,
+      `<button type="button" class="sw-act rm-b" data-phdel="${esc(pr.id)}" title="Excluir este registro" aria-label="Excluir valor de ${fmtDate(pr.date)}">${TRASH}</button>`
+    ]);
+    return `<div class="sw" data-sw="2">${tray}<div class="row list-row" data-phid="${esc(pr.id)}">
+      <div class="info" style="padding-left:6px">
+        <div class="row-top">
+          <span class="name" data-phed="${esc(pr.id)}">${fmtDate(pr.date)}</span>
+          <div class="row-top-r"><button type="button" class="line line-lg" data-phed="${esc(pr.id)}" title="Editar este registro de valor">${brl(pr.price)}/${pr.unit}</button>${SW_KEBAB}</div>
         </div>
+        <div class="row-sub"><div class="row-meta"><span>${pr.unit === "kg" ? "Por kg" : "Por un"}</span><span class="rm-sep">·</span><span>${esc(pr.list || "Registro manual")}</span></div></div>
       </div>
-    </div>
-  </div></div>`).join("");
+    </div></div>`;
+  }).join("");
 
   h += `<section class="grp" style="${sty(cc)}">
     <h2>
@@ -3577,7 +3594,9 @@ $("vList").addEventListener("click", e => {
     openAddModal("");
     return;
   }
-  const row = e.target.closest(".row"); if (!row || row.dataset.gone) return;
+  const swBox = e.target.closest(".sw");
+  const row = e.target.closest(".row") || (swBox ? swBox.querySelector(".row") : null);
+  if (!row || row.dataset.gone) return;
   const it = findItem(row); if (!it) return;
   const qm = e.target.closest("[data-qm]"), qp = e.target.closest("[data-qp]");
   if (qm || qp) {
@@ -3609,48 +3628,105 @@ $("vList").addEventListener("click", e => {
   }
 });
 
-// Deslizar o item para a esquerda para excluir (celular)
-let sw = null;
-$("vList").addEventListener("pointerdown", e => {
-  if (e.pointerType === "mouse" || !e.isPrimary) return;
-  const row = e.target.closest(".row");
-  if (!row || row.dataset.gone) return;
-  sw = { row, x: e.clientX, y: e.clientY, id: e.pointerId, on: false, dx: 0 };
-});
-$("vList").addEventListener("pointermove", e => {
-  if (!sw || e.pointerId !== sw.id) return;
-  const dx = e.clientX - sw.x, dy = e.clientY - sw.y;
-  if (!sw.on) {
-    if (Math.abs(dy) > 10 && Math.abs(dy) > Math.abs(dx)) { sw = null; return; }
-    if (!(dx < -10 && Math.abs(dx) > Math.abs(dy) * 1.5)) return;
-    sw.on = true;
-    try { sw.row.setPointerCapture(e.pointerId); } catch (x) {}
-    sw.row.parentNode.classList.add("drag");
-    sw.row.style.transition = "none";
+// Gaveta lateral de ações por card (deslizar no celular ou tocar em ⋮ no PC/celular)
+function closeOpenSw(except = null) {
+  document.querySelectorAll(".sw.open").forEach(box => {
+    if (box === except) return;
+    box.classList.remove("open");
+    const kb = box.querySelector("[data-sw-tog]");
+    if (kb) kb.setAttribute("aria-expanded", "false");
+    const tr = box.querySelector(".sw-tray");
+    if (tr) tr.setAttribute("aria-hidden", "true");
+  });
+}
+function toggleSw(swEl, force) {
+  if (!swEl) return;
+  const tray = swEl.querySelector(".sw-tray");
+  if (!tray) return;
+  const w = tray.offsetWidth || Number(swEl.dataset.sw || 3) * 46;
+  swEl.style.setProperty("--sw-w", w + "px");
+  const open = force !== undefined ? !!force : !swEl.classList.contains("open");
+  closeOpenSw(open ? swEl : null);
+  swEl.classList.toggle("open", open);
+  const kb = swEl.querySelector("[data-sw-tog]");
+  if (kb) kb.setAttribute("aria-expanded", String(open));
+  tray.setAttribute("aria-hidden", String(!open));
+}
+document.addEventListener("click", e => {
+  if (Date.now() - swipedAt < 400) { e.stopPropagation(); e.preventDefault(); return; }
+  const tog = e.target.closest("[data-sw-tog]");
+  if (tog) {
+    toggleSw(tog.closest(".sw"));
+    vib();
+    e.stopPropagation(); e.preventDefault();
+    return;
   }
-  sw.dx = Math.min(0, dx);
-  sw.row.style.transform = `translateX(${sw.dx}px)`;
+  const openSw = document.querySelector(".sw.open");
+  if (openSw) {
+    if (openSw.contains(e.target)) {
+      if (!e.target.closest(".sw-tray")) {
+        closeOpenSw();
+        e.stopPropagation(); e.preventDefault();
+      }
+    } else {
+      closeOpenSw();
+    }
+  }
+}, true);
+document.addEventListener("click", e => {
+  if (e.target.closest(".sw-tray")) closeOpenSw();
 });
-function swipeEnd(e) {
+
+let sw = null;
+function swSwipeEnd(e) {
   if (!sw || e.pointerId !== sw.id) return;
   const s = sw; sw = null;
   if (!s.on) return;
   swipedAt = Date.now();
-  const row = s.row, limit = Math.min(120, row.offsetWidth * .35);
-  if (e.type === "pointerup" && s.dx < -limit) {
-    const it = findItem(row);
-    row.dataset.gone = 1; vib();
-    row.style.transition = "transform .18s ease-out";
-    row.style.transform = "translateX(-100%)";
-    setTimeout(() => it ? delItem(it) : render(), reduced() ? 0 : 180);
-  } else {
-    row.style.transition = "transform .2s";
-    row.style.transform = "";
-    setTimeout(() => row.parentNode && row.parentNode.classList.remove("drag"), 200);
+  let willOpen = s.startOpen;
+  if (e.type === "pointerup") {
+    willOpen = !s.startOpen
+      ? s.curX < -Math.min(44, s.trayW * 0.32)
+      : !(s.curX > -s.trayW + Math.min(34, s.trayW * 0.25));
   }
+  s.swEl.classList.remove("drag");
+  s.row.style.transition = "";
+  s.row.style.transform = "";
+  toggleSw(s.swEl, willOpen);
+  if (willOpen !== s.startOpen) vib();
 }
-$("vList").addEventListener("pointerup", swipeEnd);
-$("vList").addEventListener("pointercancel", swipeEnd);
+[$("vList"), $("vHist"), $("vProd")].forEach(view => {
+  if (!view) return;
+  view.addEventListener("pointerdown", e => {
+    if (e.pointerType === "mouse" || !e.isPrimary) return;
+    const swEl = e.target.closest(".sw");
+    const tray = swEl && swEl.querySelector(".sw-tray");
+    const row = swEl && swEl.querySelector(".row");
+    if (!swEl || !tray || !row || row.dataset.gone || e.target.closest(".qb, .chk, [data-sw-tog]")) return;
+    closeOpenSw(swEl);
+    const trayW = tray.offsetWidth || Number(swEl.dataset.sw || 3) * 46;
+    const startOpen = swEl.classList.contains("open");
+    sw = { swEl, row, trayW, startOpen, x: e.clientX, y: e.clientY, id: e.pointerId, on: false, curX: startOpen ? -trayW : 0 };
+  });
+  view.addEventListener("pointermove", e => {
+    if (!sw || e.pointerId !== sw.id) return;
+    const dx = e.clientX - sw.x, dy = e.clientY - sw.y;
+    if (!sw.on) {
+      if (Math.abs(dy) > 10 && Math.abs(dy) > Math.abs(dx)) { sw = null; return; }
+      const canStart = (!sw.startOpen && dx < -10) || (sw.startOpen && Math.abs(dx) > 10);
+      if (!canStart || Math.abs(dx) <= Math.abs(dy) * 1.35) return;
+      sw.on = true;
+      try { sw.row.setPointerCapture(e.pointerId); } catch (x) {}
+      sw.swEl.classList.add("drag");
+      sw.row.style.transition = "none";
+    }
+    const base = sw.startOpen ? -sw.trayW : 0;
+    sw.curX = Math.max(-sw.trayW - 14, Math.min(0, base + dx));
+    sw.row.style.transform = `translateX(${sw.curX}px)`;
+  });
+  view.addEventListener("pointerup", swSwipeEnd);
+  view.addEventListener("pointercancel", swSwipeEnd);
+});
 
 /* =========================================================
    Ações nas abas Histórico e Relatórios
@@ -3792,7 +3868,9 @@ $("vHist").addEventListener("click", async e => {
     return;
   }
   if (draftRec) {
-    const row = e.target.closest(".row"); if (!row) return;
+    const swBox = e.target.closest(".sw");
+    const row = e.target.closest(".row") || (swBox ? swBox.querySelector(".row") : null);
+    if (!row) return;
     const it = draftRec.items.find(x => String(x.id) === row.dataset.id); if (!it) return;
     const rqm = e.target.closest("[data-rqm]"), rqp = e.target.closest("[data-rqp]");
     if (rqm || rqp) {
@@ -4169,28 +4247,32 @@ $("vProd").addEventListener("click", async e => {
 /* =========================================================
    Editar item (na lista atual ou no rascunho do histórico)
    ========================================================= */
-let editing = null, editCtx = "list", eq = 1, eu = "un";
-function renderEditPriceHist() {
-  const box = $("edHist");
+function renderPriceHistBox(box, hist, curUnit, curPriceCents, attrKey) {
   if (!box) return;
-  const hist = productPriceHistory($("en").value, editCtx === "editRec" && draftRec ? draftRec.id : null);
   if (!hist.length) {
     box.hidden = true;
     box.innerHTML = "";
     return;
   }
-  const sameU = hist.filter(x => x.unit === eu);
+  const sameU = hist.filter(x => x.unit === curUnit);
   const ref = sameU.length ? sameU : hist;
-  const last = ref[0], curP = cents($("ep").value);
-  let diffHtml = "";
-  if (curP > 0 && last.unit === eu && curP !== last.price) {
-    const d = curP - last.price;
-    diffHtml = `<span class="pd ${d > 0 ? "up" : "dn"}" title="Diferença em relação ao último valor">${ico(d > 0 ? "trendUp" : "trendDown", 2.5)}<span>${brl(Math.abs(d))}</span></span>`;
+  const last = ref[0];
+  let diffRow = "";
+  if (curPriceCents > 0 && last.unit === curUnit && curPriceCents !== last.price) {
+    const d = curPriceCents - last.price;
+    const refLbl = `<b>${brl(last.price)}/${last.unit}</b>${last.date ? ` · ${fmtShortDate(last.date)}` : ""}`;
+    diffRow = `<div class="ed-ph-diff"><span class="ed-ph-ref">Em relação ao último (${refLbl}):</span><span class="pd ${d > 0 ? "up" : "dn"}" title="Diferença em relação ao último valor salvo (${brl(last.price)}/${last.unit})">${ico(d > 0 ? "trendUp" : "trendDown", 2.5)}<span>${brl(Math.abs(d))}</span></span></div>`;
   }
   box.hidden = false;
-  box.innerHTML = `<span class="ed-ph-lbl" title="Últimos valores no Banco de Produtos (toque para aplicar)">${ico("clock")}<span>Últimos:</span></span>` +
-    `<div class="ed-ph-list">${hist.slice(0, 4).map(x => `<button type="button" class="ed-ph-chip" data-ph-p="${x.price}" data-ph-u="${x.unit}" title="${esc(x.list)} · ${fmtDate(x.date)} (toque para aplicar)"><span class="ed-ph-v">${brl(x.price)}/${x.unit}</span><span class="ed-ph-d">${fmtShortDate(x.date)}</span></button>`).join("")}</div>` +
-    diffHtml;
+  box.innerHTML = `<div class="ed-ph-row"><span class="ed-ph-lbl" title="Últimos valores no Banco de Produtos (toque para aplicar)">${ico("clock")}<span>Últimos:</span></span>` +
+    `<div class="ed-ph-list">${hist.slice(0, 4).map(x => `<button type="button" class="ed-ph-chip" data-${attrKey}-p="${x.price}" data-${attrKey}-u="${x.unit}" title="${esc(x.list)} · ${fmtDate(x.date)} (toque para aplicar)"><span class="ed-ph-v">${brl(x.price)}/${x.unit}</span><span class="ed-ph-d">${fmtShortDate(x.date)}</span></button>`).join("")}</div></div>` +
+    diffRow;
+}
+
+let editing = null, editCtx = "list", eq = 1, eu = "un";
+function renderEditPriceHist() {
+  const hist = productPriceHistory($("en").value, editCtx === "editRec" && draftRec ? draftRec.id : null);
+  renderPriceHistBox($("edHist"), hist, eu, cents($("ep").value), "ph");
 }
 function setEditUnit(u) {
   eu = u;
@@ -4389,26 +4471,8 @@ function setUnit(u) {
   renderAddPriceHist();
 }
 function renderAddPriceHist() {
-  const box = $("addHist");
-  if (!box) return;
   const hist = productPriceHistory($("name").value);
-  if (!hist.length) {
-    box.hidden = true;
-    box.innerHTML = "";
-    return;
-  }
-  const sameU = hist.filter(x => x.unit === unit);
-  const ref = sameU.length ? sameU : hist;
-  const last = ref[0], curP = cents($("price").value);
-  let diffHtml = "";
-  if (curP > 0 && last.unit === unit && curP !== last.price) {
-    const d = curP - last.price;
-    diffHtml = `<span class="pd ${d > 0 ? "up" : "dn"}" title="Diferença em relação ao último valor">${ico(d > 0 ? "trendUp" : "trendDown", 2.5)}<span>${brl(Math.abs(d))}</span></span>`;
-  }
-  box.hidden = false;
-  box.innerHTML = `<span class="ed-ph-lbl" title="Últimos valores no Banco de Produtos (toque para aplicar)">${ico("clock")}<span>Últimos:</span></span>` +
-    `<div class="ed-ph-list">${hist.slice(0, 4).map(x => `<button type="button" class="ed-ph-chip" data-aph-p="${x.price}" data-aph-u="${x.unit}" title="${esc(x.list)} · ${fmtDate(x.date)} (toque para aplicar)"><span class="ed-ph-v">${brl(x.price)}/${x.unit}</span><span class="ed-ph-d">${fmtShortDate(x.date)}</span></button>`).join("")}</div>` +
-    diffHtml;
+  renderPriceHistBox($("addHist"), hist, unit, cents($("price").value), "aph");
 }
 function openAddModal(presetCat = "") {
   resetForm();
