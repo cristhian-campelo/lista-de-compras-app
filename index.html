@@ -677,6 +677,33 @@ dialog label{display:block;font-size:13px;font-weight:600;color:var(--muted);mar
 .opt-del svg{width:15px;height:15px}
 .opt-del:hover{background:#ef4444;color:#fff;box-shadow:0 4px 10px rgba(239,68,68,.35);transform:translateY(-1px)}
 .opt-del:active{transform:scale(.9)}
+.ls-sec-hd{font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:12px 2px 6px}
+.ls-sec-hd:first-child{margin-top:2px}
+.ls-row{display:flex;align-items:center;gap:6px;margin-top:8px}
+.ls-row .opt{flex:1;min-width:0;margin-top:0;padding:8px 12px}
+.ls-row .opt.is-skip{border-left-color:hsl(38 88% 52%)}
+.ls-row .opt.is-skip .cat-ico{color:#d97706}
+:root[data-theme="dark"] .ls-row .opt.is-skip .cat-ico{color:#fbbf24}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ls-row .opt.is-skip .cat-ico{color:#fbbf24}}
+.ls-acts{display:flex;align-items:center;gap:4px;flex:none}
+.ls-act{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--bg);border:1px solid var(--line);color:var(--muted);transition:all .16s ease}
+.ls-act svg{width:15px;height:15px}
+.ls-act:hover{color:var(--ink);border-color:var(--muted);transform:translateY(-1px)}
+.ls-act.del:hover{background:#ef4444;border-color:#ef4444;color:#fff}
+:root[data-theme="dark"] .ls-act:not(:hover){background:#232730}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ls-act:not(:hover){background:#232730}}
+.l-new-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:44px;margin:12px 0 4px;border-radius:12px;font-size:14px}
+.l-new-btn svg{width:18px;height:18px;flex:none}
+.rec-skip-list-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:42px;margin:0 0 12px;padding:0 14px;border-radius:12px;background:var(--surface);border:1.5px solid hsl(38 88% 52% / .65);color:var(--ink);font-size:13.5px;font-weight:800;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:all .18s ease}
+.rec-skip-list-btn svg{width:17px;height:17px;flex:none;color:#d97706}
+.rec-skip-list-btn:hover{border-color:#d97706;transform:translateY(-1px);box-shadow:0 4px 12px rgba(217,119,6,.16)}
+.rec-skip-list-btn:active{transform:scale(.98)}
+:root[data-theme="dark"] .rec-skip-list-btn{background:#232730;border-color:hsl(38 92% 58% / .6)}
+:root[data-theme="dark"] .rec-skip-list-btn svg{color:#fbbf24}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .rec-skip-list-btn{background:#232730;border-color:hsl(38 92% 58% / .6)}
+  :root:not([data-theme="light"]) .rec-skip-list-btn svg{color:#fbbf24}
+}
 .new-cat-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:46px;margin-bottom:4px;border-radius:12px;border:none;background:var(--bg);color:var(--accent);font-weight:800;font-size:14px;box-shadow:0 2px 6px rgba(0,0,0,.07);transition:all .22s ease}
 .new-cat-btn svg{width:17px;height:17px}
 .new-cat-btn:hover{background:var(--accent);color:var(--accent-ink);box-shadow:0 6px 14px rgba(16,185,129,.35);transform:translateY(-2px)}
@@ -1147,11 +1174,13 @@ dialog label{display:block;font-size:13px;font-weight:600;color:var(--muted);mar
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
     </button>
   </div>
-  <div class="lst" id="lsl"></div>
-  <div class="menu" style="margin-top:14px">
-    <button id="lNew"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg><span>Nova lista</span></button>
-    <button id="lRen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg><span>Renomear esta lista</span></button>
-    <button id="lDel" class="w"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg><span>Excluir esta lista</span></button>
+  <div class="lst" id="lsl">
+    <div id="lslMain"></div>
+    <button type="button" class="l-new-btn rgb-btn" id="lNew">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="4" x2="12" y2="12" stroke="#a855f7"/><line x1="12" y1="12" x2="20" y2="12" stroke="#f97316"/><line x1="12" y1="12" x2="12" y2="20" stroke="#06b6d4"/><line x1="4" y1="12" x2="12" y2="12" stroke="#ef4444"/></svg>
+      <span>Nova lista</span>
+    </button>
+    <div id="lslSkip" hidden></div>
   </div>
   <div class="acts"><button class="pri" id="lsOk">Fechar</button></div>
 </dialog>
@@ -1634,7 +1663,7 @@ function cleanItem(i, customCats, preserveAnyCat = false) {
 }
 function cleanList(l, customCats) {
   const b = Math.round(Number(l.budget));
-  return {
+  const out = {
     id: l.id ? String(l.id) : uid(),
     name: String(l.name || "Lista").trim().slice(0, 40) || "Lista",
     items: (Array.isArray(l.items) ? l.items : []).map(x => cleanItem(x, customCats)).filter(Boolean),
@@ -1642,6 +1671,12 @@ function cleanList(l, customCats) {
     order: Array.isArray(l.order) ? [...new Set(l.order.filter(c => okc(c, customCats)))] : [],
     col: Array.isArray(l.col) ? [...new Set(l.col.filter(c => c === "__skip__" || okc(c, customCats)))] : []
   };
+  if (l.kind === "skip") {
+    out.kind = "skip";
+    const sd = Number(l.skipDate);
+    if (Number.isFinite(sd) && sd > 0) out.skipDate = sd;
+  }
+  return out;
 }
 function cleanRecord(r, customCats) {
   if (!r || typeof r !== "object") return null;
@@ -2322,7 +2357,7 @@ const GUIDES = {
       </div>
       <div class="gbox">
         <div class="gbox-top"><span class="g-ico">${ico("checkCircle")}</span><span>5. Finalizar compra</span></div>
-        <p>Ao terminar no caixa, toque em <b>Registrar compra no histórico</b>. Os itens pagos vão para o Histórico e alimentam automaticamente seu Banco de Produtos.</p>
+        <p>Ao terminar no caixa, toque em <b>Registrar compra no histórico</b>. Os itens pagos vão para o Histórico, alimentam seu Banco de Produtos e você escolhe se deseja <b>zerar</b> a lista ou <b>mantê-la intacta</b>.</p>
       </div>`
   },
   hist: {
@@ -2334,9 +2369,9 @@ const GUIDES = {
         <p>• Excluir recibos (individualmente ou todos pelo menu <b>···</b>) não apaga seus preços salvos no Banco de Produtos.</p>
       </div>
       <div class="gbox">
-        <div class="gbox-top"><span class="g-ico">${ico("edit")}</span><span>2. Recibo completo e edição</span></div>
+        <div class="gbox-top"><span class="g-ico">${ico("edit")}</span><span>2. Recibo completo, edição e desistências</span></div>
         <p>• Toque em uma compra para ver os totais e itens por categoria, <b>Compartilhar</b> (WhatsApp, texto ou Excel/CSV) ou tocar em <b>Editar</b> para ajustar quantidades, valores e desistências.</p>
-        <p>• No modo de edição, deslize um item para a esquerda (ou toque em <b>⋮</b>) para abrir os botões rápidos de editar, desistir/restaurar ou excluir.</p>
+        <p>• Se a compra tiver itens em desistência, toque em <b>Criar lista de desistências</b> para gerar uma nova lista com esses itens já restaurados e abrir direto na aba Lista.</p>
       </div>`
   },
   prod: {
@@ -2895,7 +2930,8 @@ function renderHist() {
 
   if (skipIts.length) {
     const isSkCol = recCols.has("__skip__");
-    h += `<div class="skip-sep"></div><section class="grp skip-grp${isSkCol ? " col" : ""}" data-grp="__skip__" style="--h:38">
+    const skipListBtn = !draftRec ? `<button type="button" class="rec-skip-list-btn" id="recSkipToList" data-rec-skip-list>${ico("cart")}<span>Criar lista de desistências</span></button>` : "";
+    h += `<div class="skip-sep"></div>${skipListBtn}<section class="grp skip-grp${isSkCol ? " col" : ""}" data-grp="__skip__" style="--h:38">
       <h2>
         <span class="gh-title">
           <button type="button" class="gh-tog" data-hcol="__skip__" aria-expanded="${!isSkCol}"><span class="gh-chev">${CHEV_DOWN}</span><span class="cat-ico" style="--h:38">${SKIP_SVG}</span><span class="gh-name">Desistência da compra</span></button>
@@ -3522,7 +3558,7 @@ async function exportRepChartImage() {
    Registrar Compra + Recomendação de Backup
    ========================================================= */
 function askFin(doneIts, unmarked, skippedIts) {
-  $("finAskP").textContent = `Há ${plural(unmarked.length, "item desmarcado", "itens desmarcados")}. Escolha o que fazer com ${unmarked.length === 1 ? "ele" : "eles"} apenas neste registro (sua lista atual continua intacta):`;
+  $("finAskP").textContent = `Há ${plural(unmarked.length, "item desmarcado", "itens desmarcados")}. Escolha o que fazer com ${unmarked.length === 1 ? "ele" : "eles"} neste registro no histórico:`;
   $("finAskStat").innerHTML = `
     <div class="row-s"><span>No carrinho (${doneIts.length})</span><b>${brl(sum(doneIts))}</b></div>
     <div class="row-s"><span>Desmarcados (${unmarked.length})</span><b>${brl(sum(unmarked))}</b></div>
@@ -3559,7 +3595,7 @@ async function finishPurchase() {
     const skipNote = skippedIts.length ? ` e ${plural(skippedIts.length, "em desistência", "em desistência")}` : "";
     const r = await ask(
       "Registrar esta compra?",
-      `Deseja salvar “${l.name}” (${plural(doneIts.length, "item", "itens")}${skipNote} · ${brl(tot)}) no histórico? Sua lista atual continuará intacta, com itens desmarcados e desistências restauradas.`,
+      `Deseja salvar “${l.name}” (${plural(doneIts.length, "item", "itens")}${skipNote} · ${brl(tot)}) no histórico? Em seguida você poderá escolher se zera ou mantém a lista atual.`,
       "Registrar compra"
     );
     if (r !== "ok") return;
@@ -3592,8 +3628,17 @@ async function finishPurchase() {
   };
   S.records.unshift(rec);
   ingestRecordIntoProducts(rec);
-  l.items.forEach(i => { i.done = false; i.skipped = false; });
-  S.hideDone = false;
+
+  const resetChoice = await ask(
+    "O que fazer com a lista atual?",
+    "Deseja zerar a lista (desmarcando todos os itens e restaurando desistências) ou mantê-la intacta como está?",
+    "Zerar lista",
+    { cancel: "Manter intacta" }
+  );
+  if (resetChoice === "ok") {
+    l.items.forEach(i => { i.done = false; i.skipped = false; });
+    S.hideDone = false;
+  }
   S.cat = "";
   paint($("cat"), "");
   syncHideUI();
@@ -3942,6 +3987,39 @@ $("vHist").addEventListener("click", async e => {
   }
   if (e.target.closest("#recDel")) {
     await deleteRecord(rec);
+    return;
+  }
+  if (e.target.closest("[data-rec-skip-list]")) {
+    const skipIts = skippedOf(rec.items);
+    if (!skipIts.length) { toast("Não há itens em desistência neste registro"); return; }
+    const r = await ask(
+      "Criar lista de desistências?",
+      `Será criada uma nova lista com ${plural(skipIts.length, "item restaurado", "itens restaurados")} das desistências de ${fmtDate(rec.date)}.`,
+      "Criar lista"
+    );
+    if (r !== "ok") return;
+    const nl = newList(`Desistência - ${fmtDate(rec.date)}`);
+    nl.kind = "skip";
+    nl.skipDate = rec.date;
+    nl.items = skipIts.map(i => ({
+      id: uid(),
+      name: i.name,
+      qty: i.qty,
+      price: i.price,
+      unit: i.unit,
+      cat: okc(i.cat) ? i.cat : "Sem categoria",
+      done: false
+    }));
+    nl.order = [...new Set(nl.items.map(i => i.cat))];
+    S.lists.push(nl);
+    S.cur = nl.id;
+    S.cat = "";
+    paint($("cat"), "");
+    curRecId = null;
+    draftRec = null;
+    setTab("list");
+    vib();
+    toast("Lista de desistências criada");
     return;
   }
   if (e.target.closest("#drCancel")) {
@@ -4818,16 +4896,62 @@ $("mBak").onclick = () => {
 /* =========================================================
    Minhas listas (modelos / listas ativas)
    ========================================================= */
+function listRowHTML(l, isSkip) {
+  const act = l.items.filter(i => !i.skipped);
+  const canDel = S.lists.length > 1;
+  return `<div class="ls-row">
+    <button type="button" class="opt${isSkip ? " is-skip" : " plain"}${l.id === S.cur ? " on" : ""}" data-l="${esc(l.id)}">
+      <span class="cat-ico" style="--h:${isSkip ? 38 : 165}">${ico("cart")}</span>
+      <span class="ln">${esc(l.name)}</span>
+      <em>${plural(act.length, "item", "itens")} · ${brl(sum(act))}</em>
+    </button>
+    <div class="ls-acts">
+      <button type="button" class="ls-act" data-lren="${esc(l.id)}" aria-label="Renomear ${esc(l.name)}" title="Renomear lista">${EDIT_SVG}</button>
+      ${canDel ? `<button type="button" class="ls-act del" data-ldel="${esc(l.id)}" aria-label="Excluir ${esc(l.name)}" title="Excluir lista">${TRASH}</button>` : ""}
+    </div>
+  </div>`;
+}
 function renderLists() {
-  $("lsl").innerHTML = S.lists.map(l => {
-    const act = l.items.filter(i => !i.skipped);
-    return `<button class="opt plain${l.id === S.cur ? " on" : ""}" data-l="${esc(l.id)}"><span class="cat-ico" style="--h:165">${ico("cart")}</span><span class="ln">${esc(l.name)}</span><em>${plural(act.length, "item", "itens")} · ${brl(sum(act))}</em></button>`;
-  }).join("");
-  $("lDel").hidden = S.lists.length < 2;
+  const custom = S.lists.filter(l => l.kind !== "skip");
+  const skipped = S.lists.filter(l => l.kind === "skip");
+  $("lslMain").innerHTML = `<div class="ls-sec-hd">Minhas listas</div>` + (custom.length
+    ? custom.map(l => listRowHTML(l, false)).join("")
+    : '<p style="margin:6px 2px;font-size:12.5px;color:var(--muted)">Nenhuma lista personalizada.</p>');
+  $("lslSkip").hidden = !skipped.length;
+  $("lslSkip").innerHTML = skipped.length
+    ? `<div class="ls-sec-hd" style="margin-top:16px">Listas por desistência</div>` + skipped.map(l => listRowHTML(l, true)).join("")
+    : "";
 }
 $("lsBtn").onclick = () => { renderLists(); openD("ls"); };
 $("lsOk").onclick = () => $("ls").close();
-$("lsl").addEventListener("click", e => {
+$("lsl").addEventListener("click", async e => {
+  const renB = e.target.closest("[data-lren]");
+  if (renB) {
+    const l = S.lists.find(x => String(x.id) === renB.dataset.lren);
+    if (!l) return;
+    const n = await askName("Renomear lista", l.name);
+    if (!n) return;
+    l.name = n;
+    renderLists();
+    render();
+    return;
+  }
+  const delB = e.target.closest("[data-ldel]");
+  if (delB) {
+    if (S.lists.length < 2) return;
+    const l = S.lists.find(x => String(x.id) === delB.dataset.ldel);
+    if (!l) return;
+    const r = await ask(`Excluir “${l.name}”?`, l.items.length ? `Os ${plural(l.items.length, "item", "itens")} desta lista serão apagados.` : "A lista está vazia.", "Excluir", { danger: true });
+    if (r !== "ok") return;
+    const idx = S.lists.indexOf(l);
+    const wasCur = S.cur === l.id;
+    S.lists.splice(idx, 1);
+    if (wasCur) S.cur = S.lists[Math.max(0, idx - 1)].id;
+    renderLists();
+    render();
+    toast(`Lista “${l.name}” excluída`, () => { S.lists.splice(idx, 0, l); if (wasCur) S.cur = l.id; if ($("ls").open) renderLists(); });
+    return;
+  }
   const b = e.target.closest("[data-l]"); if (!b) return;
   S.cur = b.dataset.l; S.cat = ""; paint($("cat"), ""); $("ls").close(); render();
 });
@@ -4836,19 +4960,6 @@ $("lNew").onclick = async () => {
   const l = newList(n); S.lists.push(l); S.cur = l.id;
   S.cat = ""; paint($("cat"), "");
   $("ls").close(); render(); toast(`Lista “${n}” criada`);
-};
-$("lRen").onclick = async () => {
-  const n = await askName("Renomear lista", L().name); if (!n) return;
-  L().name = n; renderLists(); render();
-};
-$("lDel").onclick = async () => {
-  const l = L();
-  const r = await ask(`Excluir “${l.name}”?`, l.items.length ? `Os ${plural(l.items.length, "item", "itens")} desta lista serão apagados.` : "A lista está vazia.", "Excluir", { danger: true });
-  if (r !== "ok") return;
-  const idx = S.lists.indexOf(l);
-  S.lists.splice(idx, 1); S.cur = S.lists[Math.max(0, idx - 1)].id;
-  $("ls").close(); render();
-  toast(`Lista “${l.name}” excluída`, () => { S.lists.splice(idx, 0, l); S.cur = l.id; });
 };
 
 /* =========================================================
