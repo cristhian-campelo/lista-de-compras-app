@@ -478,15 +478,35 @@ main>.wrap:not([hidden]){animation:viewIn .26s cubic-bezier(.22,1,.36,1)}
 .chart-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:10px}
 .chart-top h3{margin:0;font-size:14px;font-weight:700;color:var(--muted)}
 .chart-sel{font-size:13px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums;text-align:right}
-.chart-wrap{overflow-x:auto;padding-bottom:4px}
-.chart-svg{display:block;width:100%;height:190px;user-select:none}
+.chart-wrap{overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch}
+.chart-svg{display:block;width:100%;height:224px;user-select:none}
 .chart-svg text{fill:var(--muted);font-size:11px;font-family:inherit;font-variant-numeric:tabular-nums}
+.chart-svg .chart-val-lbl{fill:var(--ink);font-size:10.5px;font-weight:800}
+.chart-svg .bar-g.on .chart-val-lbl{fill:var(--accent)}
 .chart-svg .grid{stroke:var(--line);stroke-dasharray:3 3}
 .chart-svg .bar-hit{cursor:pointer;fill:transparent}
 .chart-svg .bar-rect{fill:color-mix(in srgb,var(--accent) 72%,transparent);transition:fill .15s}
 .chart-svg .bar-g.on .bar-rect,.chart-svg .bar-g:hover .bar-rect{fill:var(--accent)}
 .chart-svg .trend{fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.45;pointer-events:none}
-.chart-svg .dot{fill:var(--surface);stroke:var(--accent);stroke-width:2;pointer-events:none}
+.chart-svg .trend-seg{stroke-width:2.2;stroke-linecap:round;opacity:.65;pointer-events:none}
+.chart-svg .trend-seg.up{stroke:#ea580c}
+.chart-svg .trend-seg.dn{stroke:#10b981}
+.chart-svg .trend-seg.eq{stroke:var(--muted);opacity:.4}
+.chart-svg .dot{fill:var(--surface);stroke:var(--accent);stroke-width:2.2;pointer-events:none}
+.chart-svg .delta-pill{fill:var(--surface);stroke-width:1.2}
+.chart-svg .delta-pill.up{stroke:#f97316}
+.chart-svg .delta-pill.dn{stroke:#10b981}
+.chart-svg .delta-pill.eq{stroke:var(--line)}
+.chart-svg .delta-txt{font-size:9.5px;font-weight:800}
+.chart-svg .delta-txt.up{fill:#ea580c}
+.chart-svg .delta-txt.dn{fill:#059669}
+.chart-svg .delta-txt.eq{fill:var(--muted)}
+:root[data-theme="dark"] .chart-svg .delta-txt.up{fill:#fb923c}
+:root[data-theme="dark"] .chart-svg .delta-txt.dn{fill:#34d399}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .chart-svg .delta-txt.up{fill:#fb923c}
+  :root:not([data-theme="light"]) .chart-svg .delta-txt.dn{fill:#34d399}
+}
 .cat-stat{display:flex;align-items:center;gap:10px;width:100%;padding:11px 13px;margin-top:8px;border-radius:14px;background:var(--surface);border:1px solid var(--line);box-shadow:0 2px 8px rgba(0,0,0,.04);text-align:left;transition:all .2s ease}
 .cat-stat:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.09)}
 .cat-stat .cs-mid{flex:1;min-width:0}
@@ -986,6 +1006,7 @@ dialog label{display:block;font-size:13px;font-weight:600;color:var(--muted);mar
     <button id="mBak"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg><span>Backup do aplicativo</span></button>
     <button id="mHide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.52 13.52 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg><span id="mHideTxt">Ocultar itens marcados</span></button>
     <button id="mToggleAll"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"/></svg><span id="mToggleAllTxt">Marcar todos os itens</span></button>
+    <button id="mRepImg" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg><span>Compartilhar / Salvar gráfico</span></button>
     <button id="mAll" class="w"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg><span>Limpar a lista inteira</span></button>
     <button id="mDelAllHist" class="w" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg><span>Excluir todos os registros</span></button>
     <button id="mDelAllProd" class="w" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg><span>Excluir todos os produtos</span></button>
@@ -2991,6 +3012,15 @@ const PERIODS = [
 ];
 let curRepPoints = [];
 
+let lastRepChart = null;
+function fmtCompactBrl(c) {
+  const neg = c < 0;
+  const a = Math.abs(Math.round(c));
+  const dec = a % 100;
+  const ints = Math.floor(a / 100).toLocaleString("pt-BR");
+  return `${neg ? "-" : ""}R$${ints}${dec ? "," + String(dec).padStart(2, "0") : ""}`;
+}
+
 function renderRep() {
   $("appHdr").classList.remove("hdr-has-bud");
   $("lsBtn").hidden = true;
@@ -3046,6 +3076,7 @@ function renderRep() {
   </div>`;
 
   if (!points.length) {
+    lastRepChart = null;
     h += `<div class="empty"><b>Sem dados para este filtro</b>Registre compras no final da sua lista para acompanhar os gráficos de gastos por período e categoria.</div>`;
     $("vRep").innerHTML = h;
     return;
@@ -3054,18 +3085,18 @@ function renderRep() {
   const selPt = points.find(p => p.id === repSelId) || points[points.length - 1];
   repSelId = selPt.id;
 
-  // Construção do gráfico SVG Valor × Data
+  // Construção do gráfico SVG Valor × Data com rolagem horizontal, valor exato no topo e variação entre pontos
   const n = points.length;
-  const isFew = n <= 5;
-  const stepX = isFew ? Math.floor(250 / Math.max(1, n)) : Math.max(46, Math.floor(300 / n));
-  const W = isFew ? 320 : Math.max(320, 52 + n * stepX + 12);
-  const H = 186, padL = 50, padR = 12, padT = 18, padB = 28;
+  const padL = 48, padR = 18, padT = 42, padB = 28, H = 224;
+  const stepX = n <= 3 ? Math.floor(252 / Math.max(1, n)) : Math.max(78, Math.floor(254 / n));
+  const W = Math.max(320, padL + n * stepX + padR);
   const plotW = W - padL - padR, plotH = H - padT - padB;
   const topY = maxVal || 100;
+  lastRepChart = { points, periodLbl: pInfo[1], catLbl: repCat === "all" ? "Todas as categorias" : repCat, tot, avg, maxVal };
 
   const yPos = v => Math.round(padT + plotH * (1 - v / topY));
   const xCenter = idx => Math.round(padL + (idx + 0.5) * (plotW / n));
-  const barW = Math.min(28, Math.max(12, Math.floor((plotW / n) * 0.58)));
+  const barW = Math.min(30, Math.max(16, Math.floor((plotW / n) * 0.42)));
 
   const fmtAxis = v => {
     const val = Math.round(v / 100);
@@ -3081,19 +3112,33 @@ function renderRep() {
     return `<line class="grid" x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}"/><text x="${padL - 6}" y="${y + 4}" text-anchor="end">${lbl}</text>`;
   }).join("");
 
-  const labelStep = n > 8 ? Math.ceil(n / 6) : 1;
+  const segs = [];
+  const deltas = [];
+  for (let idx = 1; idx < n; idx++) {
+    const x1 = xCenter(idx - 1), y1 = yPos(points[idx - 1].val);
+    const x2 = xCenter(idx), y2 = yPos(points[idx].val);
+    const d = points[idx].val - points[idx - 1].val;
+    const cls = d > 0 ? "up" : d < 0 ? "dn" : "eq";
+    segs.push(`<line class="trend-seg ${cls}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`);
+    const mx = Math.round((x1 + x2) / 2);
+    const my = Math.max(padT + 10, Math.min(padT + plotH - 12, Math.round((y1 + y2) / 2)));
+    const dTxt = d === 0 ? "=" : `${d > 0 ? "▲ +" : "▼ "}${fmtCompactBrl(d)}`;
+    const pw = Math.max(26, Math.round(dTxt.length * 5.7 + 10));
+    deltas.push(`<g class="delta-g"><rect class="delta-pill ${cls}" x="${mx - Math.round(pw / 2)}" y="${my - 9}" width="${pw}" height="17" rx="6"/><text class="delta-txt ${cls}" x="${mx}" y="${my + 3}" text-anchor="middle">${esc(dTxt)}</text></g>`);
+  }
+
   const bars = points.map((p, idx) => {
     const cx = xCenter(idx), y = yPos(p.val), bh = Math.max(4, padT + plotH - y);
-    const showLbl = idx % labelStep === 0 || idx === n - 1;
     const isSel = p.id === selPt.id;
+    const valLbl = brl(p.val).replace(/\s+/g, "");
     return `<g class="bar-g${isSel ? " on" : ""}" data-pt="${esc(p.id)}">
       <rect class="bar-hit" x="${cx - Math.floor(stepX / 2)}" y="${padT}" width="${stepX}" height="${plotH + padB}"/>
       <rect class="bar-rect" x="${cx - Math.floor(barW / 2)}" y="${y}" width="${barW}" height="${bh}" rx="6"/>
-      ${showLbl ? `<text x="${cx}" y="${H - 8}" text-anchor="middle">${fmtShortDate(p.date)}</text>` : ""}
+      <circle class="dot" cx="${cx}" cy="${y}" r="3.5"/>
+      <text class="chart-val-lbl" x="${cx}" y="${Math.max(14, y - 10)}" text-anchor="middle">${esc(valLbl)}</text>
+      <text x="${cx}" y="${H - 8}" text-anchor="middle">${fmtShortDate(p.date)}</text>
     </g>`;
   }).join("");
-
-  const poly = n > 1 ? `<polyline class="trend" points="${points.map((p, idx) => `${xCenter(idx)},${yPos(p.val)}`).join(" ")}"/>` : "";
 
   h += `<div class="chart-card">
     <div class="chart-top">
@@ -3101,8 +3146,8 @@ function renderRep() {
       <div class="chart-sel" id="chartSelTxt">${fmtDate(selPt.date)} · ${esc(selPt.name)} · <b>${brl(selPt.val)}</b></div>
     </div>
     <div class="chart-wrap">
-      <svg class="chart-svg" viewBox="0 0 ${W} ${H}" ${isFew ? "" : `style="min-width:${W}px"`} role="img" aria-label="Gráfico de gastos por data">
-        ${grids}${poly}${bars}
+      <svg class="chart-svg" id="repChartSvg" viewBox="0 0 ${W} ${H}" ${W > 320 ? `style="min-width:${W}px;width:${W}px"` : ""} role="img" aria-label="Gráfico de gastos por data">
+        ${grids}${segs.join("")}${bars}${deltas.join("")}
       </svg>
     </div>
   </div>`;
@@ -3142,6 +3187,144 @@ function renderRep() {
   }
 
   $("vRep").innerHTML = h;
+}
+
+async function exportRepChartImage() {
+  if (!lastRepChart || !lastRepChart.points.length) {
+    toast("Não há gráfico para exportar");
+    return;
+  }
+  const { points, periodLbl, catLbl, tot, avg, maxVal } = lastRepChart;
+  const cs = getComputedStyle(document.documentElement);
+  const bg = cs.getPropertyValue("--bg").trim() || "#111417";
+  const surf = cs.getPropertyValue("--surface").trim() || "#1a1d21";
+  const ink = cs.getPropertyValue("--ink").trim() || "#eef2f6";
+  const muted = cs.getPropertyValue("--muted").trim() || "#9ca3af";
+  const line = cs.getPropertyValue("--line").trim() || "#2b3038";
+  const accent = cs.getPropertyValue("--accent").trim() || "#10b981";
+  const dark = document.documentElement.dataset.theme === "dark" ||
+    (document.documentElement.dataset.theme !== "light" && matchMedia("(prefers-color-scheme:dark)").matches);
+
+  const n = points.length;
+  const stepX = Math.max(82, Math.floor(540 / Math.max(1, n)));
+  const W = Math.max(640, 88 + n * stepX + 36);
+  const H = 370;
+  const dpr = 2;
+  const c = document.createElement("canvas");
+  c.width = W * dpr;
+  c.height = H * dpr;
+  const ctx = c.getContext("2d");
+  ctx.scale(dpr, dpr);
+
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = surf;
+  ctx.beginPath();
+  ctx.roundRect(14, 14, W - 28, H - 28, 18);
+  ctx.fill();
+  ctx.strokeStyle = line;
+  ctx.lineWidth = 1;
+  ctx.stroke();
+
+  ctx.fillStyle = ink;
+  ctx.font = "800 18px system-ui,-apple-system,sans-serif";
+  ctx.fillText(`Relatório de Gastos · ${periodLbl} · ${catLbl}`, 32, 46);
+  ctx.fillStyle = muted;
+  ctx.font = "600 13px system-ui,-apple-system,sans-serif";
+  ctx.fillText(`Total: ${brl(tot)}   ·   Média: ${brl(avg)}   ·   ${plural(n, "compra", "compras")}`, 32, 68);
+
+  const padL = 78, padR = 36, padT = 116, padB = 56;
+  const plotW = W - padL - padR, plotH = H - padT - padB;
+  const topY = maxVal || 100;
+  const yPos = v => padT + plotH * (1 - v / topY);
+  const xCenter = idx => padL + (idx + 0.5) * (plotW / n);
+  const barW = Math.min(34, Math.max(18, Math.floor((plotW / n) * 0.42)));
+
+  ctx.setLineDash([4, 4]);
+  ctx.strokeStyle = line;
+  ctx.fillStyle = muted;
+  ctx.font = "600 11px system-ui,-apple-system,sans-serif";
+  ctx.textAlign = "right";
+  [0, 0.5, 1].forEach(f => {
+    const y = yPos(topY * f);
+    ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(W - padR, y); ctx.stroke();
+    ctx.fillText(fmtCompactBrl(topY * f), padL - 10, y + 4);
+  });
+  ctx.setLineDash([]);
+
+  for (let idx = 1; idx < n; idx++) {
+    const x1 = xCenter(idx - 1), y1 = yPos(points[idx - 1].val);
+    const x2 = xCenter(idx), y2 = yPos(points[idx].val);
+    const d = points[idx].val - points[idx - 1].val;
+    ctx.strokeStyle = d > 0 ? "#f97316" : d < 0 ? "#10b981" : muted;
+    ctx.lineWidth = 2.4;
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+  }
+
+  points.forEach((p, idx) => {
+    const cx = xCenter(idx), y = yPos(p.val), bh = Math.max(5, padT + plotH - y);
+    ctx.fillStyle = accent;
+    ctx.beginPath();
+    ctx.roundRect(cx - barW / 2, y, barW, bh, 7);
+    ctx.fill();
+
+    ctx.fillStyle = surf;
+    ctx.strokeStyle = accent;
+    ctx.lineWidth = 2.4;
+    ctx.beginPath(); ctx.arc(cx, y, 4.2, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+
+    ctx.fillStyle = ink;
+    ctx.font = "800 11.5px system-ui,-apple-system,sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(brl(p.val).replace(/\s+/g, ""), cx, Math.max(96, y - 12));
+
+    ctx.fillStyle = muted;
+    ctx.font = "600 11px system-ui,-apple-system,sans-serif";
+    ctx.fillText(fmtShortDate(p.date), cx, H - 30);
+  });
+
+  for (let idx = 1; idx < n; idx++) {
+    const x1 = xCenter(idx - 1), y1 = yPos(points[idx - 1].val);
+    const x2 = xCenter(idx), y2 = yPos(points[idx].val);
+    const d = points[idx].val - points[idx - 1].val;
+    const mx = (x1 + x2) / 2;
+    const my = Math.max(padT + 14, Math.min(padT + plotH - 14, (y1 + y2) / 2));
+    const dTxt = d === 0 ? "=" : `${d > 0 ? "▲ +" : "▼ "}${fmtCompactBrl(d)}`;
+    ctx.font = "800 10.5px system-ui,-apple-system,sans-serif";
+    const pw = Math.max(30, ctx.measureText(dTxt).width + 14);
+    ctx.fillStyle = surf;
+    ctx.strokeStyle = d > 0 ? "#f97316" : d < 0 ? "#10b981" : line;
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.roundRect(mx - pw / 2, my - 10, pw, 20, 7);
+    ctx.fill(); ctx.stroke();
+    ctx.fillStyle = d > 0 ? (dark ? "#fb923c" : "#ea580c") : d < 0 ? (dark ? "#34d399" : "#059669") : muted;
+    ctx.textAlign = "center";
+    ctx.fillText(dTxt, mx, my + 3.5);
+  }
+
+  c.toBlob(async blob => {
+    if (!blob) { toast("Não foi possível gerar a imagem"); return; }
+    const fname = `grafico-gastos-${slug(catLbl)}-${periodLbl}.png`;
+    const file = new File([blob], fname, { type: "image/png" });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      try {
+        await navigator.share({ files: [file], title: `Gastos · ${periodLbl}` });
+        return;
+      } catch (err) {
+        if (err && err.name === "AbortError") return;
+      }
+    }
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = fname;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+    toast("Imagem do gráfico salva");
+  }, "image/png");
 }
 
 /* =========================================================
@@ -4335,6 +4518,7 @@ function openMenu(focusBudget = false) {
   $("mHide").hidden = !onList;
   $("mToggleAll").hidden = !onList;
   $("mAll").hidden = !onList;
+  $("mRepImg").hidden = !(curTab === "rep" && curRepPoints.length > 0);
   $("mDelAllHist").hidden = !(curTab === "hist" && !curRecId && S.records.length > 0);
   $("mDelAllProd").hidden = !(curTab === "prod" && !curProdId && S.products.length > 0);
   $("bd").value = fromC(L().budget || 0);
@@ -4360,6 +4544,10 @@ $("mHide").onclick = () => {
 $("mToggleAll").onclick = () => {
   $("mn").close();
   toggleAllDone();
+};
+$("mRepImg").onclick = () => {
+  $("mn").close();
+  exportRepChartImage();
 };
 $("mAll").onclick = () => {
   $("mn").close();
