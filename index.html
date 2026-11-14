@@ -36,17 +36,19 @@ input[type="date"]::-webkit-calendar-picker-indicator{display:block!important;op
 .wrap{max-width:640px;margin:0 auto;padding:0 16px}
 
 /* ---------- Cabeçalho e Navegação (Estilo Uiverse Dock) ---------- */
-header{flex:none;background:var(--bg);padding:8px 0 10px}
-.nav{display:flex;align-items:center;justify-content:space-around;height:44px;margin:0 auto 10px;padding:0 10px;border-radius:14px;background:var(--surface);box-shadow:0 6px 16px rgba(0,0,0,.07);border:1px solid var(--line)}
-:root[data-theme="dark"] .nav{background:#22262e;border-color:transparent;box-shadow:0 6px 18px rgba(0,0,0,.45)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .nav{background:#22262e;border-color:transparent;box-shadow:0 6px 18px rgba(0,0,0,.45)}}
-.nav button{outline:0!important;border:0!important;width:38px;height:38px;border-radius:50%;background:transparent;display:flex;align-items:center;justify-content:center;color:var(--muted);transition:all .28s cubic-bezier(.22,1,.36,1);cursor:pointer;padding:0}
-.nav button svg{width:20px;height:20px;display:block;transition:transform .25s ease}
+header{flex:none;background:var(--bg);padding:6px 0 8px}
+.nav-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.nav{flex:1;min-width:0;display:flex;align-items:center;justify-content:space-around;height:40px;margin:0;padding:0 10px;border-radius:14px;background:var(--surface);box-shadow:0 6px 16px rgba(0,0,0,.07);border:1px solid var(--line)}
+.nav-menu-btn{width:40px;height:40px;flex:none;border-radius:14px;background:var(--surface);border:1px solid var(--line);box-shadow:0 6px 16px rgba(0,0,0,.07)}
+:root[data-theme="dark"] .nav,:root[data-theme="dark"] .nav-menu-btn{background:#22262e;border-color:transparent;box-shadow:0 6px 18px rgba(0,0,0,.45)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .nav,:root:not([data-theme="light"]) .nav-menu-btn{background:#22262e;border-color:transparent;box-shadow:0 6px 18px rgba(0,0,0,.45)}}
+.nav button{outline:0!important;border:0!important;width:36px;height:36px;border-radius:50%;background:transparent;display:flex;align-items:center;justify-content:center;color:var(--muted);transition:all .28s cubic-bezier(.22,1,.36,1);cursor:pointer;padding:0}
+.nav button svg{width:19px;height:19px;display:block;transition:transform .25s ease}
 .nav button:hover{transform:translateY(-3px);color:var(--ink)}
 .nav button:active{transform:translateY(-1px) scale(.93)}
 .nav button[aria-selected="true"]{background:transparent;color:var(--accent);box-shadow:none;transform:translateY(-1px)}
-.top{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:36px;color:var(--muted);font-size:14px;margin-bottom:8px}
-.lsb{display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 12px;border-radius:11px;background:var(--surface);color:var(--ink);font-size:14.5px;font-weight:700;min-width:0;max-width:calc(100% - 160px);box-shadow:0 2px 6px rgba(0,0,0,.07);transition:all .22s ease}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:34px;color:var(--muted);font-size:14px;margin-bottom:6px}
+.lsb{display:inline-flex;align-items:center;gap:7px;height:36px;padding:0 12px;border-radius:11px;background:var(--surface);color:var(--ink);font-size:14.5px;font-weight:700;min-width:0;max-width:100%;box-shadow:0 2px 6px rgba(0,0,0,.07);transition:all .22s ease}
 .lsb:hover{transform:translateY(-2px);box-shadow:0 5px 12px rgba(0,0,0,.12)}
 .lsb:active{transform:translateY(0) scale(.96)}
 .lsb span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -68,28 +70,63 @@ header{flex:none;background:var(--bg);padding:8px 0 10px}
 .icon-btn:hover{background:var(--ink);color:var(--bg);box-shadow:0 6px 14px rgba(0,0,0,.2);transform:translateY(-2px)}
 .icon-btn.dng{color:#dc2626}
 .icon-btn.dng:hover{background:#ef4444;color:#fff;box-shadow:0 6px 14px rgba(239,68,68,.35)}
+.icon-btn.ok{color:#059669}
+.icon-btn.ok:hover{background:#10b981;color:#fff;box-shadow:0 6px 14px rgba(16,185,129,.35)}
+.icon-btn.inf{color:#2563eb}
+.icon-btn.inf:hover{background:#2563eb;color:#fff;box-shadow:0 6px 14px rgba(37,99,235,.35)}
 :root[data-theme="dark"] .icon-btn.dng:not(:hover){color:#f87171}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .icon-btn.dng:not(:hover){color:#f87171}}
+:root[data-theme="dark"] .icon-btn.ok:not(:hover){color:#34d399}
+:root[data-theme="dark"] .icon-btn.inf:not(:hover){color:#60a5fa}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .icon-btn.dng:not(:hover){color:#f87171}
+  :root:not([data-theme="light"]) .icon-btn.ok:not(:hover){color:#34d399}
+  :root:not([data-theme="light"]) .icon-btn.inf:not(:hover){color:#60a5fa}
+}
 .icon-btn:active{transform:translateY(0) scale(.93)}
-.icon-btn.eye-off{color:var(--accent)}
+.icon-btn.eye-off{background:#2563eb;color:#fff!important;border-color:transparent!important}
+.icon-btn.all-on{background:#10b981;color:#fff!important;border-color:transparent!important}
 .icon-btn svg{transition:transform .25s ease}
 .icon-btn.flip svg{animation:eyeFlip .32s ease}
 @keyframes eyeFlip{0%{transform:scaleY(1)}45%{transform:scaleY(.1)}100%{transform:scaleY(1)}}
-:root[data-theme="dark"] .lsb,:root[data-theme="dark"] .top-back:not(:hover),:root[data-theme="dark"] .help-btn:not(:hover),:root[data-theme="dark"] .icon-btn:not(:hover){background:#232730;box-shadow:0 2px 6px rgba(0,0,0,.4)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .lsb,:root:not([data-theme="light"]) .top-back:not(:hover),:root:not([data-theme="light"]) .help-btn:not(:hover),:root:not([data-theme="light"]) .icon-btn:not(:hover){background:#232730;box-shadow:0 2px 6px rgba(0,0,0,.4)}}
+:root[data-theme="dark"] .lsb,:root[data-theme="dark"] .top-back:not(:hover),:root[data-theme="dark"] .help-btn:not(:hover),:root[data-theme="dark"] .icon-btn:not(.nav-menu-btn):not(.eye-off):not(.all-on):not(:hover){background:#232730;box-shadow:0 2px 6px rgba(0,0,0,.4)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .lsb,:root:not([data-theme="light"]) .top-back:not(:hover),:root:not([data-theme="light"]) .help-btn:not(:hover),:root:not([data-theme="light"]) .icon-btn:not(.nav-menu-btn):not(.eye-off):not(.all-on):not(:hover){background:#232730;box-shadow:0 2px 6px rgba(0,0,0,.4)}}
 
 /* Painel de Resumo / Totais no Topo (Estilo Uiverse Sólido + Elevação) */
-.sum-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:12px 14px;box-shadow:0 4px 14px rgba(0,0,0,.05)}
+.hdr-collapse,.sum-collapse,.sum-card-wrap{display:grid;grid-template-rows:1fr;transition:grid-template-rows .28s cubic-bezier(.22,1,.36,1),opacity .22s ease}
+.hdr-collapse-in,.sum-collapse-in,.sum-card-wrap-in{min-height:0;overflow:hidden}
+header.hdr-min{padding-bottom:2px}
+header.hdr-min .nav-row{margin-bottom:4px}
+header.hdr-min .hdr-collapse,header.hdr-min .sum-collapse{grid-template-rows:0fr;opacity:0;pointer-events:none}
+header.hdr-min:not(.hdr-has-bud) .sum-card-wrap{grid-template-rows:0fr;opacity:0;pointer-events:none}
+header.hdr-min.hdr-has-bud .sum-card{padding:7px 11px}
+header.hdr-min.hdr-has-bud .bud{margin-top:0;padding-top:0;border-top:0}
+.hdr-handle{display:flex;align-items:center;justify-content:center;width:100%;height:20px;margin-top:2px;color:var(--muted);cursor:pointer;touch-action:none;padding:0;transition:color .18s ease}
+.hdr-handle:hover{color:var(--ink)}
+.hdr-handle svg{width:18px;height:18px;transition:transform .25s ease}
+header.hdr-min .hdr-handle svg{transform:rotate(180deg)}
+
+.sum-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:10px 12px;box-shadow:0 4px 14px rgba(0,0,0,.05)}
 :root[data-theme="dark"] .sum-card{box-shadow:0 4px 16px rgba(0,0,0,.35)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .sum-card{box-shadow:0 4px 16px rgba(0,0,0,.35)}}
-.sum-main{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.sum-main{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
 .sum-left{min-width:0}
-.sum-lbl{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:1px}
-.total{font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1.1;font-variant-numeric:tabular-nums;color:var(--ink);transition:color .2s}
-.sum-badge{flex:none;display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:999px;background:var(--bg);border:none;box-shadow:0 2px 5px rgba(0,0,0,.06);font-size:12px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
-.sum-badge svg{width:14px;height:14px;color:var(--accent);flex:none}
-.sum-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px;font-variant-numeric:tabular-nums}
-.sc-box{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:8px 11px;border-radius:12px;background:var(--bg);border:none;box-shadow:0 3px 8px rgba(0,0,0,.06);min-width:0;transition:transform .22s ease,box-shadow .22s ease}
+.sum-right{display:flex;flex-direction:column;align-items:flex-end;flex:none;text-align:right}
+.sum-lbl{display:flex;align-items:center;min-height:18px;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:2px}
+.total{font-size:26px;font-weight:800;letter-spacing:-.03em;line-height:1.1;font-variant-numeric:tabular-nums;color:var(--ink);transition:color .2s}
+.bud-trig{display:flex;flex-direction:column;align-items:flex-end;gap:2px;padding:0;margin:0;background:none;border:0;color:#ea580c;cursor:pointer;text-align:right;transition:opacity .18s ease}
+.bud-trig:hover{opacity:.85}
+.bud-trig:active{transform:scale(.97)}
+.bud-trig-k{display:inline-flex;align-items:center;gap:4px;min-height:18px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:#ea580c}
+.bud-trig-k svg{width:13px;height:13px;flex:none}
+.bud-trig-v{font-size:26px;font-weight:800;letter-spacing:-.03em;line-height:1.1;font-variant-numeric:tabular-nums;color:#ea580c}
+:root[data-theme="dark"] .bud-trig,:root[data-theme="dark"] .bud-trig-k,:root[data-theme="dark"] .bud-trig-v{color:#fb923c}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .bud-trig,:root:not([data-theme="light"]) .bud-trig-k,:root:not([data-theme="light"]) .bud-trig-v{color:#fb923c}}
+.sum-badge{flex:none;display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;background:var(--bg);border:none;box-shadow:0 2px 5px rgba(0,0,0,.06);font-size:11.5px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+.sum-badge svg{width:13px;height:13px;color:var(--accent);flex:none}
+.sum-foot{display:flex;justify-content:flex-start;margin-top:7px}
+.sum-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:8px;font-variant-numeric:tabular-nums}
+@media (max-width:460px){.sum-grid{grid-template-columns:1fr}}
+.sc-box{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:6px 10px;border-radius:11px;background:var(--bg);border:none;box-shadow:0 3px 8px rgba(0,0,0,.06);min-width:0;transition:transform .22s ease,box-shadow .22s ease}
 .sc-box:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.1)}
 .sc-box.sc-cart{background:#dcfce7;box-shadow:0 3px 10px rgba(16,185,129,.15)}
 .sc-box.sc-cart:hover{box-shadow:0 6px 16px rgba(16,185,129,.26)}
@@ -118,21 +155,35 @@ header{flex:none;background:var(--bg);padding:8px 0 10px}
   :root:not([data-theme="light"]) .sc-box.sc-rest .sc-v{color:#fef3c7}
 }
 .sc-v{font-size:13.5px;font-weight:800;color:var(--ink);white-space:nowrap}
-.bud-hint{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;margin-top:10px;padding:7px 12px;border-radius:11px;background:var(--bg);border:none;box-shadow:0 2px 6px rgba(0,0,0,.06);color:var(--accent);font-size:12px;font-weight:700;transition:all .22s ease}
+.bud-hint{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;margin-top:8px;padding:6px 10px;border-radius:10px;background:var(--bg);border:none;box-shadow:0 2px 6px rgba(0,0,0,.06);color:var(--accent);font-size:11.5px;font-weight:700;transition:all .22s ease}
 .bud-hint svg{width:15px;height:15px;flex:none}
 .bud-hint:hover{background:var(--accent);color:var(--accent-ink);box-shadow:0 6px 14px rgba(16,185,129,.32);transform:translateY(-2px)}
 .bud-hint:active{transform:translateY(0) scale(.98)}
 :root[data-theme="dark"] .bud-hint:not(:hover){background:#232730;box-shadow:0 2px 6px rgba(0,0,0,.35)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .bud-hint:not(:hover){background:#232730;box-shadow:0 2px 6px rgba(0,0,0,.35)}}
-.bud{margin-top:10px;padding-top:8px;border-top:1px solid var(--line);cursor:pointer;transition:opacity .15s}
+.bud{margin-top:8px;padding-top:7px;border-top:1px solid var(--line);cursor:pointer;transition:opacity .15s}
 .bud:hover{opacity:.9}
 .bar{height:7px;border-radius:999px;background:var(--line);overflow:hidden}
 .bar i{display:block;height:100%;width:0;background:var(--accent);border-radius:999px;transition:width .35s cubic-bezier(.22,1,.36,1)}
 .bar.over i{background:var(--warn)}
-.bud p{margin:6px 0 0;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;align-items:center;gap:8px;font-variant-numeric:tabular-nums}
-.bud p span:last-child{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;color:var(--accent);font-weight:700}
-.bud p span:last-child svg{width:13px;height:13px}
+.bud p{margin:5px 0 0;font-size:12px;font-weight:700;color:var(--muted);display:flex;justify-content:flex-start;align-items:center;gap:6px;font-variant-numeric:tabular-nums}
 .bud.over p{color:var(--warn)}
+/* Barra de ações globais no topo da lista rolável e alça de ações por categoria */
+.list-top-acts{display:flex;align-items:center;justify-content:flex-start;gap:8px;margin-top:10px}
+.list-top-acts .icon-btn{width:38px;height:38px;border-radius:11px;background:var(--surface);border:1px solid var(--line);box-shadow:0 2px 6px rgba(0,0,0,.05)}
+.list-top-acts .icon-btn:hover:not(.dng):not(.ok):not(.inf){background:var(--surface);transform:translateY(-2px);box-shadow:0 5px 12px rgba(0,0,0,.1)}
+:root[data-theme="dark"] .list-top-acts .icon-btn:not(.eye-off):not(.all-on):not(:hover){background:#1c2026}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .list-top-acts .icon-btn:not(.eye-off):not(.all-on):not(:hover){background:#1c2026}}
+.cat-acts-row{display:flex;align-items:flex-end;justify-content:flex-start;margin:0;padding:0;line-height:0}
+.cat-acts{position:relative;z-index:2;display:inline-flex;align-items:center;gap:8px;padding:7px 12px 7px 10px;margin-bottom:-1px;background:color-mix(in srgb,var(--bg) 78%,var(--surface));border:1px solid var(--line);border-bottom:0;border-left:4px solid hsl(var(--h,210) 68% 52%);border-radius:14px 16px 0 0}
+.cat-acts::before{content:"";position:absolute;left:0;right:0;bottom:-2px;height:3px;background:color-mix(in srgb,var(--bg) 78%,var(--surface));pointer-events:none}
+.cat-acts::after{content:"";position:absolute;right:-14px;bottom:1px;width:14px;height:14px;border-bottom-left-radius:14px;pointer-events:none;box-shadow:-6px 6px 0 5px color-mix(in srgb,var(--bg) 78%,var(--surface))}
+.cat-act-b{position:relative;z-index:1;width:38px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:hsl(var(--h,210) 68% 48%);display:grid;place-items:center;padding:0;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.06);transition:transform .16s ease,background .16s ease}
+.cat-act-b svg{width:18px;height:18px;display:block}
+.cat-act-b:hover{background:var(--bg);transform:translateY(-1px)}
+.cat-act-b:active{transform:scale(.92)}
+:root[data-theme="dark"] .cat-act-b{background:#232730;color:hsl(var(--h,210) 76% 64%)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cat-act-b{background:#232730;color:hsl(var(--h,210) 76% 64%)}}
 .inst{display:flex;align-items:center;gap:8px;margin-top:8px;padding:8px 8px 8px 14px;border-radius:12px;background:var(--soft);font-size:13.5px;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.06)}
 .inst span{flex:1;display:inline-flex;align-items:center;gap:6px}
 .inst span svg{width:16px;height:16px;color:var(--accent);flex:none}
@@ -151,10 +202,12 @@ header{flex:none;background:var(--bg);padding:8px 0 10px}
 main{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding-bottom:28px}
 main>.wrap:not([hidden]){animation:viewIn .26s cubic-bezier(.22,1,.36,1)}
 .grp{margin-top:18px}
-.grp h2{display:flex;justify-content:space-between;align-items:flex-start;gap:6px;margin:0 2px 8px;font-size:13.5px;font-weight:700;color:var(--ink)}
+.grp h2{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:0 0 8px;padding:9px 11px;border-radius:14px;background:hsl(var(--h,210) 68% 93%);border:1px solid hsl(var(--h,210) 56% 82%);border-left:4px solid hsl(var(--h,210) 68% 52%);font-size:13.5px;font-weight:700;color:var(--ink);box-shadow:0 2px 6px rgba(0,0,0,.04);transition:margin .25s ease}
+:root[data-theme="dark"] .grp h2{background:hsl(var(--h,210) 38% 17%);border-color:hsl(var(--h,210) 40% 28%);border-left-color:hsl(var(--h,210) 72% 58%);box-shadow:0 2px 8px rgba(0,0,0,.3)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .grp h2{background:hsl(var(--h,210) 38% 17%);border-color:hsl(var(--h,210) 40% 28%);border-left-color:hsl(var(--h,210) 72% 58%);box-shadow:0 2px 8px rgba(0,0,0,.3)}}
 .gh-title{display:inline-flex;flex-wrap:wrap;align-items:center;gap:5px 6px;min-width:0;flex:1}
 .gh-tog{display:inline-flex;align-items:center;gap:6px;min-width:0;max-width:100%;padding:0;background:none;border:0;color:inherit;font:inherit;font-weight:700;cursor:pointer;text-align:left}
-.gh-chev{width:16px;height:16px;flex:none;display:grid;place-items:center;color:var(--muted);transition:transform .3s cubic-bezier(.22,1,.36,1)}
+.gh-chev{width:16px;height:16px;flex:none;display:grid;place-items:center;color:var(--ink);opacity:.72;transition:transform .3s cubic-bezier(.22,1,.36,1)}
 .gh-chev svg{width:16px;height:16px;display:block}
 .grp.col .gh-chev{transform:rotate(-90deg)}
 .gh-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
@@ -165,14 +218,16 @@ main>.wrap:not([hidden]){animation:viewIn .26s cubic-bezier(.22,1,.36,1)}
 .g-zero{background:color-mix(in srgb,var(--zr) 16%,var(--surface));color:var(--zr)}
 :root[data-theme="dark"] .g-pend{background:#1e3a5f;color:#93c5fd}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .g-pend{background:#1e3a5f;color:#93c5fd}}
-.gh-r{display:inline-flex;align-items:center;gap:5px;flex:none;margin-top:1px}
-.gstat{height:25px;padding:0 9px;border-radius:8px;display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap;background:var(--g1);color:var(--ink);box-shadow:0 2px 5px rgba(0,0,0,.07);transition:color .3s ease,transform .2s ease}
-.gstat.gv{background:var(--g2)}
+.gh-r{display:inline-flex;align-items:center;gap:5px;flex:none}
+.gstat{height:25px;padding:0 9px;border-radius:8px;display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap;background:var(--surface);color:var(--ink);box-shadow:0 2px 5px rgba(0,0,0,.07);transition:color .3s ease,transform .2s ease}
+.gstat.gv{background:var(--surface)}
 .gstat.full{color:var(--ok)}
 .gstat svg{width:12px;height:12px;flex:none}
+:root[data-theme="dark"] .gstat{background:#232730;box-shadow:0 2px 5px rgba(0,0,0,.35)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .gstat{background:#232730;box-shadow:0 2px 5px rgba(0,0,0,.35)}}
 /* Recolher / expandir a categoria com animação suave */
 .cwrap{display:grid;grid-template-rows:1fr;transition:grid-template-rows .34s cubic-bezier(.22,1,.36,1),opacity .28s ease}
-.cin{min-height:0;overflow:hidden;padding:0 4px 14px;margin:0 -4px -14px}
+.cin{min-height:0;overflow:hidden;padding:2px 4px 14px;margin:0 -4px -14px}
 .grp.col .cwrap{grid-template-rows:0fr;opacity:0}
 .grp.col h2{margin-bottom:0}
 .cat-ico{width:26px;height:26px;border-radius:8px;display:inline-grid;place-items:center;background:hsl(var(--h,210) 75% 90%);color:hsl(var(--h,210) 75% 32%);flex:none;box-shadow:0 2px 5px rgba(0,0,0,.06)}
@@ -185,9 +240,34 @@ main>.wrap:not([hidden]){animation:viewIn .26s cubic-bezier(.22,1,.36,1)}
 .cat-add svg{width:14px;height:14px;display:block}
 :root[data-theme="dark"] .cat-add:not(:hover){background:#232730;box-shadow:0 2px 5px rgba(0,0,0,.4)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cat-add:not(:hover){background:#232730;box-shadow:0 2px 5px rgba(0,0,0,.4)}}
+/* Botão sutil de + na largura total no rodapé de cada categoria */
+.cat-add-row{width:100%;height:40px;border:0;border-top:1px solid var(--line);background:color-mix(in srgb,var(--bg) 55%,var(--surface));display:flex;align-items:center;justify-content:center;color:hsl(var(--h,210) 68% 52%);cursor:pointer;transition:background .18s ease,transform .15s ease;padding:0}
+.cat-add-row svg{width:20px;height:20px;display:block;transition:transform .18s ease}
+.cat-add-row:hover{background:color-mix(in srgb,var(--bg) 82%,var(--surface))}
+.cat-add-row:hover svg{transform:scale(1.12)}
+.cat-add-row:active svg{transform:scale(.92)}
+:root[data-theme="dark"] .cat-add-row{background:#16191d;color:hsl(var(--h,210) 76% 62%)}
+:root[data-theme="dark"] .cat-add-row:hover{background:#1f2329}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .cat-add-row{background:#16191d;color:hsl(var(--h,210) 76% 62%)}
+  :root:not([data-theme="light"]) .cat-add-row:hover{background:#1f2329}
+}
+/* Botão global + colorido em 4 cores */
+.add-global-btn{width:100%;height:48px;margin-top:14px;border-radius:16px;background:var(--surface);border:1px solid var(--line);box-shadow:0 3px 10px rgba(0,0,0,.05);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,background .2s ease;padding:0}
+.add-global-btn svg{width:24px;height:24px;display:block;transition:transform .2s ease}
+.add-global-btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.1)}
+.add-global-btn:hover svg{transform:scale(1.1)}
+.add-global-btn:active{transform:scale(.98)}
+:root[data-theme="dark"] .add-global-btn{background:#1c2026;box-shadow:0 3px 12px rgba(0,0,0,.35)}
+:root[data-theme="dark"] .add-global-btn:hover{background:#232830}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .add-global-btn{background:#1c2026;box-shadow:0 3px 12px rgba(0,0,0,.35)}
+  :root:not([data-theme="light"]) .add-global-btn:hover{background:#232830}
+}
 
 /* Card de superfície com separação suave apenas abaixo de cada item e barra lateral da cor da categoria */
 .card{display:flex;flex-direction:column;background:color-mix(in srgb,var(--bg) 78%,var(--surface));border:1px solid var(--line);border-left:4px solid hsl(var(--h,210) 68% 52%);border-radius:16px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.05)}
+.cat-acts-row + .card{border-top-left-radius:0}
 :root[data-theme="dark"] .card{box-shadow:0 4px 16px rgba(0,0,0,.35)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .card{box-shadow:0 4px 16px rgba(0,0,0,.35)}}
 .sw{position:relative;overflow:hidden;background:var(--surface)}
@@ -218,6 +298,15 @@ main>.wrap:not([hidden]){animation:viewIn .26s cubic-bezier(.22,1,.36,1)}
 /* Nome e valor do item com risco gradual da esquerda para a direita (linha desenhada por pseudo-elemento) */
 .info{flex:1;min-width:0;text-align:left;padding:6px 0;display:flex;flex-direction:column;align-items:flex-start;cursor:pointer}
 .info .name{position:relative;display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700;font-size:15px;margin-bottom:4px;transition:color .35s ease}
+.row.list-row{padding:10px 10px 10px 6px;gap:6px;align-items:flex-start}
+.row.list-row .chk{margin-top:4px}
+.row.list-row .skip-ico{margin-top:8px}
+.row.list-row .info{padding:2px 0;gap:7px;width:100%;cursor:default}
+.row.list-row .info .name{white-space:normal;overflow:visible;text-overflow:clip;word-break:break-word;line-height:1.28;margin-bottom:0;font-size:15.5px;cursor:pointer}
+.row-l1{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%}
+.row-l2{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;width:100%;margin-top:1px}
+.row-tags{flex:1;min-width:0;display:flex;flex-wrap:wrap;align-items:center;gap:4px;min-height:28px;align-content:center}
+.row.list-row .row-acts{margin-left:auto;flex:none}
 .info .name::after,.line::after{content:"";position:absolute;left:0;right:0;top:52%;height:2px;margin-top:-1px;border-radius:2px;background:currentColor;transform:scaleX(0);transform-origin:left center;transition:transform .5s cubic-bezier(.65,0,.35,1);pointer-events:none}
 .line::after{left:8px;right:8px;transition-delay:.12s}
 .done .info .name,.card.skip-card .name{color:var(--muted)}
@@ -246,6 +335,7 @@ main>.wrap:not([hidden]){animation:viewIn .26s cubic-bezier(.22,1,.36,1)}
   :root:not([data-theme="light"]) .pd.dn{color:#6ee7b7;background:#123127}
 }
 .line{position:relative;height:34px;padding:0 10px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap;background:var(--bg);color:var(--accent);border:none;outline:none;box-shadow:0 2px 6px rgba(0,0,0,.08);transition:all .25s ease;flex:none;cursor:pointer}
+.line.line-lg{height:auto;min-height:42px;padding:5px 15px;border-radius:12px;font-size:19px;font-weight:800;letter-spacing:-.02em}
 .line:hover{background:var(--accent);color:var(--accent-ink);box-shadow:0 6px 14px rgba(16,185,129,.35);transform:translateY(-2px)}
 .line:active{transform:translateY(0) scale(.94)}
 .line.zero-line{color:var(--zr)}
@@ -255,14 +345,14 @@ main>.wrap:not([hidden]){animation:viewIn .26s cubic-bezier(.22,1,.36,1)}
 .done .line{opacity:.7}
 .done .pills{opacity:.7}
 /* Botões de + e − da quantidade direto no card */
-.p-qty.qs{padding:2px 3px;gap:5px}
-.qb{width:22px;height:20px;border-radius:6px;border:none;outline:none;padding:0;display:grid;place-items:center;color:inherit;background:color-mix(in srgb,var(--surface) 70%,transparent);box-shadow:0 1px 3px rgba(0,0,0,.1);cursor:pointer;transition:all .2s ease}
-.qb svg{width:12px;height:12px;display:block}
+.p-qty.qs{padding:3px 5px;gap:7px;font-size:12.5px}
+.qb{width:26px;height:24px;border-radius:7px;border:none;outline:none;padding:0;display:grid;place-items:center;color:inherit;background:color-mix(in srgb,var(--surface) 75%,transparent);box-shadow:0 1px 3px rgba(0,0,0,.1);cursor:pointer;transition:all .2s ease}
+.qb svg{width:14px;height:14px;display:block}
 .qb:hover{background:currentColor;box-shadow:0 3px 8px rgba(37,99,235,.3);transform:translateY(-1px)}
 .qb:hover svg{color:var(--surface)}
 .qb:active{transform:scale(.88)}
 .qb:disabled{opacity:.35;pointer-events:none}
-.qs output{min-width:30px;text-align:center}
+.qs output{min-width:34px;text-align:center;font-size:13px;font-weight:800}
 .qs.bump output{animation:qBump .3s ease}
 @keyframes qBump{0%{transform:scale(1)}40%{transform:scale(1.25)}100%{transform:scale(1)}}
 .row-acts{display:inline-flex;align-items:center;gap:6px;flex:none;margin-left:2px}
@@ -312,11 +402,13 @@ main>.wrap:not([hidden]){animation:viewIn .26s cubic-bezier(.22,1,.36,1)}
 .more:hover{background:var(--accent);color:var(--accent-ink);box-shadow:0 6px 14px rgba(16,185,129,.32);transform:translateY(-2px)}
 
 /* ---------- Botão de finalizar / registrar compra ---------- */
-.fin-box{margin-top:24px;padding:16px;border-radius:18px;background:var(--surface);border:1px solid var(--line);text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.05)}
-.fin-btn{width:100%;height:48px;border-radius:14px;background:var(--accent);color:var(--accent-ink);font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 6px 16px rgba(16,185,129,.3);transition:all .25s ease}
-.fin-btn svg{width:18px;height:18px;flex:none}
-.fin-btn:hover{transform:translateY(-2px);box-shadow:0 10px 20px rgba(16,185,129,.4)}
+.fin-box{margin-top:20px;padding:0;border:0;background:transparent;box-shadow:none;text-align:center}
+.fin-btn{width:100%;height:48px;border-radius:14px;--rgb-bg:#fff;color:var(--ink);font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;border:1.5px solid transparent;background-color:var(--rgb-bg);background-image:linear-gradient(var(--rgb-bg),var(--rgb-bg)),linear-gradient(135deg,#a855f7,#f97316,#06b6d4,#ef4444);background-origin:border-box;background-clip:padding-box,border-box;box-shadow:0 4px 14px rgba(0,0,0,.09);transition:all .22s ease}
+.fin-btn svg{width:18px;height:18px;flex:none;color:var(--accent)}
+.fin-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.14)}
 .fin-btn:active{transform:translateY(0) scale(.98)}
+:root[data-theme="dark"] .fin-btn{--rgb-bg:#1c2026;color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .fin-btn{--rgb-bg:#1c2026;color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.4)}}
 .fin-sub{margin:8px 0 0;font-size:12px;color:var(--muted)}
 
 /* ---------- Histórico de compras ---------- */
@@ -504,6 +596,9 @@ dialog label{display:block;font-size:13px;font-weight:600;color:var(--muted);mar
 .opt-w .opt{margin-top:0;padding-right:48px}
 .opt.plain{border-left-color:var(--accent)}
 .opt.on{outline:2px solid var(--accent);background:var(--soft)}
+#lsl .opt.on{outline:none;--rgb-bg:#fff;color:var(--ink);border:1.5px solid transparent;border-left:1.5px solid transparent;background-color:var(--rgb-bg);background-image:linear-gradient(var(--rgb-bg),var(--rgb-bg)),linear-gradient(135deg,#a855f7,#f97316,#06b6d4,#ef4444);background-origin:border-box;background-clip:padding-box,border-box;box-shadow:0 4px 12px rgba(0,0,0,.08)}
+:root[data-theme="dark"] #lsl .opt.on{--rgb-bg:#1c2026;color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.38)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #lsl .opt.on{--rgb-bg:#1c2026;color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.38)}}
 .opt .ln{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700}
 .opt-txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
 .opt-name{font-weight:700;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -640,95 +735,125 @@ dialog label{display:block;font-size:13px;font-weight:600;color:var(--muted);mar
 .eqr .seg{flex:1}
 .eqr .step,.eqr .kgw{width:140px;flex:none}
 
+.dlg-hd{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 12px}
+.dlg-hd h3{margin:0;min-width:0}
+.dlg-hd-r{display:inline-flex;align-items:center;gap:6px;flex:none}
+.help-btn.mn-guide{height:32px;padding:0 10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);box-shadow:none;font-size:12px}
+.help-btn.mn-guide svg{width:14px;height:14px}
+:root[data-theme="dark"] .help-btn.mn-guide:not(:hover){background:#232730}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .help-btn.mn-guide:not(:hover){background:#232730}}
+.dlg-x{width:32px;height:32px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--muted);display:grid;place-items:center;flex:none;transition:all .18s ease}
+.dlg-x svg{width:16px;height:16px;display:block}
+.dlg-x:hover{background:var(--surface);color:var(--ink)}
+.dlg-x:active{transform:scale(.92)}
+.am-submit{width:100%;height:48px;border-radius:12px;background:var(--bg);border:1px solid var(--line);box-shadow:0 3px 10px rgba(0,0,0,.07);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,background .2s ease;margin-top:16px;padding:0}
+.am-submit svg{width:24px;height:24px;display:block;transition:transform .2s ease}
+.am-submit:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.12)}
+.am-submit:hover svg{transform:scale(1.1)}
+.am-submit:active{transform:scale(.97)}
+:root[data-theme="dark"] .dlg-x,:root[data-theme="dark"] .am-submit{background:#232730}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .dlg-x,:root:not([data-theme="light"]) .am-submit{background:#232730}}
 /* ---------- Aviso (toast) ---------- */
 #toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;display:flex;gap:14px;align-items:center;opacity:0;pointer-events:none;transition:.25s;z-index:30;font-size:14px;white-space:nowrap;max-width:calc(100vw - 32px);box-shadow:0 8px 24px rgba(0,0,0,.22)}
-body.has-footer #toast{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
 #toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
 #toastTxt{overflow:hidden;text-overflow:ellipsis;min-width:0}
 #toast button{flex:none;padding:4px 0;color:var(--accent);font-weight:800}
 
 /* ---------- Ajustes de tela ---------- */
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
-@media (min-width:700px){.total{font-size:36px}}
-@media (max-width:370px){.wrap{padding:0 12px}.total{font-size:26px}.add{padding:0 14px}.row{gap:5px}.row-acts{gap:5px}.act-b{width:31px;height:31px}.qw>*{width:100px}.step button{width:34px}}
+@media (min-width:700px){.total,.bud-trig-v{font-size:36px}}
+@media (max-width:370px){.wrap{padding:0 12px}.total,.bud-trig-v{font-size:24px}.add{padding:0 14px}.row{gap:5px}.row-acts{gap:5px}.act-b{width:31px;height:31px}.line.line-lg{font-size:16.5px;min-height:38px;padding:4px 11px}.qw>*{width:100px}.step button{width:34px}}
 /* teclado aberto ou tela baixa: cabeçalho compacto para sobrar espaço para a lista */
-@media (max-height:520px){header{padding:4px 0}.nav{height:36px;margin-bottom:4px}.top{margin-bottom:3px}.lsb{height:28px}.sum-card{padding:6px 10px}.total{font-size:22px}.sum-grid,.inst,.bud p,.bud-hint{display:none}.bud{margin-top:4px;padding-top:4px}.grp{margin-top:10px}}
+@media (max-height:520px){header{padding:4px 0}.nav{height:36px}.nav-menu-btn{width:36px;height:36px}.nav-row{margin-bottom:4px}.top{margin-bottom:3px}.lsb{height:28px}.sum-card{padding:6px 10px}.total,.bud-trig-v{font-size:22px}.sum-grid,.sum-foot,.inst,.bud p{display:none}.bud{margin-top:4px;padding-top:4px}.grp{margin-top:10px}}
 </style>
 </head>
-<body class="has-footer">
-<header><div class="wrap">
-  <nav class="nav" id="mainNav" role="tablist" aria-label="Seções do aplicativo">
-    <button type="button" role="tab" data-tab="list" aria-selected="true" aria-label="Lista de compras" title="Lista de compras">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
-    </button>
-    <button type="button" role="tab" data-tab="hist" aria-selected="false" aria-label="Histórico de compras" title="Histórico de compras">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>
-    </button>
-    <button type="button" role="tab" data-tab="prod" aria-selected="false" aria-label="Banco de produtos" title="Banco de produtos">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>
-    </button>
-    <button type="button" role="tab" data-tab="rep" aria-selected="false" aria-label="Relatórios de gastos" title="Relatórios de gastos">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
-    </button>
-  </nav>
-  <div class="top" id="hdrTop">
-    <button class="lsb" id="lsBtn" aria-label="Trocar de lista">
-      <svg class="lsb-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
-      <span id="lsName">Mercado</span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-    </button>
-    <button type="button" class="top-back" id="topBack" hidden>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
-      <span id="topBackTxt">Voltar ao histórico</span>
-    </button>
-    <span class="top-lbl" id="hdrLabel" hidden></span>
-    <div class="top-r">
-      <button type="button" class="icon-btn" id="checkAllBtn" aria-label="Marcar todos os itens" title="Marcar todos os itens">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"/></svg>
+<body>
+<svg style="position:absolute;width:0;height:0;overflow:hidden;pointer-events:none" aria-hidden="true">
+  <defs>
+    <linearGradient id="g4c" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7"/>
+      <stop offset="35%" stop-color="#f97316"/>
+      <stop offset="70%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#ef4444"/>
+    </linearGradient>
+  </defs>
+</svg>
+<header id="appHdr"><div class="wrap">
+  <div class="nav-row">
+    <nav class="nav" id="mainNav" role="tablist" aria-label="Seções do aplicativo">
+      <button type="button" role="tab" data-tab="list" aria-selected="true" aria-label="Lista de compras" title="Lista de compras">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
       </button>
-      <button type="button" class="icon-btn dng" id="clearAllBtn" aria-label="Excluir todos os itens" title="Excluir todos os itens">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+      <button type="button" role="tab" data-tab="hist" aria-selected="false" aria-label="Histórico de compras" title="Histórico de compras">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>
       </button>
-      <button type="button" class="icon-btn" id="eyeBtn" aria-label="Ocultar itens marcados" title="Ocultar itens marcados">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
+      <button type="button" role="tab" data-tab="prod" aria-selected="false" aria-label="Banco de produtos" title="Banco de produtos">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>
       </button>
-      <button type="button" class="help-btn" id="helpBtn" aria-label="Guia de como usar esta página" title="Como usar esta página">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
-        <span>Guia</span>
+      <button type="button" role="tab" data-tab="rep" aria-selected="false" aria-label="Relatórios de gastos" title="Relatórios de gastos">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
       </button>
-      <button class="icon-btn" id="menuBtn" aria-label="Mais opções">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
-      </button>
-    </div>
-  </div>
-  <div class="sum-card">
-    <div class="sum-main">
-      <div class="sum-left">
-        <span class="sum-lbl" id="totLbl">Total previsto da lista</span>
-        <div class="total" id="total">R$ 0,00</div>
-      </div>
-      <span class="sum-badge" id="hdrBadge">0/0 no carrinho</span>
-    </div>
-    <div class="sum-grid" id="hdrSub">
-      <div class="sc-box sc-cart"><span class="sc-k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><span>No carrinho</span></span><b class="sc-v" id="cart">R$ 0,00</b></div>
-      <div class="sc-box sc-rest"><span class="sc-k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Falta pegar</span></span><b class="sc-v" id="rest">R$ 0,00</b></div>
-    </div>
-    <button type="button" class="bud-hint" id="budHint" hidden>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-      <span>Definir orçamento da lista (toque aqui ou no menu)</span>
-    </button>
-    <div class="bud" id="bud" hidden title="Toque para editar o orçamento"><div class="bar" id="bar"><i></i></div><p id="budTxt"></p></div>
-  </div>
-  <div class="inst" id="inst" hidden>
-    <span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
-      Instale o app no seu aparelho
-    </span>
-    <button id="instGo">Instalar</button>
-    <button id="instX" aria-label="Fechar aviso">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </nav>
+    <button class="icon-btn nav-menu-btn" id="menuBtn" aria-label="Mais opções" title="Opções e Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
     </button>
   </div>
+  <div class="hdr-collapse" id="hdrBody"><div class="hdr-collapse-in">
+    <div class="top" id="hdrTop">
+      <button class="lsb" id="lsBtn" aria-label="Trocar de lista">
+        <svg class="lsb-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+        <span id="lsName">Mercado</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <button type="button" class="top-back" id="topBack" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+        <span id="topBackTxt">Voltar ao histórico</span>
+      </button>
+      <span class="top-lbl" id="hdrLabel" hidden></span>
+    </div>
+  </div></div>
+  <div class="sum-card-wrap"><div class="sum-card-wrap-in">
+    <div class="sum-card">
+      <div class="sum-collapse"><div class="sum-collapse-in">
+        <div class="sum-main">
+          <div class="sum-left">
+            <span class="sum-lbl" id="totLbl">Total previsto da lista</span>
+            <div class="total" id="total">R$ 0,00</div>
+          </div>
+          <div class="sum-right">
+            <button type="button" class="bud-trig" id="budTrig" title="Definir ou editar orçamento" hidden>
+              <span class="bud-trig-k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg><span>Orçamento</span></span>
+              <span class="bud-trig-v" id="budVal" hidden>R$ 0,00</span>
+            </button>
+            <span class="sum-badge" id="hdrBadge">0/0 no carrinho</span>
+          </div>
+        </div>
+        <div class="sum-grid" id="hdrSub">
+          <div class="sc-box sc-cart"><span class="sc-k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg><span>No carrinho</span></span><b class="sc-v" id="cart">R$ 0,00</b></div>
+          <div class="sc-box sc-rest"><span class="sc-k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Falta pegar</span></span><b class="sc-v" id="rest">R$ 0,00</b></div>
+        </div>
+        <div class="sum-foot" id="listFoot" hidden>
+          <span class="sum-badge" id="listBadge">0/0 no carrinho</span>
+        </div>
+      </div></div>
+      <div class="bud" id="bud" hidden title="Toque para editar o orçamento"><div class="bar" id="bar"><i></i></div><p id="budTxt"></p></div>
+    </div>
+  </div></div>
+  <div class="hdr-collapse"><div class="hdr-collapse-in">
+    <div class="inst" id="inst" hidden>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+        Instale o app no seu aparelho
+      </span>
+      <button id="instGo">Instalar</button>
+      <button id="instX" aria-label="Fechar aviso">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+  </div></div>
+  <button type="button" class="hdr-handle" id="hdrHandle" aria-expanded="true" aria-label="Minimizar ou expandir painel do topo" title="Toque ou arraste para minimizar/expandir">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
+  </button>
 </div></header>
 
 <main>
@@ -738,23 +863,30 @@ body.has-footer #toast{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
   <div class="wrap" id="vRep" hidden></div>
 </main>
 
-<footer id="ftr"><div class="wrap f">
-  <div class="r1">
-    <div class="nw">
-      <input id="name" placeholder="Item (ex.: Arroz 5 kg)" autocomplete="off" enterkeyhint="next" maxlength="120" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="acList">
-      <button class="hb" id="hBtn" aria-label="Sugestões de itens">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-      </button>
-      <div class="ac-pop" id="acList" role="listbox" hidden></div>
-    </div>
-    <button class="add" id="addBtn">Adicionar</button>
+<div id="toast" role="status" aria-live="polite"><span id="toastTxt"></span><button id="undo">Desfazer</button></div>
+
+<!-- Janelas (a ordem importa: as que abrem por cima de outras ficam depois) -->
+<dialog id="am">
+  <div class="dlg-hd">
+    <h3 tabindex="-1" autofocus id="amTitle">Adicionar item</h3>
+    <button type="button" class="dlg-x" id="amClose" aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
   </div>
-  <div class="r2">
+  <label for="name">Nome</label>
+  <div class="nw">
+    <input id="name" placeholder="Item (ex.: Arroz 5 kg)" autocomplete="off" enterkeyhint="next" maxlength="120" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="acList">
+    <button class="hb" id="hBtn" type="button" aria-label="Sugestões de itens">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <div class="ac-pop down" id="acList" role="listbox" hidden></div>
+  </div>
+  <div class="r2" style="margin-top:12px">
     <div class="qw">
       <div class="step" id="qStep">
-        <button id="qm" aria-label="Diminuir"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+        <button type="button" id="qm" aria-label="Diminuir"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg></button>
         <output id="qv">1</output>
-        <button id="qp" aria-label="Aumentar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg></button>
+        <button type="button" id="qp" aria-label="Aumentar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg></button>
       </div>
       <div class="kgw" id="kgw" hidden><input id="kg" inputmode="numeric" placeholder="Peso" autocomplete="off" enterkeyhint="next" aria-label="Peso em quilos"><span class="sx">kg</span></div>
     </div>
@@ -766,14 +898,19 @@ body.has-footer #toast{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
       </button>
     </div>
   </div>
-  <div class="meta" id="prev"></div>
-</div></footer>
-
-<div id="toast" role="status" aria-live="polite"><span id="toastTxt"></span><button id="undo">Desfazer</button></div>
-
-<!-- Janelas (a ordem importa: as que abrem por cima de outras ficam depois) -->
+  <div class="ed-ph" id="addHist" hidden></div>
+  <div class="meta" id="prev" style="margin-top:8px"></div>
+  <button type="button" class="am-submit" id="addBtn" aria-label="Adicionar item">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="4" x2="12" y2="12" stroke="#a855f7"/><line x1="12" y1="12" x2="20" y2="12" stroke="#f97316"/><line x1="12" y1="12" x2="12" y2="20" stroke="#06b6d4"/><line x1="4" y1="12" x2="12" y2="12" stroke="#ef4444"/></svg>
+  </button>
+</dialog>
 <dialog id="ed">
-  <h3 tabindex="-1" autofocus id="edTitle">Editar item</h3>
+  <div class="dlg-hd">
+    <h3 tabindex="-1" autofocus id="edTitle">Editar item</h3>
+    <button type="button" class="dlg-x" data-dlg-close aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+  </div>
   <label for="en">Nome</label>
   <div class="enw">
     <input id="en" maxlength="120" enterkeyhint="done" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="edAc">
@@ -809,7 +946,18 @@ body.has-footer #toast{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
 </dialog>
 
 <dialog id="mn">
-  <h3 tabindex="-1" autofocus>Opções</h3>
+  <div class="dlg-hd">
+    <h3 tabindex="-1" autofocus>Opções</h3>
+    <div class="dlg-hd-r">
+      <button type="button" class="help-btn mn-guide" id="helpBtn" aria-label="Guia de como usar esta página" title="Como usar esta página">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+        <span>Guia</span>
+      </button>
+      <button type="button" class="dlg-x" data-dlg-close aria-label="Fechar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+  </div>
   <div id="mnListOpts">
     <label for="bd">Orçamento desta lista (deixe vazio para desativar)</label>
     <input id="bd" inputmode="numeric" placeholder="0,00">
@@ -828,7 +976,12 @@ body.has-footer #toast{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
 </dialog>
 
 <dialog id="ls">
-  <h3 tabindex="-1" autofocus>Minhas listas</h3>
+  <div class="dlg-hd">
+    <h3 tabindex="-1" autofocus>Minhas listas</h3>
+    <button type="button" class="dlg-x" data-dlg-close aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+  </div>
   <div class="lst" id="lsl"></div>
   <div class="menu" style="margin-top:14px">
     <button id="lNew"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg><span>Nova lista</span></button>
@@ -839,7 +992,12 @@ body.has-footer #toast{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
 </dialog>
 
 <dialog id="ex">
-  <h3 tabindex="-1" autofocus id="exTitle">Exportar e compartilhar</h3>
+  <div class="dlg-hd">
+    <h3 tabindex="-1" autofocus id="exTitle">Exportar e compartilhar</h3>
+    <button type="button" class="dlg-x" data-dlg-close aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+  </div>
   <div class="menu">
     <button id="xShare" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/></svg><span>Compartilhar (WhatsApp, Telegram…)</span></button>
     <button id="xCopy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span>Copiar como texto</span></button>
@@ -850,7 +1008,12 @@ body.has-footer #toast{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
 </dialog>
 
 <dialog id="bk">
-  <h3 tabindex="-1" autofocus>Backup do aplicativo</h3>
+  <div class="dlg-hd">
+    <h3 tabindex="-1" autofocus>Backup do aplicativo</h3>
+    <button type="button" class="dlg-x" data-dlg-close aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+  </div>
   <p style="margin:0 0 12px;font-size:13.5px;color:var(--muted);line-height:1.45">Salve ou restaure todas as suas listas ativas, categorias personalizadas, o histórico completo de compras e os preços salvos.</p>
   <div class="menu">
     <button id="xBak"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg><span>Salvar backup (.json)</span></button>
@@ -862,7 +1025,12 @@ body.has-footer #toast{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
 </dialog>
 
 <dialog id="bkh">
-  <h3 tabindex="-1" autofocus>Como usar o backup</h3>
+  <div class="dlg-hd">
+    <h3 tabindex="-1" autofocus>Como usar o backup</h3>
+    <button type="button" class="dlg-x" data-dlg-close aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+  </div>
   <p style="margin:0 0 10px;font-size:13px;color:var(--muted);line-height:1.45">Seus dados ficam salvos com total privacidade no navegador do seu aparelho. Veja como funcionam as duas opções:</p>
   <div class="lst">
     <div class="gbox">
@@ -886,7 +1054,12 @@ body.has-footer #toast{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
 </dialog>
 
 <dialog id="tut">
-  <h3 tabindex="-1" autofocus id="tutTitle">Como usar</h3>
+  <div class="dlg-hd">
+    <h3 tabindex="-1" autofocus id="tutTitle">Como usar</h3>
+    <button type="button" class="dlg-x" data-dlg-close aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+  </div>
   <div class="seg" id="tutSeg" style="margin-bottom:10px">
     <button type="button" data-gt="list"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg><span>Lista</span></button>
     <button type="button" data-gt="hist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg><span>Histórico</span></button>
@@ -897,9 +1070,14 @@ body.has-footer #toast{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
   <div class="acts"><button type="button" class="pri" id="tutOk">Entendi</button></div>
 </dialog>
 
-<dialog id="cp"><h3 tabindex="-1" autofocus id="cpTitle">Escolher categoria</h3><div class="lst" id="cpl"></div></dialog>
+<dialog id="cp"><div class="dlg-hd"><h3 tabindex="-1" autofocus id="cpTitle">Escolher categoria</h3><button type="button" class="dlg-x" data-dlg-close aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div><div class="lst" id="cpl"></div></dialog>
 <dialog id="nc">
-  <h3 tabindex="-1" autofocus>Nova categoria personalizada</h3>
+  <div class="dlg-hd">
+    <h3 tabindex="-1" autofocus>Nova categoria personalizada</h3>
+    <button type="button" class="dlg-x" data-dlg-close aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+  </div>
   <label for="ncName">Nome da categoria</label>
   <input id="ncName" maxlength="32" placeholder="Ex.: Bebê, Suplementos, Feira, Churrasco" autocomplete="off" enterkeyhint="done">
   <label>Escolha um ícone</label>
@@ -911,9 +1089,14 @@ body.has-footer #toast{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
     <button type="button" class="pri" id="ncSave">Criar categoria</button>
   </div>
 </dialog>
-<dialog id="hs"><h3 tabindex="-1" autofocus>Sugestões de itens</h3><div class="lst" id="hsl"></div></dialog>
+<dialog id="hs"><div class="dlg-hd"><h3 tabindex="-1" autofocus>Sugestões de itens</h3><button type="button" class="dlg-x" data-dlg-close aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div><div class="lst" id="hsl"></div></dialog>
 <dialog id="ih">
-  <h3 tabindex="-1" autofocus id="ihT">Instalar o aplicativo</h3>
+  <div class="dlg-hd">
+    <h3 tabindex="-1" autofocus id="ihT">Instalar o aplicativo</h3>
+    <button type="button" class="dlg-x" data-dlg-close aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+  </div>
   <p style="margin:0 0 10px;font-size:13px;color:var(--muted);line-height:1.45">
     O aplicativo pode ser instalado no seu aparelho sem precisar baixar de lojas (Google Play ou App Store). Ele funciona offline, abre em tela cheia e fica salvo na tela inicial como um app nativo.
   </p>
@@ -938,13 +1121,23 @@ body.has-footer #toast{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
 </dialog>
 
 <dialog id="nm">
-  <h3 id="nmT">Nova lista</h3>
+  <div class="dlg-hd">
+    <h3 id="nmT">Nova lista</h3>
+    <button type="button" class="dlg-x" data-dlg-close aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+  </div>
   <input id="nmI" maxlength="40" placeholder="Ex.: Mercado, Farmácia, Churrasco" autocomplete="off" enterkeyhint="done" autofocus aria-labelledby="nmT">
   <div class="acts"><button id="nmNo">Cancelar</button><button class="pri" id="nmOk">Salvar</button></div>
 </dialog>
 
 <dialog id="finAsk">
-  <h3 tabindex="-1" autofocus id="finAskT">Itens desmarcados na lista</h3>
+  <div class="dlg-hd">
+    <h3 tabindex="-1" autofocus id="finAskT">Itens desmarcados na lista</h3>
+    <button type="button" class="dlg-x" data-dlg-close aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+  </div>
   <p id="finAskP" style="margin:0;line-height:1.5;color:var(--muted);font-size:13.5px"></p>
   <div class="fin-stat" id="finAskStat"></div>
   <div class="acts grid2">
@@ -956,7 +1149,12 @@ body.has-footer #toast{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
 </dialog>
 
 <dialog id="pm">
-  <h3 tabindex="-1" autofocus id="pmTitle">Novo produto</h3>
+  <div class="dlg-hd">
+    <h3 tabindex="-1" autofocus id="pmTitle">Novo produto</h3>
+    <button type="button" class="dlg-x" data-dlg-close aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+  </div>
   <div id="pmProdFields">
     <label for="pmName">Nome do produto</label>
     <input id="pmName" maxlength="120" placeholder="Ex.: Arroz 5 kg" autocomplete="off" enterkeyhint="done">
@@ -992,7 +1190,12 @@ body.has-footer #toast{bottom:calc(132px + env(safe-area-inset-bottom,0px))}
 </dialog>
 
 <dialog id="ask">
-  <h3 tabindex="-1" autofocus id="askT"></h3>
+  <div class="dlg-hd">
+    <h3 tabindex="-1" autofocus id="askT"></h3>
+    <button type="button" class="dlg-x" data-dlg-close aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+  </div>
   <p id="askP" style="margin:0;line-height:1.5;color:var(--muted)"></p>
   <div class="acts"><button id="askNo">Cancelar</button><button class="pri" id="askOk">OK</button></div>
 </dialog>
@@ -1393,7 +1596,13 @@ try {
 
 const L = () => S.lists.find(l => l.id === S.cur) || S.lists[0];
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
-const bump = c => { if (!c || c === "Sem categoria") return; const l = L(); l.order = [c, ...l.order.filter(x => x !== c)]; };
+const bump = (c, list = L()) => {
+  const cn = c || "Sem categoria";
+  const actCats = new Set(list.items.filter(i => !i.skipped).map(i => i.cat || "Sem categoria"));
+  const cleaned = (list.order || []).filter(x => actCats.has(x));
+  if (!cleaned.includes(cn)) cleaned.push(cn);
+  list.order = cleaned;
+};
 
 // Banco independente de produtos alimentado pelos registros de compras (e gerenciável na aba Produtos)
 function remember() {}
@@ -1468,7 +1677,8 @@ $("thm").addEventListener("click", e => {
 /* =========================================================
    Janelas: fechar tocando fora, botão voltar do Android
    ========================================================= */
-const DIALOGS = ["ed", "mn", "ls", "ex", "bk", "bkh", "tut", "cp", "nc", "hs", "ih", "nm", "finAsk", "pm", "ask"];
+const COLOR_PLUS_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="4" x2="12" y2="12" stroke="#a855f7"/><line x1="12" y1="12" x2="20" y2="12" stroke="#f97316"/><line x1="12" y1="12" x2="12" y2="20" stroke="#06b6d4"/><line x1="4" y1="12" x2="12" y2="12" stroke="#ef4444"/></svg>';
+const DIALOGS = ["am", "ed", "mn", "ls", "ex", "bk", "bkh", "tut", "cp", "nc", "hs", "ih", "nm", "finAsk", "pm", "ask"];
 const anyOpen = () => document.querySelector("dialog[open]");
 let popSkip = 0;
 if (history.state && history.state.dlg) history.replaceState(null, "");
@@ -1647,7 +1857,7 @@ function saveNewCat() {
   toast(`Categoria “${n}” criada`);
 }
 $("ncSave").onclick = saveNewCat;
-$("ncName").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); saveNewCat(); } });
+$("ncName").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $("ncName").blur(); } });
 
 let pickCb = null, pickAllowAll = false, pickCur = "";
 function pick(cur, cb, allowAll = false) {
@@ -1769,6 +1979,49 @@ let repCat = "all";       // all | nome da categoria
 let repSelId = null;      // Barra selecionada no gráfico
 let lastAddedId = null;   // ID do último item adicionado para animação de entrada
 
+const ico4 = (name, sw = 2.1) => `<svg viewBox="0 0 24 24" fill="none" stroke="url(#g4c)" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${LUCIDE_PATHS[name] || ""}</svg>`;
+document.addEventListener("click", e => {
+  const x = e.target.closest("[data-dlg-close]");
+  if (x) {
+    const d = x.closest("dialog");
+    if (d && d.open) d.close();
+  }
+});
+// Minimizar / expandir o painel do cabeçalho por toque ou arraste vertical
+(function initHdrToggle() {
+  const hdr = $("appHdr"), hdl = $("hdrHandle");
+  if (!hdr || !hdl) return;
+  const setMin = min => {
+    hdr.classList.toggle("hdr-min", min);
+    hdl.setAttribute("aria-expanded", String(!min));
+    hdl.setAttribute("aria-label", min ? "Expandir painel do topo" : "Minimizar painel do topo");
+  };
+  let drag = null, skipClick = false;
+  hdl.addEventListener("click", () => {
+    if (skipClick) { skipClick = false; return; }
+    setMin(!hdr.classList.contains("hdr-min"));
+  });
+  hdl.addEventListener("pointerdown", e => {
+    if (!e.isPrimary) return;
+    drag = { y: e.clientY, id: e.pointerId, moved: false };
+    try { hdl.setPointerCapture(e.pointerId); } catch (x) {}
+  });
+  hdl.addEventListener("pointermove", e => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const dy = e.clientY - drag.y;
+    if (Math.abs(dy) > 16) {
+      drag.moved = true;
+      setMin(dy < 0);
+    }
+  });
+  const endDrag = e => {
+    if (!drag || e.pointerId !== drag.id) return;
+    if (drag.moved) skipClick = true;
+    drag = null;
+  };
+  hdl.addEventListener("pointerup", endDrag);
+  hdl.addEventListener("pointercancel", endDrag);
+})();
 function setTab(t) {
   curTab = t;
   document.querySelectorAll("#mainNav button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === t));
@@ -1776,8 +2029,8 @@ function setTab(t) {
   $("vHist").hidden = t !== "hist";
   $("vProd").hidden = t !== "prod";
   $("vRep").hidden = t !== "rep";
-  $("ftr").hidden = t !== "list";
-  document.body.classList.toggle("has-footer", t === "list");
+  const scEl = document.querySelector("main");
+  if (scEl) scEl.scrollTop = 0;
   render();
 }
 $("mainNav").addEventListener("click", async e => {
@@ -1891,7 +2144,7 @@ function showGuide(tabKey) {
   document.querySelectorAll("#tutSeg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.gt === k));
   openD("tut");
 }
-$("helpBtn").onclick = () => showGuide(curTab);
+$("helpBtn").onclick = () => { if ($("mn").open) $("mn").close(); showGuide(curTab); };
 $("tutOk").onclick = () => $("tut").close();
 $("tutSeg").addEventListener("click", e => {
   const b = e.target.closest("[data-gt]");
@@ -1922,7 +2175,7 @@ function syncHideUI() {
   const eb = $("eyeBtn");
   if (eb) {
     eb.hidden = !onList;
-    eb.classList.toggle("eye-off", !!S.hideDone);
+    eb.className = "icon-btn inf" + (S.hideDone ? " eye-off" : "");
     eb.innerHTML = ico(S.hideDone ? "eyeOff" : "eye");
     const lbl = S.hideDone ? "Mostrar itens marcados" : "Ocultar itens marcados";
     eb.setAttribute("aria-label", lbl);
@@ -1931,14 +2184,18 @@ function syncHideUI() {
   const cb = $("checkAllBtn");
   if (cb) {
     cb.hidden = !onList;
-    cb.classList.toggle("eye-off", allChecked);
+    cb.className = "icon-btn ok" + (allChecked ? " all-on" : "");
     cb.innerHTML = ico(allChecked ? "checkSquare" : "square");
     const cLbl = allChecked ? "Desmarcar todos os itens" : "Marcar todos os itens";
     cb.setAttribute("aria-label", cLbl);
     cb.title = cLbl;
   }
   const clb = $("clearAllBtn");
-  if (clb) clb.hidden = !onList;
+  if (clb) {
+    clb.hidden = !onList;
+    clb.className = "icon-btn dng";
+    clb.innerHTML = ico("trash");
+  }
 
   const mh = $("mHide"), mt = $("mHideTxt");
   if (mt) mt.textContent = S.hideDone ? "Mostrar itens marcados" : "Ocultar itens marcados";
@@ -1977,75 +2234,120 @@ function toggleAllDone() {
     () => { prev.forEach(([item, d]) => { item.done = d; }); }
   );
 }
-function clearAllItems() {
+async function clearAllItems() {
   const l = L(), old = l.items.slice();
   if (!old.length) { toast("A lista já está vazia"); return; }
+  const r = await ask("Excluir todos os itens?", `Todos os ${plural(old.length, "item", "itens")} da lista “${l.name}” serão removidos.`, "Excluir tudo", { danger: true });
+  if (r !== "ok") return;
   l.items = [];
+  l.order = [];
   vib();
   render();
   toast("Lista limpa", () => { l.items = old; });
 }
-$("eyeBtn").onclick = toggleHideDone;
-$("checkAllBtn").onclick = toggleAllDone;
-$("clearAllBtn").onclick = clearAllItems;
+function toggleCatDone(catName) {
+  const l = L();
+  const act = activeOf(l.items).filter(i => (i.cat || "Sem categoria") === catName);
+  if (!act.length) return;
+  const allChecked = act.every(i => i.done);
+  const prev = act.map(i => [i, !!i.done]);
+  const target = !allChecked;
+  act.forEach(i => { i.done = target; });
+  vib();
+  render();
+  toast(
+    target ? `Itens de “${catName}” marcados` : `Itens de “${catName}” desmarcados`,
+    () => { prev.forEach(([item, d]) => { item.done = d; }); }
+  );
+}
+async function clearCatItems(catName) {
+  const l = L();
+  const toDel = activeOf(l.items).filter(i => (i.cat || "Sem categoria") === catName);
+  if (!toDel.length) return;
+  const r = await ask(`Excluir itens de “${catName}”?`, `Todos os ${plural(toDel.length, "item ativo", "itens ativos")} dessa categoria serão removidos.`, "Excluir", { danger: true });
+  if (r !== "ok") return;
+  const old = l.items.slice();
+  const delSet = new Set(toDel);
+  l.items = l.items.filter(i => !delSet.has(i));
+  vib();
+  render();
+  toast(`Itens de “${catName}” removidos`, () => { l.items = old; });
+}
 
-function pillsHTML(i, mode = "list", pd = "") {
+function qtyCtrlHTML(i, mode = "list") {
   const minQ = isKg(i) ? 0.1 : 1;
   const qStr = isKg(i) ? `${fmtN(i.qty, 3)} kg` : `${i.qty} un`;
   const qOut = isKg(i) ? `${fmtN(i.qty, 3)} kg` : String(i.qty);
-  const qtyHtml = mode === "view"
-    ? `<span class="pill p-qty">${qStr}</span>`
-    : `<span class="pill p-qty qs"><button type="button" class="qb" ${mode === "editRec" ? "data-rqm" : "data-qm"} aria-label="Diminuir quantidade"${i.qty <= minQ + 1e-6 ? " disabled" : ""}>${MINUS_SVG}</button><output>${qOut}</output><button type="button" class="qb" ${mode === "editRec" ? "data-rqp" : "data-qp"} aria-label="Aumentar quantidade">${PLUS_SVG}</button></span>`;
-  const uHtml = i.price ? `<span class="pill p-unit">${isKg(i) ? `${brl(i.price)}/kg` : `un. ${brl(i.price)}`}</span>` : "";
-  return `<span class="pills">${qtyHtml}${uHtml}${pd}</span>`;
+  if (mode === "view") return `<span class="pill p-qty">${qStr}</span>`;
+  return `<span class="pill p-qty qs"><button type="button" class="qb" ${mode === "editRec" ? "data-rqm" : "data-qm"} aria-label="Diminuir quantidade"${i.qty <= minQ + 1e-6 ? " disabled" : ""}>${MINUS_SVG}</button><output>${qOut}</output><button type="button" class="qb" ${mode === "editRec" ? "data-rqp" : "data-qp"} aria-label="Aumentar quantidade">${PLUS_SVG}</button></span>`;
 }
+const unitPillHTML = i => i.price ? `<span class="pill p-unit">${isKg(i) ? `${brl(i.price)}/kg` : `un. ${brl(i.price)}`}</span>` : "";
 
 function rowHTML(i, mode = "list") {
   const diff = mode === "list" && !i.skipped && i.pp != null && i.price && i.price !== i.pp ? i.price - i.pp : 0;
   const pd = diff ? `<span class="pd ${diff > 0 ? "up" : "dn"}" title="Comparado com a última compra">${ico(diff > 0 ? "trendUp" : "trendDown", 2.5)}<span>${brl(Math.abs(diff))}</span></span>` : "";
-  const lineCls = i.price ? "line" : "line zero-line";
+  const uHtml = unitPillHTML(i);
+  const lineCls = i.price ? "line line-lg" : "line line-lg zero-line";
   const addAnim = mode === "list" && lastAddedId && String(i.id) === String(lastAddedId) ? " just-added" : "";
   if (mode === "view") {
-    return `<div class="sw"><div class="row ro${i.skipped ? " skipped" : ""}${i.price ? "" : " zero"}">
+    return `<div class="sw"><div class="row list-row ro${i.skipped ? " skipped" : ""}${i.price ? "" : " zero"}">
       ${i.skipped ? `<span class="skip-ico" title="Item em desistência">${SKIP_SVG}</span>` : ""}
-      <div class="info"><span class="name">${esc(i.name)}</span>${pillsHTML(i, "view")}</div>
-      <div class="${lineCls}">${brl(sub(i))}</div>
+      <div class="info">
+        <span class="name">${esc(i.name)}</span>
+        <div class="row-l1">${qtyCtrlHTML(i, "view")}<div class="${lineCls}">${brl(sub(i))}</div></div>
+        ${uHtml ? `<div class="row-l2"><div class="row-tags">${uHtml}</div></div>` : ""}
+      </div>
     </div></div>`;
   }
   if (mode === "editRec") {
-    return `<div class="sw"><div class="row${i.skipped ? " skipped" : ""}${i.price ? "" : " zero"}" data-id="${esc(i.id)}">
+    return `<div class="sw"><div class="row list-row${i.skipped ? " skipped" : ""}${i.price ? "" : " zero"}" data-id="${esc(i.id)}">
       ${i.skipped ? `<span class="skip-ico" title="Item em desistência">${SKIP_SVG}</span>` : ""}
-      <div class="info" data-re style="${i.skipped ? "" : "padding-left:6px"}"><span class="name">${esc(i.name)}</span>${pillsHTML(i, "editRec")}</div>
-      <button type="button" class="${lineCls}" data-re>${brl(sub(i))}</button>
-      <div class="row-acts">
-        <button type="button" class="act-b ed-b" data-re title="Editar item" aria-label="Editar ${esc(i.name)}">${EDIT_SVG}</button>
-        <button type="button" class="act-b ${i.skipped ? "rs-b" : "sk-b"}" data-rskip title="${i.skipped ? "Restaurar para itens comprados" : "Mover para desistência"}" aria-label="${i.skipped ? "Restaurar" : "Desistir"} ${esc(i.name)}">${i.skipped ? RESTORE_SVG : SKIP_SVG}</button>
-        <button type="button" class="act-b rm-b" data-rd title="Excluir item" aria-label="Excluir ${esc(i.name)}">${TRASH}</button>
+      <div class="info" style="${i.skipped ? "" : "padding-left:6px"}">
+        <span class="name" data-re>${esc(i.name)}</span>
+        <div class="row-l1">${qtyCtrlHTML(i, "editRec")}<button type="button" class="${lineCls}" data-re title="Editar item">${brl(sub(i))}</button></div>
+        <div class="row-l2">
+          <div class="row-tags">${uHtml}</div>
+          <div class="row-acts">
+            <button type="button" class="act-b ed-b" data-re title="Editar item" aria-label="Editar ${esc(i.name)}">${EDIT_SVG}</button>
+            <button type="button" class="act-b ${i.skipped ? "rs-b" : "sk-b"}" data-rskip title="${i.skipped ? "Restaurar para itens comprados" : "Mover para desistência"}" aria-label="${i.skipped ? "Restaurar" : "Desistir"} ${esc(i.name)}">${i.skipped ? RESTORE_SVG : SKIP_SVG}</button>
+            <button type="button" class="act-b rm-b" data-rd title="Excluir item" aria-label="Excluir ${esc(i.name)}">${TRASH}</button>
+          </div>
+        </div>
       </div>
     </div></div>`;
   }
   if (i.skipped) {
     return `<div class="sw"><span class="bin">${TRASH}</span>
-      <div class="row skipped${addAnim}" data-id="${esc(i.id)}">
+      <div class="row list-row skipped${addAnim}" data-id="${esc(i.id)}">
         <span class="skip-ico" title="Item em desistência">${SKIP_SVG}</span>
-        <div class="info" data-e><span class="name">${esc(i.name)}</span>${pillsHTML(i, "list")}</div>
-        <button type="button" class="${lineCls}" data-e>${brl(sub(i))}</button>
-        <div class="row-acts">
-          <button type="button" class="act-b ed-b" data-e title="Editar item" aria-label="Editar ${esc(i.name)}">${EDIT_SVG}</button>
-          <button type="button" class="act-b rs-b" data-skip title="Restaurar para a lista" aria-label="Restaurar ${esc(i.name)}">${RESTORE_SVG}</button>
-          <button type="button" class="act-b rm-b" data-d title="Excluir definitivamente" aria-label="Excluir ${esc(i.name)}">${TRASH}</button>
+        <div class="info">
+          <span class="name" data-e>${esc(i.name)}</span>
+          <div class="row-l1">${qtyCtrlHTML(i, "list")}<button type="button" class="${lineCls}" data-e title="Toque para editar valor">${brl(sub(i))}</button></div>
+          <div class="row-l2">
+            <div class="row-tags">${uHtml}</div>
+            <div class="row-acts">
+              <button type="button" class="act-b ed-b" data-e title="Editar item" aria-label="Editar ${esc(i.name)}">${EDIT_SVG}</button>
+              <button type="button" class="act-b rs-b" data-skip title="Restaurar para a lista" aria-label="Restaurar ${esc(i.name)}">${RESTORE_SVG}</button>
+              <button type="button" class="act-b rm-b" data-d title="Excluir definitivamente" aria-label="Excluir ${esc(i.name)}">${TRASH}</button>
+            </div>
+          </div>
         </div>
       </div></div>`;
   }
   return `<div class="sw"><span class="bin">${TRASH}</span>
-    <div class="row${i.done ? " done" : ""}${i.price ? "" : " zero"}${addAnim}" data-id="${esc(i.id)}">
+    <div class="row list-row${i.done ? " done" : ""}${i.price ? "" : " zero"}${addAnim}" data-id="${esc(i.id)}">
       <button type="button" class="chk" data-t aria-pressed="${i.done}" aria-label="No carrinho: ${esc(i.name)}">${CHK_SVG}</button>
-      <div class="info" data-e><span class="name">${esc(i.name)}</span>${pillsHTML(i, "list", pd)}</div>
-      <button type="button" class="${lineCls}" data-e title="Toque para editar valor">${brl(sub(i))}</button>
-      <div class="row-acts">
-        <button type="button" class="act-b ed-b" data-e title="Editar / colocar preço" aria-label="Editar ${esc(i.name)}">${EDIT_SVG}</button>
-        <button type="button" class="act-b sk-b" data-skip title="Desistir da compra deste item" aria-label="Desistir de ${esc(i.name)}">${SKIP_SVG}</button>
-        <button type="button" class="act-b rm-b" data-d title="Excluir item" aria-label="Excluir ${esc(i.name)}">${TRASH}</button>
+      <div class="info">
+        <span class="name" data-e>${esc(i.name)}</span>
+        <div class="row-l1">${qtyCtrlHTML(i, "list")}<button type="button" class="${lineCls}" data-e title="Toque para editar valor">${brl(sub(i))}</button></div>
+        <div class="row-l2">
+          <div class="row-tags">${uHtml}${pd}</div>
+          <div class="row-acts">
+            <button type="button" class="act-b ed-b" data-e title="Editar / colocar preço" aria-label="Editar ${esc(i.name)}">${EDIT_SVG}</button>
+            <button type="button" class="act-b sk-b" data-skip title="Desistir da compra deste item" aria-label="Desistir de ${esc(i.name)}">${SKIP_SVG}</button>
+            <button type="button" class="act-b rm-b" data-d title="Excluir item" aria-label="Excluir ${esc(i.name)}">${TRASH}</button>
+          </div>
+        </div>
       </div>
     </div></div>`;
 }
@@ -2054,7 +2356,7 @@ const grpTagsHTML = items => {
   const pend = items.filter(i => !i.done).length;
   const zero = items.filter(i => !i.price).length;
   return (pend ? `<span class="gtag g-pend" title="${plural(pend, "item desmarcado", "itens desmarcados")}">${ico("clock", 2.2)}<span>${plural(pend, "desmarcado", "desmarcados")}</span></span>` : "") +
-    (zero ? `<span class="gtag g-zero" title="${plural(zero, "item sem valor", "itens sem valor")}">${ico("alert", 2.2)}<span>${zero} sem valor</span></span>` : "");
+    (zero ? `<span class="gtag g-zero" title="${plural(zero, "item com valor zerado", "itens com valor zerado")}">${ico("alert", 2.2)}<span>${zero} valor zerado</span></span>` : "");
 };
 const grpRightHTML = (items, showDone = true) => {
   const done = items.filter(i => i.done).length;
@@ -2081,28 +2383,42 @@ function updateListTotalsUI() {
   $("lsName").textContent = l.name;
   $("totLbl").textContent = "Total previsto da lista";
   $("total").textContent = brl(tot);
-  $("hdrBadge").innerHTML = `${ico("cart")}<span>${done.length}/${activeIts.length} no carrinho</span>`;
+  $("hdrBadge").hidden = true;
+  $("budTrig").hidden = false;
+  $("listFoot").hidden = false;
+  $("listBadge").innerHTML = `${ico("cart")}<span>${done.length}/${activeIts.length} no carrinho</span>`;
   $("hdrSub").innerHTML = `
     <div class="sc-box sc-cart"><span class="sc-k">${ico("checkCircle")}<span>No carrinho</span></span><b class="sc-v">${brl(cart)}</b></div>
     <div class="sc-box sc-rest"><span class="sc-k">${ico("clock")}<span>Falta pegar</span></span><b class="sc-v">${brl(tot - cart)}</b></div>`;
 
   const b = l.budget || 0;
-  $("budHint").hidden = !!b;
+  $("budVal").hidden = !b;
+  if (b) $("budVal").textContent = brl(b);
   $("bud").hidden = !b;
+  $("appHdr").classList.toggle("hdr-has-bud", curTab === "list" && b > 0);
   if (b) {
     const over = tot > b;
     $("bud").classList.toggle("over", over); $("bar").classList.toggle("over", over);
     $("bar").firstElementChild.style.width = Math.min(100, tot / b * 100) + "%";
-    const msg = over ? `Passou ${brl(tot - b)} do orçamento de ${brl(b)}` : `Sobram ${brl(b - tot)} do orçamento de ${brl(b)}`;
-    $("budTxt").innerHTML = `<span>${msg}</span><span>${EDIT_SVG}<span>Orçamento</span></span>`;
+    const msg = over
+      ? `Passou ${brl(tot - b)} do orçamento`
+      : (tot === b ? "Orçamento exato atingido" : `Falta ${brl(b - tot)} para o orçamento`);
+    $("budTxt").textContent = msg;
   }
 }
 
 function render() {
-  syncHideUI();
-  if (curTab === "hist") { renderHist(); save(); return; }
-  if (curTab === "prod") { renderProd(); save(); return; }
-  if (curTab === "rep") { renderRep(); save(); return; }
+  const scEl = document.querySelector("main");
+  const prevTop = scEl ? scEl.scrollTop : 0;
+  const restoreScroll = () => {
+    if (!scEl) return;
+    scEl.scrollTop = prevTop;
+    requestAnimationFrame(() => { if (scEl) scEl.scrollTop = prevTop; });
+  };
+
+  if (curTab === "hist") { renderHist(); syncHideUI(); save(); restoreScroll(); return; }
+  if (curTab === "prod") { renderProd(); syncHideUI(); save(); restoreScroll(); return; }
+  if (curTab === "rep") { renderRep(); syncHideUI(); save(); restoreScroll(); return; }
 
   const l = L(), its = l.items;
   const activeIts = activeOf(its);
@@ -2112,39 +2428,50 @@ function render() {
   updateListTotalsUI();
 
   const box = $("vList");
+  const globalAddBtn = `<button type="button" class="add-global-btn" id="openAddGlobal" aria-label="Adicionar item" title="Adicionar item">${COLOR_PLUS_SVG}</button>`;
+  const topActsHtml = `<div class="list-top-acts">
+    <button type="button" class="icon-btn" id="checkAllBtn" aria-label="Marcar todos os itens" title="Marcar todos os itens"></button>
+    <button type="button" class="icon-btn" id="clearAllBtn" aria-label="Excluir todos os itens" title="Excluir todos os itens"></button>
+    <button type="button" class="icon-btn" id="eyeBtn" aria-label="Ocultar itens marcados" title="Ocultar itens marcados"></button>
+  </div>`;
   if (!its.length) {
-    box.innerHTML = '<div class="empty"><b>Sua lista está vazia</b>Digite o nome do item abaixo e toque em Adicionar (o preço é opcional e pode ser colocado depois no mercado).</div>';
+    box.innerHTML = `<div class="empty"><b>Sua lista está vazia</b>Toque no botão <b>+</b> abaixo para adicionar um item (o preço é opcional e pode ser colocado depois no mercado).</div>${globalAddBtn}`;
   } else {
     const hide = S.hideDone;
     const allCatList = getAllCats();
     const ord = [...l.order.filter(c => okc(c)), ...allCatList.map(c => c.n).filter(n => !l.order.includes(n))];
-    let h = ord.map(n => CAT(n)).map(cc => {
+    let h = topActsHtml + ord.map(n => CAT(n)).map(cc => {
       const all = activeIts.filter(i => (i.cat || "Sem categoria") === cc.n);
       const vis = all.filter(i => !hide || !i.done);
       if (!vis.length) return "";
       const isCol = colSet.has(cc.n);
-      const addBtn = `<button type="button" class="cat-add" data-ca="${esc(cc.n)}" aria-label="Adicionar item em ${esc(cc.n)}" title="Adicionar item em ${esc(cc.n)}">${PLUS_SVG}</button>`;
-      return `<section class="grp${isCol ? " col" : ""}" data-grp="${esc(cc.n)}">
+      const catAllDone = all.length > 0 && all.every(i => i.done);
+      const catActsHtml = `<div class="cat-acts-row" style="${sty(cc)}"><div class="cat-acts">
+        <button type="button" class="cat-act-b" data-ctog="${esc(cc.n)}" aria-label="${catAllDone ? "Desmarcar" : "Marcar"} todos de ${esc(cc.n)}" title="${catAllDone ? "Desmarcar" : "Marcar"} todos da categoria">${ico(catAllDone ? "checkSquare" : "square")}</button>
+        <button type="button" class="cat-act-b" data-cdel="${esc(cc.n)}" aria-label="Excluir todos de ${esc(cc.n)}" title="Excluir todos da categoria">${TRASH}</button>
+      </div></div>`;
+      const addRowBtn = `<button type="button" class="cat-add-row" data-ca="${esc(cc.n)}" aria-label="Adicionar item em ${esc(cc.n)}" title="Adicionar item em ${esc(cc.n)}">${PLUS_SVG}</button>`;
+      return `<section class="grp${isCol ? " col" : ""}" data-grp="${esc(cc.n)}" style="${sty(cc)}">
         <h2>
           <span class="gh-title">
             <button type="button" class="gh-tog" data-col="${esc(cc.n)}" aria-expanded="${!isCol}" aria-label="Recolher ou expandir ${esc(cc.n)}"><span class="gh-chev">${CHEV_DOWN}</span>${catBadge(cc)}<span class="gh-name">${esc(cc.n)}</span></button>
-            ${addBtn}
             <span class="gh-tags">${grpTagsHTML(all)}</span>
           </span>
           <span class="gh-r">${grpRightHTML(all, true)}</span>
         </h2>
-        <div class="cwrap"><div class="cin"><div class="card" style="${sty(cc)}">${vis.map(i => rowHTML(i, "list")).join("")}</div></div></div>
+        <div class="cwrap"><div class="cin">${catActsHtml}<div class="card" style="${sty(cc)}">${vis.map(i => rowHTML(i, "list")).join("")}${addRowBtn}</div></div></div>
       </section>`;
     }).join("");
     if (hide && done.length && done.length === activeIts.length && activeIts.length > 0) {
-      h = `<div class="empty"><b>Tudo no carrinho!</b>Todos os ${plural(done.length, "item ativo marcado está oculto", "itens ativos marcados estão ocultos")}. Toque no ícone de olho acima para vê-los.</div>`;
+      h = topActsHtml + `<div class="empty"><b>Tudo no carrinho!</b>Todos os ${plural(done.length, "item ativo marcado está oculto", "itens ativos marcados estão ocultos")}. Toque no ícone de olho acima para vê-los.</div>`;
     }
     if (!activeIts.length && skippedIts.length) {
       h += '<div class="empty" style="padding:28px 16px"><b>Todos os itens estão em desistência</b>Restaure um item abaixo ou adicione novos itens à lista.</div>';
     }
+    h += globalAddBtn;
     if (skippedIts.length) {
       const isSkCol = colSet.has("__skip__");
-      h += `<section class="grp skip-grp${isSkCol ? " col" : ""}" data-grp="__skip__">
+      h += `<section class="grp skip-grp${isSkCol ? " col" : ""}" data-grp="__skip__" style="--h:38">
         <h2>
           <span class="gh-title">
             <button type="button" class="gh-tog" data-col="__skip__" aria-expanded="${!isSkCol}" aria-label="Recolher ou expandir Desistência"><span class="gh-chev">${CHEV_DOWN}</span><span class="cat-ico" style="--h:38">${SKIP_SVG}</span><span class="gh-name">Desistência da compra</span></button>
@@ -2162,8 +2489,10 @@ function render() {
     }
     box.innerHTML = h;
   }
+  syncHideUI();
   lastAddedId = null;
   save();
+  restoreScroll();
 }
 
 /* =========================================================
@@ -2184,9 +2513,12 @@ async function deleteRecord(rec) {
 }
 
 function renderHist() {
+  $("appHdr").classList.remove("hdr-has-bud");
   $("lsBtn").hidden = true;
   $("bud").hidden = true;
-  $("budHint").hidden = true;
+  $("budTrig").hidden = true;
+  $("listFoot").hidden = true;
+  $("hdrBadge").hidden = false;
 
   const rec = curRecId ? S.records.find(r => r.id === curRecId) : null;
   if (!rec) { curRecId = null; draftRec = null; }
@@ -2343,9 +2675,12 @@ function getRecMetaMap() {
 }
 
 function renderProd() {
+  $("appHdr").classList.remove("hdr-has-bud");
   $("lsBtn").hidden = true;
   $("bud").hidden = true;
-  $("budHint").hidden = true;
+  $("budTrig").hidden = true;
+  $("listFoot").hidden = true;
+  $("hdrBadge").hidden = false;
 
   const validIds = new Set(S.products.map(p => p.id));
   for (const id of [...prodSelIds]) {
@@ -2552,12 +2887,15 @@ const PERIODS = [
 let curRepPoints = [];
 
 function renderRep() {
+  $("appHdr").classList.remove("hdr-has-bud");
   $("lsBtn").hidden = true;
   $("topBack").hidden = true;
   $("hdrLabel").hidden = false;
   $("hdrLabel").classList.remove("is-title");
   $("bud").hidden = true;
-  $("budHint").hidden = true;
+  $("budTrig").hidden = true;
+  $("listFoot").hidden = true;
+  $("hdrBadge").hidden = false;
 
   const recMeta = {};
   const recCatSet = new Set();
@@ -2853,6 +3191,13 @@ function stepCardQty(row, it, dir, targetItems, isRec = false) {
 let swipedAt = 0;
 $("vList").addEventListener("click", e => {
   if (Date.now() - swipedAt < 400) return;
+  if (e.target.closest("#checkAllBtn")) { toggleAllDone(); return; }
+  if (e.target.closest("#clearAllBtn")) { clearAllItems(); return; }
+  if (e.target.closest("#eyeBtn")) { toggleHideDone(); return; }
+  const ctog = e.target.closest("[data-ctog]");
+  if (ctog) { toggleCatDone(ctog.dataset.ctog); return; }
+  const cdel = e.target.closest("[data-cdel]");
+  if (cdel) { clearCatItems(cdel.dataset.cdel); return; }
   if (e.target.closest("#finBtn")) { finishPurchase(); return; }
   const colB = e.target.closest("[data-col]");
   if (colB) {
@@ -2869,21 +3214,13 @@ $("vList").addEventListener("click", e => {
   }
   const ca = e.target.closest("[data-ca]");
   if (ca) {
-    const c = ca.dataset.ca;
-    if (c === "Sem categoria") {
-      S.cat = "";
-      autoCat = false;
-      paint($("cat"), "");
-    } else if (c && okc(c)) {
-      S.cat = c;
-      autoCat = false;
-      paint($("cat"), c);
-    }
-    save();
     vib();
-    const ni = $("name");
-    ni.focus();
-    try { ni.scrollIntoView({ behavior: "smooth", block: "nearest" }); } catch (x) {}
+    openAddModal(ca.dataset.ca);
+    return;
+  }
+  if (e.target.closest("#openAddGlobal")) {
+    vib();
+    openAddModal("");
     return;
   }
   const row = e.target.closest(".row"); if (!row || row.dataset.gone) return;
@@ -3288,7 +3625,7 @@ function saveProdModal() {
 }
 $("pmSave").onclick = saveProdModal;
 $("pmCancel").onclick = () => $("pm").close();
-["pmName", "pmPrice", "pmOrigin"].forEach(id => $(id).addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); saveProdModal(); } }));
+["pmName", "pmPrice", "pmOrigin"].forEach(id => $(id).addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $(id).blur(); } }));
 
 async function deleteProductWithUndo(prod) {
   if (!prod) return;
@@ -3538,6 +3875,7 @@ function saveEdit() {
   const cat = (rawCat && rawCat !== "Sem categoria") ? rawCat : "Sem categoria";
   const newPrice = cents($("ep").value);
   if (editCtx === "list" && (norm(n) !== norm(it.name) || eu !== it.unit)) delete it.pp;
+  if (editCtx === "list" && cat !== oldCat) bump(cat);
   Object.assign(it, { name: n, qty: q, unit: eu, price: newPrice, cat });
   if (editCtx === "addRec" && draftRec) {
     it.done = true;
@@ -3548,13 +3886,12 @@ function saveEdit() {
     const m = catSnap([cat], draftRec.catMeta);
     if (m) draftRec.catMeta = m;
   } else if (editCtx === "list") {
-    if (cat !== "Sem categoria" && cat !== oldCat) bump(cat);
     remember(it);
   }
   $("ed").close(); render();
 }
 $("edSave").onclick = saveEdit;
-["ep", "ekg"].forEach(id => $(id).addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); saveEdit(); } }));
+["ep", "ekg"].forEach(id => $(id).addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $(id).blur(); } }));
 $("edDel").onclick = () => {
   const it = editing; $("ed").close();
   if (editCtx === "editRec" && draftRec) {
@@ -3678,7 +4015,52 @@ function setUnit(u) {
   $("ub").setAttribute("aria-label", kg ? "Preço por quilo. Tocar para mudar para unidade" : "Preço por unidade. Tocar para mudar para quilo");
   $("qStep").hidden = kg; $("kgw").hidden = !kg;
   updatePreview();
+  renderAddPriceHist();
 }
+function renderAddPriceHist() {
+  const box = $("addHist");
+  if (!box) return;
+  const hist = productPriceHistory($("name").value);
+  if (!hist.length) {
+    box.hidden = true;
+    box.innerHTML = "";
+    return;
+  }
+  const sameU = hist.filter(x => x.unit === unit);
+  const ref = sameU.length ? sameU : hist;
+  const last = ref[0], curP = cents($("price").value);
+  let diffHtml = "";
+  if (curP > 0 && last.unit === unit && curP !== last.price) {
+    const d = curP - last.price;
+    diffHtml = `<span class="pd ${d > 0 ? "up" : "dn"}" title="Diferença em relação ao último valor">${ico(d > 0 ? "trendUp" : "trendDown", 2.5)}<span>${brl(Math.abs(d))}</span></span>`;
+  }
+  box.hidden = false;
+  box.innerHTML = `<span class="ed-ph-lbl" title="Últimos valores no Banco de Produtos (toque para aplicar)">${ico("clock")}<span>Últimos:</span></span>` +
+    `<div class="ed-ph-list">${hist.slice(0, 4).map(x => `<button type="button" class="ed-ph-chip" data-aph-p="${x.price}" data-aph-u="${x.unit}" title="${esc(x.list)} · ${fmtDate(x.date)} (toque para aplicar)"><span class="ed-ph-v">${brl(x.price)}/${x.unit}</span><span class="ed-ph-d">${fmtShortDate(x.date)}</span></button>`).join("")}</div>` +
+    diffHtml;
+}
+function openAddModal(presetCat = "") {
+  resetForm();
+  if (presetCat && presetCat !== "Sem categoria" && okc(presetCat)) {
+    S.cat = presetCat;
+    autoCat = false;
+    paint($("cat"), presetCat);
+  }
+  openD("am");
+  setTimeout(() => { if ($("am").open) $("name").focus(); }, 60);
+}
+$("amClose").onclick = () => $("am").close();
+$("addHist").addEventListener("click", e => {
+  const b = e.target.closest("[data-aph-p]");
+  if (!b) return;
+  const p = +b.dataset.aphP, u = b.dataset.aphU === "kg" ? "kg" : "un";
+  if (u !== unit) setUnit(u);
+  $("price").value = fromC(p, 1);
+  autoPrice = false;
+  updatePreview();
+  renderAddPriceHist();
+  vib();
+});
 function updatePreview() {
   const c = cents($("price").value), q = unit === "kg" ? kilos($("kg").value) : qty;
   const subTxt = c && q && (unit === "kg" || q > 1) ? `= ${brl(Math.round(c * q))}` : "";
@@ -3712,12 +4094,13 @@ function applyProductToAddForm(p, forceOverride = false) {
   if (p.u !== unit) setUnit(p.u);
   hint = p.p > 0 ? `Último preço: ${brl(p.p)}/${p.u}` : "";
   updatePreview();
+  renderAddPriceHist();
 }
 $("ub").onclick = () => { setUnit(unit === "kg" ? "un" : "kg"); if (unit === "kg") $("kg").focus(); };
 $("qm").onclick = () => { qty = Math.max(1, qty - 1); $("qv").textContent = qty; updatePreview(); };
 $("qp").onclick = () => { qty = Math.min(999, qty + 1); $("qv").textContent = qty; updatePreview(); };
 $("kg").addEventListener("input", updatePreview);
-$("price").addEventListener("input", () => { autoPrice = false; updatePreview(); });
+$("price").addEventListener("input", () => { autoPrice = false; updatePreview(); renderAddPriceHist(); });
 
 $("name").addEventListener("input", () => {
   const h = findProductExact($("name").value);
@@ -3728,6 +4111,7 @@ $("name").addEventListener("input", () => {
     if (autoCat) { S.cat = ""; paint($("cat"), ""); autoCat = false; }
     hint = "";
     updatePreview();
+    renderAddPriceHist();
   }
 });
 
@@ -3747,7 +4131,7 @@ attachProductAC($("en"), $("edAc"), p => {
     $("ep").value = fromC(p.p, 1);
   }
   renderEditPriceHist();
-}, saveEdit);
+}, () => $("en").blur());
 
 function resetForm() {
   $("name").value = ""; $("price").value = ""; $("kg").value = "";
@@ -3756,6 +4140,7 @@ function resetForm() {
   setUnit("un");
   S.cat = "";
   paint($("cat"), "");
+  renderAddPriceHist();
 }
 
 async function add() {
@@ -3779,7 +4164,7 @@ async function add() {
       ex.done = false;
       ex.skipped = false;
       lastAddedId = ex.id;
-      remember(ex); if (ex.cat !== "Sem categoria") bump(ex.cat); resetForm(); render();
+      remember(ex); bump(ex.cat || "Sem categoria"); resetForm(); render();
       toast(`Somado a “${ex.name}”`, () => Object.assign(ex, old));
       afterAdd(); return;
     }
@@ -3787,17 +4172,18 @@ async function add() {
 
   const h = findProductExact(n), it = { id: uid(), name: n, qty: q, price, unit: u, cat, done: false };
   if (h && h.u === u && h.p && price && h.p !== price) it.pp = h.p;
+  bump(cat);
   l.items.push(it);
   lastAddedId = it.id;
-  remember(it); if (cat !== "Sem categoria") bump(cat); resetForm(); render(); afterAdd();
+  remember(it); resetForm(); render(); afterAdd();
 }
 function afterAdd() {
+  if ($("am").open) $("am").close();
   if (matchMedia("(pointer:coarse)").matches) document.activeElement && document.activeElement.blur();
-  else $("name").focus();
 }
 $("addBtn").onclick = add;
-$("kg").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $("price").focus(); } });
-$("price").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); add(); } });
+$("kg").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $("kg").blur(); } });
+$("price").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $("price").blur(); } });
 
 /* =========================================================
    Sugestões de itens
@@ -3839,7 +4225,7 @@ function openMenu(focusBudget = false) {
   }
 }
 $("menuBtn").onclick = () => openMenu(false);
-$("budHint").onclick = () => openMenu(true);
+$("budTrig").onclick = () => openMenu(true);
 $("bud").onclick = () => openMenu(true);
 $("bd").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $("mn").close(); } });
 $("mnOk").onclick = () => $("mn").close();
