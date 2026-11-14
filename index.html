@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
-<title>Lista de compras</title>
+<title>Lista para Compras</title>
 <meta name="theme-color" content="#f5f6f7" id="tc">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Compras">
+<meta name="apple-mobile-web-app-title" content="Lista para Compras">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" href="icons/icon-192.png">
@@ -798,10 +798,62 @@ dialog label{display:block;font-size:13px;font-weight:600;color:var(--muted);mar
 .hue-b.on{border-color:var(--ink);transform:scale(1.1)}
 .opt em{margin-left:auto;flex:none;font-style:normal;color:var(--muted);font-weight:600;font-size:13.5px;font-variant-numeric:tabular-nums}
 .lst{max-height:min(60vh,420px);overflow-y:auto;padding:2px}
-#tut[open]{display:flex;flex-direction:column;max-height:min(86dvh,700px);overflow:hidden}
-#tut .dlg-hd,#tut #tutSeg,#tut .acts{flex:none}
-#tut #tutBody{flex:1;min-height:0;max-height:none;overflow-y:auto;overscroll-behavior:contain;padding:2px 2px 6px}
-#tut .acts{margin-top:12px}
+#tut[open],#ai[open]{display:flex;flex-direction:column;max-height:min(88dvh,720px);overflow:hidden}
+#tut .dlg-hd,#tut #tutSeg,#tut .acts,#ai .dlg-hd,#ai .acts{flex:none}
+#tut #tutBody,#ai .ai-scroll{flex:1;min-height:0;max-height:none;overflow-y:auto;overscroll-behavior:contain;padding:2px 2px 6px}
+#tut .acts,#ai .acts{margin-top:12px}
+.nav-ai-btn svg{width:19px;height:19px}
+.ai-in-wrap{position:relative;display:flex;align-items:stretch}
+.ai-ta{width:100%;min-height:106px;max-height:190px;resize:vertical;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);padding:10px 54px 10px 12px;font:500 14.5px/1.45 Manrope,system-ui,-apple-system,sans-serif;transition:border-color .15s,box-shadow .15s}
+.ai-ta:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}
+.ai-mic{position:absolute;right:8px;top:8px;width:38px;height:38px;border-radius:11px;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:grid;place-items:center;box-shadow:0 2px 6px rgba(0,0,0,.07);transition:all .18s ease}
+.ai-mic svg{width:18px;height:18px;display:block}
+.ai-mic:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+.ai-mic:active{transform:scale(.92)}
+.ai-mic.rec{background:#ef4444;border-color:#ef4444;color:#fff;animation:micPulse 1.3s ease-in-out infinite}
+@keyframes micPulse{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.45)}50%{box-shadow:0 0 0 7px rgba(239,68,68,0)}}
+:root[data-theme="dark"] .ai-mic:not(.rec):not(:hover){background:#232730;box-shadow:0 2px 6px rgba(0,0,0,.38)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ai-mic:not(.rec):not(:hover){background:#232730;box-shadow:0 2px 6px rgba(0,0,0,.38)}}
+.ai-mic-st{margin-top:6px;padding:6px 10px;border-radius:9px;background:color-mix(in srgb,var(--accent) 10%,var(--bg));border:1px solid color-mix(in srgb,var(--accent) 28%,var(--line));font-size:12px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:6px}
+.ai-mic-st.rec{background:color-mix(in srgb,#ef4444 10%,var(--bg));border-color:color-mix(in srgb,#ef4444 35%,var(--line));color:#dc2626}
+:root[data-theme="dark"] .ai-mic-st.rec{color:#f87171}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ai-mic-st.rec{color:#f87171}}
+.ai-help{margin-top:8px;border:1px solid var(--line);border-radius:12px;background:var(--bg);padding:8px 11px;font-size:12px;color:var(--muted)}
+.ai-help summary{cursor:pointer;font-weight:700;color:var(--ink);list-style:none;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.ai-help summary::-webkit-details-marker{display:none}
+.ai-help summary::after{content:"▾";font-size:12px;color:var(--muted);transition:transform .2s}
+.ai-help[open] summary::after{transform:rotate(180deg)}
+.ai-help-list{margin:8px 0 0;padding:0;list-style:none;display:grid;gap:5px;line-height:1.4}
+.ai-help-list b{color:var(--ink)}
+.ai-chips{display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 0;margin-top:8px}
+.ai-chips::-webkit-scrollbar{display:none}
+.ai-chip{flex:none;height:30px;padding:0 10px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--muted);font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;transition:all .16s ease}
+.ai-chip:hover{color:var(--ink);border-color:var(--accent);background:var(--soft)}
+:root[data-theme="dark"] .ai-chip:not(:hover){background:#232730}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ai-chip:not(:hover){background:#232730}}
+.ai-bridge{margin-top:10px;padding:10px 12px;border-radius:14px;background:var(--bg);border:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.ai-bridge-top{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;font-weight:800;color:var(--ink)}
+.ai-bridge-top span{display:inline-flex;align-items:center;gap:6px;min-width:0}
+.ai-bridge-top svg{width:14px;height:14px;flex:none}
+.ai-bridge-sub{margin:0;font-size:11.5px;line-height:1.4;color:var(--muted)}
+.ai-bridge-btns{display:flex;flex-wrap:wrap;gap:6px}
+.ai-bb{flex:1;min-width:105px;height:34px;padding:0 10px;border-radius:10px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font-size:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:5px;text-decoration:none;transition:all .16s ease}
+.ai-bb svg{width:14px;height:14px;flex:none;color:var(--accent)}
+.ai-bb:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+:root[data-theme="dark"] .ai-bb:not(:hover){background:#232730}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ai-bb:not(:hover){background:#232730}}
+.ai-prev{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+.ai-prev:empty{display:none}
+.ai-prev-hdr{display:flex;align-items:center;justify-content:space-between;font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);padding:0 2px}
+.ai-prev-row{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:11px;background:var(--bg);border:1px solid var(--line);border-left:4px solid hsl(var(--h,210) 68% 52%);font-size:13px}
+.ai-prev-row.is-cmd{border-left-color:var(--accent)}
+.ai-prev-row .cat-ico{width:24px;height:24px;border-radius:7px}
+.ai-prev-row .cat-ico svg{width:13px;height:13px}
+.ai-prev-mid{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.ai-prev-n{font-weight:700;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ai-prev-s{font-size:11px;font-weight:600;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ai-prev-r{flex:none;font-size:12px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ai-prev-warn{padding:9px 11px;border-radius:11px;background:var(--bg);border:1px dashed var(--line);font-size:12px;color:var(--muted);line-height:1.4}
 .gbox{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:10px;text-align:left;box-shadow:0 2px 6px rgba(0,0,0,.04);transition:border-color .15s,background .15s}
 .gbox-top{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;color:var(--ink);margin-bottom:6px}
 .gbox-top .g-ico{width:26px;height:26px;border-radius:8px;background:var(--soft);color:var(--accent);display:inline-grid;place-items:center;flex:none}
@@ -876,7 +928,7 @@ dialog label{display:block;font-size:13px;font-weight:600;color:var(--muted);mar
 /* ---------- Ajustes de tela ---------- */
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 @media (min-width:700px){.total,.bud-trig-v{font-size:36px}}
-@media (max-width:370px){.wrap{padding:0 12px}.total,.bud-trig-v{font-size:24px}.add{padding:0 14px}.row{gap:5px}.row.list-row{padding:7px 6px 7px 4px;gap:4px}.sw-act{width:48px}.sw[data-sw="2"]{--sw-w:111px}.sw[data-sw="3"]{--sw-w:164px}.line.line-lg{font-size:13.5px;height:29px;min-height:29px;padding:0 8px}.hacts{gap:6px}.hacts button{font-size:12.5px;padding:0 7px}.hacts.prod-acts .del{width:40px}.qw>*{width:100px}.step button{width:34px}}
+@media (max-width:370px){.wrap{padding:0 12px}.nav-row{gap:6px}.nav{padding:0 6px}.total,.bud-trig-v{font-size:24px}.add{padding:0 14px}.row{gap:5px}.row.list-row{padding:7px 6px 7px 4px;gap:4px}.sw-act{width:48px}.sw[data-sw="2"]{--sw-w:111px}.sw[data-sw="3"]{--sw-w:164px}.line.line-lg{font-size:13.5px;height:29px;min-height:29px;padding:0 8px}.hacts{gap:6px}.hacts button{font-size:12.5px;padding:0 7px}.hacts.prod-acts .del{width:40px}.qw>*{width:100px}.step button{width:34px}}
 /* teclado aberto ou tela baixa: cabeçalho compacto para sobrar espaço para a lista */
 @media (max-height:520px){header{padding:4px 0}.nav{height:36px}.nav-menu-btn{width:36px;height:36px}.nav-row{margin-bottom:4px}.top{margin-bottom:3px}.lsb{height:28px}.sum-card{padding:6px 10px}.total,.bud-trig-v{font-size:22px}.sum-grid,.sum-foot,.inst,.bud p{display:none}.bud{margin-top:4px;padding-top:4px}.grp{margin-top:10px}}
 </style>
@@ -908,6 +960,9 @@ dialog label{display:block;font-size:13px;font-weight:600;color:var(--muted);mar
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
       </button>
     </nav>
+    <button class="icon-btn nav-menu-btn nav-ai-btn" id="aiBtn" type="button" aria-label="Assistente rápido" title="Assistente rápido e ponte Gemini">
+      <svg viewBox="0 0 24 24" fill="none" stroke="url(#g4c)" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/></svg>
+    </button>
     <button class="icon-btn nav-menu-btn" id="menuBtn" aria-label="Mais opções" title="Opções e Menu">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
     </button>
@@ -1303,6 +1358,61 @@ dialog label{display:block;font-size:13px;font-weight:600;color:var(--muted);mar
     <button type="button" class="del" id="pmDel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg><span>Excluir</span></button>
     <button type="button" id="pmCancel">Cancelar</button>
     <button type="button" class="pri" id="pmSave">Salvar</button>
+  </div>
+</dialog>
+
+<dialog id="ai">
+  <div class="dlg-hd">
+    <h3 tabindex="-1" autofocus style="display:flex;align-items:center;gap:8px">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="url(#g4c)" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/></svg>
+      <span>Assistente rápido</span>
+    </h3>
+    <button type="button" class="dlg-x" data-dlg-close aria-label="Fechar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+  </div>
+  <div class="ai-scroll">
+    <label for="aiIn" style="margin-top:0">Digite, toque no microfone para ditar ou cole do Gemini</label>
+    <div class="ai-in-wrap">
+      <textarea id="aiIn" class="ai-ta" enterkeyhint="enter" placeholder="Ex.: dois arroz 5kg 29,90, um quilo e meio de tomate, 6 leite&#10;Ou comandos:&#10;• marcar hortifruti · orçamento 500 · criar lista Churrasco"></textarea>
+      <button type="button" class="ai-mic" id="aiMic" aria-label="Ditar por voz" aria-pressed="false" title="Ditar itens ou comandos por voz">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+      </button>
+    </div>
+    <div class="ai-mic-st" id="aiMicSt" hidden></div>
+    <div class="ai-chips" id="aiChips">
+      <button type="button" class="ai-chip" data-ai-tpl="2 arroz 5kg por 29,90, 1.5kg tomate, 6 leite integral">Vários itens</button>
+      <button type="button" class="ai-chip" data-ai-tpl="marcar hortifruti">Marcar categoria</button>
+      <button type="button" class="ai-chip" data-ai-tpl="desmarcar tudo">Desmarcar tudo</button>
+      <button type="button" class="ai-chip" data-ai-tpl="orçamento 500">Orçamento</button>
+      <button type="button" class="ai-chip" data-ai-tpl="criar lista Churrasco&#10;1.5kg picanha 79,90/kg&#10;12 cerveja lata 350ml&#10;2 pão de alho">Nova lista + itens</button>
+    </div>
+    <details class="ai-help" id="aiHelp">
+      <summary>Guia rápido do Assistente (voz, formatos e comandos)</summary>
+      <ul class="ai-help-list">
+        <li><b>Como funciona:</b> digite, cole do Gemini ou toque no 🎤 para ditar. Confira a prévia abaixo — <b>Enter apenas quebra linha</b> e nada muda na lista até tocar em <b>Aplicar na lista</b>.</li>
+        <li><b>Ditado corrido:</b> <i>"dois arroz 5kg três leites um quilo e meio de tomate e meio quilo de queijo"</i> · <i>"um vírgula cinco kg de banana"</i></li>
+        <li><b>Pesos, litros e unidades:</b> <i>"1,5kg tomate"</i>, <i>"500g presunto"</i>, <i>"2 litros de leite"</i>, <i>"meia dúzia de ovos"</i>, <i>"Coca 2L x2"</i></li>
+        <li><b>Preços e formatos do Gemini:</b> <i>"2 arroz R$ 29,90"</i>, <i>"Arroz 5kg - 29,90"</i>, <i>"tomate 9,90 o kg"</i>, <i>"2 leite total 11,00"</i>, <i>"Leite | 6 un | R$ 5,49 | Laticínios"</i></li>
+        <li><b>Comandos rápidos (pode juntar com vírgula ou quebra de linha):</b> <i>"criar lista Feira"</i>, <i>"orçamento 600"</i>, <i>"marcar hortifruti"</i>, <i>"peguei leite"</i>, <i>"desmarcar tudo"</i>, <i>"mudar preço do café para 22,50"</i>, <i>"mover sal para Mercearia"</i>, <i>"desistir do iogurte"</i>, <i>"excluir batata"</i>, <i>"finalizar compra"</i></li>
+      </ul>
+    </details>
+    <div class="ai-bridge">
+      <div class="ai-bridge-top">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="url(#g4c)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/></svg>Ponte gratuita com Gemini / ChatGPT</span>
+      </div>
+      <p class="ai-bridge-sub">Copie um pedido pronto (com suas categorias), peça no seu app de IA e cole a resposta acima para importar tudo organizado.</p>
+      <div class="ai-bridge-btns">
+        <button type="button" class="ai-bb" id="aiCopyPrompt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span>Copiar pedido</span></button>
+        <a class="ai-bb" id="aiOpenGem" href="https://gemini.google.com/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg><span>Abrir Gemini</span></a>
+        <button type="button" class="ai-bb" id="aiPaste"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg><span>Colar lista</span></button>
+      </div>
+    </div>
+    <div class="ai-prev" id="aiPrev"></div>
+  </div>
+  <div class="acts">
+    <button type="button" id="aiClear">Limpar</button>
+    <button type="button" class="pri rgb-btn" id="aiApply" disabled>Aplicar na lista</button>
   </div>
 </dialog>
 
@@ -1795,7 +1905,7 @@ $("thm").addEventListener("click", e => {
    Janelas: fechar tocando fora, botão voltar do Android
    ========================================================= */
 const COLOR_PLUS_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="4" x2="12" y2="12" stroke="#a855f7"/><line x1="12" y1="12" x2="20" y2="12" stroke="#f97316"/><line x1="12" y1="12" x2="12" y2="20" stroke="#06b6d4"/><line x1="4" y1="12" x2="12" y2="12" stroke="#ef4444"/></svg>';
-const DIALOGS = ["am", "ed", "mn", "ls", "ex", "bk", "bkh", "tut", "cp", "nc", "hs", "ih", "nm", "finAsk", "pm", "ask"];
+const DIALOGS = ["am", "ed", "mn", "ls", "ex", "bk", "bkh", "tut", "cp", "nc", "hs", "ih", "nm", "finAsk", "pm", "ai", "ask"];
 const anyOpen = () => document.querySelector("dialog[open]");
 let popSkip = 0;
 if (history.state && history.state.dlg) history.replaceState(null, "");
@@ -2220,7 +2330,11 @@ const GUIDES = {
         <p>• <b>Arraste verticalmente em qualquer ponto do painel do topo</b> (ou toque na seta) para minimizar ou expandir — se houver <b>Orçamento</b>, a barra de progresso continua visível.</p>
       </div>
       <div class="gbox">
-        <div class="gbox-top"><span class="g-ico">${ico("checkCircle")}</span><span>4. Finalizar compra</span></div>
+        <div class="gbox-top"><span class="g-ico">${ico("sparkles")}</span><span>4. Assistente rápido e ponte com Gemini</span><span class="gbox-tag">Offline</span></div>
+        <p>• Toque no ícone de <b>brilho (✦)</b> no topo para adicionar vários itens de uma só vez (ex.: <i>2 arroz 5kg, 1.5kg tomate, 6 leite</i>), dar comandos (<i>marcar hortifruti</i>, <i>orçamento 500</i>, <i>criar lista Churrasco</i>) ou colar listas geradas no Gemini.</p>
+      </div>
+      <div class="gbox">
+        <div class="gbox-top"><span class="g-ico">${ico("checkCircle")}</span><span>5. Finalizar compra</span></div>
         <p>Ao terminar no caixa, toque em <b>Registrar compra no histórico</b>. Os itens pagos vão para o Histórico e alimentam automaticamente seu Banco de Produtos.</p>
       </div>`
   },
@@ -4903,6 +5017,805 @@ $("ihCancel").onclick = () => $("ih").close();
 $("mInst").onclick = showInstallGuide;
 $("instGo").onclick = showInstallGuide;
 $("instX").onclick = () => { try { localStorage.setItem("inst-x", "1"); } catch (e) {} instUI(); };
+
+/* =========================================================
+   Assistente rápido offline + Ponte Gemini
+   ========================================================= */
+const CAT_ALIASES = {
+  carnes: "Açougue", carne: "Açougue", churrasco: "Açougue", peixaria: "Açougue",
+  frutas: "Hortifruti", verduras: "Hortifruti", legumes: "Hortifruti", hortalicas: "Hortifruti", feira: "Hortifruti",
+  frios: "Frios e Ovos", ovos: "Frios e Ovos", laticinio: "Laticínios", laticinios: "Laticínios",
+  graos: "Mercearia", despensa: "Mercearia", secos: "Mercearia",
+  padaria: "Padaria", paeszinhos: "Padaria", confeitaria: "Padaria",
+  doces: "Snacks e Doces", snacks: "Snacks e Doces", sobremesa: "Snacks e Doces",
+  limpeza: "Limpeza", lavanderia: "Limpeza",
+  higiene: "Higiene", perfumaria: "Higiene", banho: "Higiene",
+  pet: "Pets", pets: "Pets",
+  congelado: "Congelados", congelados: "Congelados"
+};
+const EXTRA_CAT_KW = {
+  "Hortifruti": ["fruta", "verdura", "legume", "uva", "melancia", "melao", "morango", "abacaxi", "kiwi", "pera", "maracuja", "tangerina", "mexerica", "rucula", "espinafre", "agriao", "repolho", "beterraba", "chuchu", "abobrinha", "berinjela", "mandioca", "inhame", "batata doce", "cheiro verde", "coentro", "salsa", "cebolinha", "milho verde"],
+  "Padaria": ["pao", "bisnaguinha", "broa", "sonho", "salgado", "pao de alho", "torta", "panetone", "baguete", "focaccia"],
+  "Açougue": ["carne", "bife", "alcatra", "picanha", "maminha", "fraldinha", "acem", "musculo", "lombo", "bisteca", "costelinha", "bacon", "salsicha", "frango", "file", "peixe", "salmao", "camarao", "hamburguer artesanal"],
+  "Laticínios": ["leite", "queijo", "mussarela", "mucarela", "parmesao", "provolone", "gorgonzola", "ricota", "cottage", "chantilly", "leite condensado", "nata", "coalhada", "kefir"],
+  "Frios e Ovos": ["ovo", "ovos", "blanquet", "peito peru", "copa", "apresentado", "queijo fatiado", "salsichao"],
+  "Mercearia": ["arroz", "feijao", "macarrao", "espaguete", "penne", "cafe", "acucar", "sal", "oleo", "azeite", "vinagre", "farinha", "fuba", "polvilho", "amido", "maizena", "molho", "extrato", "ketchup", "mostarda", "maionese", "atum lata", "sardinha lata", "ervilha", "azeitona", "granola", "mel", "geleia", "fermento", "tempero", "oregano", "pimenta"],
+  "Bebidas": ["agua", "refrigerante", "coca", "guarana", "fanta", "sprite", "suco", "vinho", "vodka", "whisky", "espumante", "cha", "mate", "isotonico", "cerveja"],
+  "Limpeza": ["detergente", "sabao", "agua sanitaria", "cloro", "desinfetante", "amaciante", "esponja", "bombril", "palha de aco", "multiuso", "veja", "alcool", "saco de lixo", "saco lixo", "pano", "rodo", "vassoura", "lustra moveis", "inseticida", "tira manchas"],
+  "Higiene": ["papel higienico", "papel toalha", "creme dental", "pasta de dente", "escova", "shampoo", "xampu", "condicionador", "sabonete", "desodorante", "fio dental", "absorvente", "lenco", "algodao", "cotonete", "barbear", "hidratante", "protetor solar"],
+  "Congelados": ["pizza", "nuggets", "lasanha", "sorvete", "acai", "batata frita", "pao de queijo congelado", "legumes congelados"],
+  "Snacks e Doces": ["biscoito", "bolacha", "chocolate", "bombom", "salgadinho", "chips", "amendoim", "castanha", "pipoca", "bala", "chiclete", "paçoca", "pacoca", "barra"],
+  "Pets": ["racao", "areia", "tapete higienico", "petisco", "sache", "ossinho", "antipulgas"]
+};
+
+function matchCatName(raw) {
+  const k = norm(raw);
+  if (!k) return null;
+  if (k === "sem categoria" || k === "outros") return "Sem categoria";
+  const all = getCats();
+  const exact = all.find(c => norm(c.n) === k);
+  if (exact) return exact.n;
+  const part = all.find(c => norm(c.n).includes(k) || k.includes(norm(c.n)));
+  if (part && k.length >= 4) return part.n;
+  const alias = CAT_ALIASES[k];
+  return alias && okc(alias) ? alias : null;
+}
+
+function inferItemDetails(name, forcedCat) {
+  const dbHit = findProductExact(name);
+  let cat = forcedCat || null;
+  if (!cat && dbHit && dbHit.c && okc(dbHit.c)) cat = dbHit.c;
+  if (!cat) {
+    const k = norm(name);
+    const words = k.split(/[^a-z0-9]+/).filter(w => w.length >= 2);
+    // Verifica primeiro categorias personalizadas do usuário por nome
+    for (const c of (S.customCats || [])) {
+      const ck = norm(c.n);
+      if (k.includes(ck) || ck.split(/\s+/).some(cw => cw.length >= 4 && words.includes(cw))) {
+        cat = c.n;
+        break;
+      }
+    }
+    if (!cat && norm(name).match(/dipirona|paracetamol|ibuprofeno|remedio|vitamina|curativo|bandaid|pomada|antiseptico|soro fisiologico/)) {
+      const farm = (S.customCats || []).find(c => norm(c.n).includes("farmac") || norm(c.n).includes("remed"));
+      if (farm) cat = farm.n;
+    }
+    if (!cat) {
+      const candidates = [];
+      Object.entries(SUG).forEach(([cn, arr]) => arr.forEach(s => candidates.push([norm(s), cn])));
+      Object.entries(EXTRA_CAT_KW).forEach(([cn, arr]) => arr.forEach(s => candidates.push([norm(s), cn])));
+      // Frase completa tem prioridade sobre palavra avulsa
+      let best = null, bestScore = 0;
+      for (const [kw, cn] of candidates) {
+        if (k === kw) { best = cn; bestScore = 100; break; }
+        const kwWords = kw.split(/\s+/);
+        let sc = 0;
+        if (kwWords.length > 1 && k.includes(kw)) sc = 50 + kw.length;
+        else if (kwWords.length === 1 && words.includes(kw)) sc = 20 + kw.length;
+        else if (kwWords.length === 1 && kw.length >= 4 && words.some(w => w.startsWith(kw) || kw.startsWith(w))) sc = 10;
+        if (sc > bestScore) { bestScore = sc; best = cn; }
+      }
+      cat = best || "Sem categoria";
+    }
+  }
+  return {
+    cat: okc(cat) ? cat : "Sem categoria",
+    unit: dbHit ? dbHit.u : null,
+    price: dbHit && dbHit.p > 0 ? dbHit.p : 0,
+    fromDb: !!dbHit
+  };
+}
+
+function parseMoneyToken(str) {
+  if (!str) return null;
+  const clean = String(str).replace(/r\$/gi, "").replace(/\s+/g, "").trim();
+  if (!/^\d+(?:[.,]\d{1,2})?$/.test(clean)) return null;
+  const val = Number(clean.replace(",", "."));
+  return Number.isFinite(val) && val >= 0 ? Math.min(1e9, Math.round(val * 100)) : null;
+}
+
+const PT_NUM_MAP = {
+  zero: 0, um: 1, uma: 1, dois: 2, duas: 2, tres: 3, quatro: 4, cinco: 5, seis: 6, meia: 6, sete: 7, oito: 8, nove: 9,
+  dez: 10, onze: 11, doze: 12, treze: 13, quatorze: 14, catorze: 14, quinze: 15, dezesseis: 16, dezessete: 17, dezoito: 18, dezenove: 19,
+  vinte: 20, trinta: 30, quarenta: 40, cinquenta: 50, sessenta: 60, setenta: 70, oitenta: 80, noventa: 90,
+  cem: 100, cento: 100, duzentos: 200, duzentas: 200, trezentos: 300, trezentas: 300, quatrocentos: 400, quatrocentas: 400,
+  quinhentos: 500, quinhentas: 500, seiscentos: 600, seiscentas: 600, setecentos: 700, setecentas: 700, oitocentos: 800, oitocentas: 800, novecentos: 900, novecentas: 900
+};
+function spokenToInt(phrase) {
+  const s = norm(phrase);
+  if (!s) return null;
+  if (/^\d+$/.test(s)) return parseInt(s, 10);
+  const tokens = s.split(/\s+/).filter(t => t !== "e");
+  if (!tokens.length) return null;
+  let total = 0;
+  for (const t of tokens) {
+    if (PT_NUM_MAP[t] === undefined) return null;
+    total += PT_NUM_MAP[t];
+  }
+  return total;
+}
+
+function normalizeSpokenText(raw) {
+  let s = String(raw || "");
+  if (!s.trim()) return "";
+  // Decimais ditados por extenso: "1 vírgula 5", "um vírgula cinco", "dois ponto cinco"
+  s = s.replace(/\b(\d{1,3}|um|uma|dois|duas|tr[eê]s|quatro|cinco|seis|sete|oito|nove|dez)\s+(?:v[ií]rgula|ponto)\s+(\d{1,2}|zero|um|uma|dois|duas|tr[eê]s|quatro|cinco|seis|sete|oito|nove|(?:[a-zçãõéê]+(?:\s+e\s+[a-zçãõéê]+)?))\b/gi, (m, intPart, decPart) => {
+    const iNum = /^\d+$/.test(intPart) ? parseInt(intPart, 10) : spokenToInt(intPart);
+    const dNum = /^\d+$/.test(decPart) ? decPart : spokenToInt(decPart);
+    if (iNum === null || dNum === null || Number(dNum) > 99) return m;
+    return `${iNum},${dNum}`;
+  });
+  // Preços ditados por extenso: "vinte e nove reais e noventa", "10 reais e 50 centavos", "8 reais"
+  s = s.replace(/\b(\d{1,4}|(?:[a-zçãõéê]+(?:\s+e\s+[a-zçãõéê]+){0,3}))\s+reais(?:\s+e\s+(\d{1,2}|(?:[a-zçãõéê]+(?:\s+e\s+[a-zçãõéê]+)?))(?:\s+centavos?)?)?\b/gi, (m, rPart, cPart) => {
+    const rNum = spokenToInt(rPart);
+    if (rNum === null) return m;
+    const cNum = cPart ? spokenToInt(cPart) : 0;
+    if (cNum === null || cNum > 99) return m;
+    return `R$ ${rNum},${String(cNum).padStart(2, "0")}`;
+  });
+  // Preço abreviado após preposição de valor: "por 8 e 90", "a 12 e 50"
+  s = s.replace(/\b(a|por|custando|valor|de)\s+(\d{1,3})\s+e\s+(\d{2})\b/gi, "$1 R$ $2,$3");
+  s = s.replace(/\b(\d{1,2}|[a-zçãõéê]+)\s+centavos?\b/gi, (m, cPart) => {
+    const c = spokenToInt(cPart);
+    return c !== null && c <= 99 ? `R$ 0,${String(c).padStart(2, "0")}` : m;
+  });
+  // Pesos e dúzias compostos na fala
+  s = s.replace(/\b(um|uma|dois|duas|tr[eê]s|quatro|cinco|\d+)\s+(?:quilos?|kilos?|kg)\s+e\s+mei[oa]\b/gi, (m, q) => {
+    const n = spokenToInt(q);
+    return n !== null ? `${n + 0.5} kg` : m;
+  });
+  s = s.replace(/\bmei[oa]\s+(?:quilo|kilo|kg)\b/gi, "0.5 kg");
+  s = s.replace(/\b(cem|cento e cinquenta|duzent[oa]s|trezent[oa]s|quatrocent[oa]s|quinhent[oa]s|seiscent[oa]s|setecent[oa]s|oitocent[oa]s|novecent[oa]s)\s+gramas?\b/gi, (m, g) => {
+    const n = spokenToInt(g);
+    return n !== null ? `${n}g` : m;
+  });
+  s = s.replace(/\bmeia\s+d[uú]zia\b/gi, "6 un");
+  s = s.replace(/\b(uma?|duas|tr[eê]s|\d+)?\s*d[uú]zias?\b/gi, (m, q) => {
+    const n = q ? spokenToInt(q) : 1;
+    return n !== null ? `${n * 12} un` : m;
+  });
+  // Quantidades faladas antes de unidade ou após conectivo "e" / início
+  s = s.replace(/\b(um|uma|dois|duas|tr[eê]s|quatro|cinco|seis|sete|oito|nove|dez|onze|doze|quinze|vinte)\s+(?=(?:quilos?|kilos?|kg|gramas?|gr?|unid(?:ades?)?|un|pacotes?|pct|caixas?|cx|latas?|garrafas?|bandejas?|litros?|lts?|ml)\b)/gi, (m, w) => {
+    const n = spokenToInt(w);
+    return n !== null ? `${n} ` : m;
+  });
+  s = s.replace(/(^|[;\n,]|\b(?:e|mais|tamb[eé]m|adicionar|adiciona|colocar|coloca|pegar|comprar)\s+)(um|uma|sete)(?=\s+(?:de\s+)?(?!(?:gr[aã]os|cereais|queijos|ervas)\b)[a-zÀ-ÿ]{2,})/gi, (m, pfx, w) => {
+    const n = spokenToInt(w);
+    return n !== null ? `${pfx}${n}` : m;
+  });
+  s = s.replace(/\b(dois|duas|tr[eê]s|quatro|cinco|seis|oito|nove|dez|onze|doze|quinze|vinte)(?=\s+(?:de\s+)?(?!(?:reais|centavos)\b)[a-zÀ-ÿ]{2,})/gi, (m, w, offset, fullStr) => {
+    const before = fullStr.slice(Math.max(0, offset - 10), offset).toLowerCase();
+    if (/(?:tipo|n[ºo°]?|numero)\s*$/.test(before)) return m;
+    const n = spokenToInt(w);
+    return n !== null ? String(n) : m;
+  });
+  return s;
+}
+
+const KNOWN_AND_PAIRS = new Set(["arroz e feijao", "queijo e presunto", "frios e ovos", "snacks e doces", "agua e sal", "peixe e fritas", "cafe e leite", "pao e manteiga"]);
+function splitContinuousSpeech(seg) {
+  // Quebra fala contínua antes de "<qtd/peso> <nome do produto>" sem partir embalagens ("5kg total", "Tipo 1", "FPS 50", "7 grãos")
+  return seg.replace(
+    /(\S)\s+(?=(\d+(?:[.,]\d+)?\s*(?:kg|kilos?|quilos?|g|gr|gramas?)\s+(?:de\s+)?(?!(?:total|tudo|valor|custando|cada|reais|centavos|por|a)\b)[a-zÀ-ÿ]{2,}|\d{1,2}\s+(?:(?:un|unid|unidades?|pct|pacotes?|cx|caixas?|latas?|garrafas?)\s+)?(?:de\s+)?(?!(?:kg|kilos?|quilos?|g|gr|gramas?|l|litros?|ml|un|reais|centavos|por|a|de|total|tudo|valor|custando|cada|graos|grãos|cereais|queijos|ervas|%)\b)[a-zÀ-ÿ]{2,}))/gi,
+    (m, prevChar, ahead, offset, fullStr) => {
+      const beforeWord = fullStr.slice(Math.max(0, offset - 18), offset + 1).toLowerCase();
+      if (/(?:tipo|fps|n[ºo°]?|numero|r\$|reais|por|valor|custando|total|tudo|cada|de|a|=|@|\b[ex\-:(])$/.test(beforeWord.trim())) return m;
+      return `${prevChar}\n`;
+    }
+  ).split(/\n+/).map(x => x.trim()).filter(Boolean);
+}
+
+function splitAssistantSegments(raw) {
+  const out = [];
+  for (const rawLine of String(raw || "").split(/\r?\n/)) {
+    const normLine = normalizeSpokenText(rawLine).trim();
+    if (!normLine) continue;
+    // Linhas de cabeçalho (### Hortifruti ou Limpeza: ou 🛒 Mercearia:)
+    const noEmjHead = normLine.replace(/^[\p{Emoji_Presentation}\p{Extended_Pictographic}\s]+/gu, "").trim();
+    if (/^#{1,6}\s+/.test(normLine) || (/^[A-Za-zÀ-ÿ0-9 &/-]{2,32}:$/.test(noEmjHead))) {
+      out.push(noEmjHead);
+      continue;
+    }
+    const cmdLineRe = /^(cria(?:r)? lista|nova lista|troca(?:r)?|abr(?:ir|e) lista|usa(?:r)? lista|ir para lista|renome(?:ar|ia) lista|mudar (?:o )?nome|cria(?:r)? categoria|nova categoria|adiciona(?:r)? categoria|orcamento|definir orcamento|limite |teto |sem orcamento|marca(?:r)? |desmarca(?:r)? |peguei |ja peguei |no carrinho |tira(?:r)? do carrinho |oculta(?:r)? |escond(?:er|e) |mostra(?:r)? |exib(?:ir|e) |limpa(?:r)? |exclui(?:r)? |remov(?:er|e) |apaga(?:r)? |tira(?:r)? |desist(?:ir|e) |pula(?:r)? |nao (?:vou levar|levo) |restaura(?:r)? |volta(?:r)? |mov(?:er|e) |coloca(?:r)? .+ (?:categoria|para|na|no|em) |muda(?:r)? preco|atualiza(?:r)? preco|registra(?:r)? |finaliza(?:r)? |fecha(?:r)? compra)/;
+    const hasComma = /,(?=\s|$)/.test(normLine);
+    let rough = normLine
+      .split(/;|,(?=\s|$)|\s+(?:e\s+tamb[eé]m|e\s+mais|e\s+ainda|e\s+depois)\s+/i)
+      .map(s => s.trim())
+      .filter(Boolean);
+    // Quebra " e " seguido de quantidade/comando OU final de enumeração com vírgula ("banana, maçã, cebola e alho")
+    rough = rough.flatMap((part, idx, arr) => {
+      const nPart = norm(part.replace(/^[-*•☐☑✓✔\[\]xX\s]+/, ""));
+      const hasMultiCmd = /\s+e\s+(?:cria(?:r)?|nova|abr(?:ir|e)|troca(?:r)?|renome(?:ar|ia)|muda(?:r)?|marca(?:r)?|desmarca(?:r)?|exclui(?:r)?|remov(?:er|e)|apaga(?:r)?|tira(?:r)?|limpa(?:r)?|oculta(?:r)?|escond(?:er|e)|mostra(?:r)?|exib(?:ir|e)|desist(?:ir|e)|restaura(?:r)?|mov(?:er|e)|finaliza(?:r)?|fecha(?:r)?|orcamento|orçamento)\b/i.test(part);
+      if (cmdLineRe.test(nPart) && !hasMultiCmd) return [part];
+      let pieces = part.split(/\s+e\s+(?=(?:\d+(?:[.,]\d+)?\s*(?:kg|kilos?|quilos?|g|gramas?|un|litros?|lts?|x)?\s+|(?:cria(?:r)?|nova|abr(?:ir|e)|troca(?:r)?|renome(?:ar|ia)|muda(?:r)?|marca(?:r)?|desmarca(?:r)?|exclui(?:r)?|remov(?:er|e)|apaga(?:r)?|tira(?:r)?|limpa(?:r)?|oculta(?:r)?|escond(?:er|e)|mostra(?:r)?|exib(?:ir|e)|desist(?:ir|e)|restaura(?:r)?|mov(?:er|e)|finaliza(?:r)?|fecha(?:r)?|orcamento|orçamento)\b))/i);
+      if (hasComma && idx === arr.length - 1) {
+        pieces = pieces.flatMap(p => {
+          const np = norm(p.replace(/^[-*•☐☑✓✔\[\]xX\s]+/, ""));
+          if (cmdLineRe.test(np)) return [p];
+          const em = /^(.+?)\s+e\s+(.+)$/i.exec(p);
+          if (!em) return [p];
+          const fullK = norm(p);
+          if (KNOWN_AND_PAIRS.has(fullK) || findProductExact(p)) return [p];
+          if (em[1].split(/\s+/).length <= 3 && em[2].split(/\s+/).length <= 3 && !/^(kg|un|reais)/i.test(em[2])) return [em[1], em[2]];
+          return [p];
+        });
+      }
+      return pieces;
+    });
+    for (const seg of rough) {
+      const nSeg = norm(seg.replace(/^[-*•☐☑✓✔\[\]xX\s]+/, ""));
+      if (cmdLineRe.test(nSeg)) out.push(seg);
+      else out.push(...splitContinuousSpeech(seg));
+    }
+  }
+  return out;
+}
+
+function parseCommandSegment(seg) {
+  const cleaned = seg.replace(/^[-*•☐☑✓✔\s]+/, "").trim();
+  const n = norm(cleaned);
+  let m;
+  if ((m = /^(?:cria(?:r)?|nova)\s+lista\s+(.+)$/i.exec(cleaned))) return { type: "newList", name: m[1].trim().slice(0, 40) };
+  if ((m = /^(?:troca(?:r)?(?:\s+para|\s+de)?|abr(?:ir|e)|usa(?:r)?|ir\s+para)\s+(?:a\s+)?lista\s+(.+)$/i.exec(cleaned))) return { type: "switchList", name: m[1].trim() };
+  if ((m = /^(?:renome(?:ar|ia)|muda(?:r)?\s+(?:o\s+)?nome\s+da)\s+lista\s+(?:atual\s+)?(?:para|pra)\s+(.+)$/i.exec(cleaned))) return { type: "renameList", name: m[1].trim().slice(0, 40) };
+  if ((m = /^(?:cria(?:r)?|nova|adiciona(?:r)?)\s+categoria\s+(.+)$/i.exec(cleaned))) return { type: "createCat", name: m[1].trim().slice(0, 32) };
+  if (/^(?:(?:remov(?:er|e)|tira(?:r)?|limpa(?:r)?|zera(?:r)?|desativa(?:r)?)\s+(?:o\s+)?|sem\s+)(?:orcamento|limite|teto)$/i.test(n)) return { type: "budget", cents: 0 };
+  if ((m = /^(?:defini(?:r|e)?\s+|muda(?:r|a)?\s+|coloca(?:r|a)?\s+|ajusta(?:r|a)?\s+|deixa(?:r|a)?\s+)?(?:o\s+)?(?:orcamento|limite|teto)(?:\s+da\s+lista)?(?:\s+de|\s+para|\s+pra|\s+em)?\s+(?:r\$\s*)?(\d+(?:[.,]\d{1,2})?)$/i.exec(n))) {
+    const c = parseMoneyToken(m[1]);
+    if (c !== null) return { type: "budget", cents: c };
+  }
+  if (/^(?:marca(?:r)?|check)\s+(?:tudo|todos(?:\s+os\s+itens)?)$/.test(n)) return { type: "toggleAll", target: true };
+  if (/^(?:desmarca(?:r)?|uncheck)\s+(?:tudo|todos(?:\s+os\s+itens)?)$/.test(n)) return { type: "toggleAll", target: false };
+  if (/^(?:oculta(?:r)?|escond(?:er|e))\s+(?:os\s+)?(?:itens\s+)?marcados$/.test(n)) return { type: "hideDone", value: true };
+  if (/^(?:mostra(?:r)?|exib(?:ir|e))\s+(?:(?:os\s+)?(?:itens\s+)?marcados|tudo)$/.test(n)) return { type: "hideDone", value: false };
+  if (/^(?:limpa(?:r)?|esvazia(?:r)?|excluir\s+tudo\s+da)\s+(?:a\s+)?lista$/.test(n)) return { type: "clearList" };
+  if (/^(?:registra(?:r)?|finaliza(?:r)?|salva(?:r)?|fecha(?:r)?)\s+(?:a\s+)?compras?$/.test(n)) return { type: "finish" };
+
+  if ((m = /^(?:exclui(?:r)?|remov(?:er|e)|apaga(?:r)?|limpa(?:r)?)\s+(?:itens\s+da\s+|tudo\s+de\s+|tudo\s+da\s+)?categoria\s+(.+)$/i.exec(cleaned))) {
+    const cat = matchCatName(m[1]);
+    if (cat) return { type: "clearCat", cat };
+  }
+  if ((m = /^(?:muda(?:r)?|atualiza(?:r)?|coloca(?:r)?|defini(?:r)?|altera(?:r)?)\s+(?:o\s+)?pre[çc]o\s+(?:d[aeo]s?\s+)?(.+?)\s+(?:para|pra|em|por)\s+(?:r\$\s*)?(\d+(?:[.,]\d{1,2})?)$/i.exec(cleaned))) {
+    const c = parseMoneyToken(m[2]);
+    if (c !== null) return { type: "setPrice", query: m[1].trim(), cents: c };
+  }
+  if ((m = /^(.+?)\s+(?:custou|saiu(?:\s+por)?|est[aá](?:\s+por)?|t[aá](?:\s+por)?)\s+(?:r\$\s*)?(\d+(?:[.,]\d{1,2})?)$/i.exec(cleaned))) {
+    const c = parseMoneyToken(m[2]);
+    if (c !== null) return { type: "setPrice", query: m[1].trim(), cents: c };
+  }
+  if ((m = /^(?:muda(?:r)?|atualiza(?:r)?|ajusta(?:r)?|coloca(?:r)?|altera(?:r)?)\s+(?:a\s+)?(?:quantidade|qtd|peso)\s+(?:d[aeo]s?\s+)?(.+?)\s+(?:para|pra)\s+(\d+(?:[.,]\d+)?)\s*(kg|kilos?|quilos?|g|gr|gramas?|un)?$/i.exec(cleaned))) {
+    const qv = Number(m[2].replace(",", "."));
+    const uRaw = (m[3] || "").toLowerCase();
+    if (qv > 0) {
+      const isG = uRaw === "g" || uRaw === "gr" || uRaw.startsWith("grama");
+      const unit = isG || uRaw === "kg" || uRaw.startsWith("kilo") || uRaw.startsWith("quilo") ? "kg" : (uRaw === "un" ? "un" : null);
+      const qty = isG ? Math.max(.001, Math.round(qv) / 1000) : qv;
+      return { type: "setQty", query: m[1].trim(), qty, unit };
+    }
+  }
+  if ((m = /^(?:mov(?:er|e)|coloca(?:r)?|passa(?:r)?|muda(?:r)?)\s+(?:o\s+|a\s+)?(.+?)\s+(?:para|pra|na|no|em)\s+(?:a\s+)?(?:categoria\s+)?(.+)$/i.exec(cleaned))) {
+    const cat = matchCatName(m[2]);
+    if (cat) return { type: "moveCat", query: m[1].trim(), cat };
+  }
+  if ((m = /^(marca(?:r)?|desmarca(?:r)?|peguei|j[aá]\s+peguei|no\s+carrinho|tira(?:r)?\s+do\s+carrinho)\s+(.+)$/i.exec(cleaned))) {
+    const verb = norm(m[1]);
+    const target = verb.startsWith("marca") || verb.includes("peguei") || verb === "no carrinho";
+    const rest = m[2].replace(/^(?:tudo\s+d[aeo]|todos\s+d[aeo]|categoria|itens\s+d[aeo]|[oa]s?)\s+/i, "").trim();
+    const cat = matchCatName(rest);
+    if (cat) return { type: "toggleCat", cat, target };
+    if (rest) return { type: "toggleItem", query: rest, target };
+  }
+  if ((m = /^(?:desist(?:ir|e)|pula(?:r)?|n[aã]o\s+(?:vou\s+levar|levo))\s+(?:de\s+|da\s+|do\s+)?(.+)$/i.exec(cleaned))) return { type: "skipItem", query: m[1].trim(), skipped: true };
+  if ((m = /^(?:restaura(?:r)?|volta(?:r)?)\s+(?:[oa]\s+)?(.+?)(?:\s+da\s+desist[êe]ncia)?$/i.exec(cleaned))) return { type: "skipItem", query: m[1].trim(), skipped: false };
+  if ((m = /^(?:exclui(?:r)?|remov(?:er|e)|apaga(?:r)?|tira(?:r)?)\s+(?:[oa]s?\s+)?(.+?)(?:\s+da\s+lista)?$/i.exec(cleaned))) return { type: "delItem", query: m[1].trim() };
+  return null;
+}
+
+function parseItemSegment(seg, ctxCat) {
+  let done = /^\s*(?:\[[xX]\]|☑|✅|✔)/.test(seg);
+  let s = seg
+    .replace(/^[-*•☐☑✅✓✔\s]+/, "")
+    .replace(/^\[[ xX]?\]\s*/, "")
+    .replace(/^\d{1,3}[.)]\s+/, "")
+    .replace(/^[\p{Emoji_Presentation}\p{Extended_Pictographic}\s]+/gu, "")
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/__([^_]+)__/g, "$1")
+    .replace(/^(?:por\s+favor\s+|eu\s+quero\s+|preciso\s+de\s+|anota\s+a[ií]\s+|bota\s+a[ií]\s+|adicionar|adiciona|add|colocar|coloca|pegar|pega|comprar|compra|incluir|inclui)\s+/i, "")
+    .trim();
+  if (!s) return null;
+
+  let forcedCat = null;
+  let price = null;
+  let isTotalPrice = false;
+  let qty = null;
+  let unit = null;
+
+  // Extrai hashtag explícita de categoria (#mercearia) ou [Cat] / (Cat) no fim
+  s = s.replace(/\s+#([A-Za-zÀ-ÿ0-9_-]{3,28})\s*$/, (full, tag) => {
+    const mc = matchCatName(tag.replace(/[-_]/g, " "));
+    if (mc) { forcedCat = mc; return " "; }
+    return full;
+  }).trim();
+  s = s.replace(/\s*[\[(]([^\]()]{2,32})[\])]\s*$/, (full, inner) => {
+    const mc = matchCatName(inner);
+    if (mc) { forcedCat = mc; return " "; }
+    return full;
+  }).trim();
+
+  if (s.includes("|")) {
+    const cols = s.split("|").map(x => x.trim()).filter(Boolean);
+    const tail = [];
+    for (let i = 1; i < cols.length; i++) {
+      const col = cols[i];
+      const hasMoneyCue = /r\$|[.,]\d{1,2}\b/i.test(col);
+      if (hasMoneyCue && price === null) {
+        const mp = parseMoneyToken(col);
+        if (mp !== null) { price = mp; continue; }
+      }
+      const mc = matchCatName(col);
+      if (mc && !forcedCat) { forcedCat = mc; continue; }
+      const mq = /^(\d+(?:[.,]\d+)?)\s*(kg|kilos?|quilos?|g|gr|gramas?|un|und|unid|unidades?|x)?$/i.exec(col);
+      if (mq && qty === null) {
+        const qv = Number(mq[1].replace(",", "."));
+        const uRaw = (mq[2] || "").toLowerCase();
+        if (uRaw === "g" || uRaw === "gr" || uRaw.startsWith("grama")) { unit = "kg"; qty = Math.max(.001, Math.round(qv) / 1000); }
+        else if (uRaw === "kg" || uRaw.startsWith("kilo") || uRaw.startsWith("quilo")) { unit = "kg"; qty = Math.max(.001, Math.round(qv * 1000) / 1000); }
+        else { unit = "un"; qty = Math.max(1, Math.min(999, Math.round(qv))); }
+        continue;
+      }
+      const mpFallback = parseMoneyToken(col);
+      if (mpFallback !== null && price === null) { price = mpFallback; continue; }
+      tail.push(col);
+    }
+    s = [cols[0], ...tail].join(" ").trim();
+  }
+
+  // Categoria separada após " - Categoria" no fim
+  s = s.replace(/\s+[-–—]\s+([A-Za-zÀ-ÿ &]{3,28})\s*$/, (full, catTail) => {
+    const mc = matchCatName(catTail);
+    if (mc && !forcedCat) { forcedCat = mc; return ""; }
+    return full;
+  }).trim();
+
+  // Preço no início: "R$ 29,90 - 2 arroz"
+  let mpStart;
+  if (price === null && (mpStart = /^(?:r\$\s*)(\d+(?:[.,]\d{1,2})?)\s*(?:[-–—:]\s*|\s+)(?=\S)/i.exec(s))) {
+    const c = parseMoneyToken(mpStart[1]);
+    if (c !== null && !/^(?:kg|g|l|ml|un)/i.test(s.slice(mpStart[0].length))) {
+      price = c; s = s.slice(mpStart[0].length).trim();
+    }
+  }
+
+  // Preço explícito no fim (suporta "total/tudo X", "X o kg /kg", "por/a/de/custando/valor/=/@ R$ X", "X cada")
+  let mpEnd;
+  if (price === null && (mpEnd = /(?:^|[\s\-–—]+)(total|tudo)\s+(?:de\s+|por\s+|a\s+)?(?:r\$\s*)?(\d+(?:[.,]\d{1,2})?)\s*$/i.exec(s))) {
+    const c = parseMoneyToken(mpEnd[2]);
+    if (c !== null) { price = c; isTotalPrice = true; s = s.slice(0, mpEnd.index).trim(); }
+  } else if (price === null && (mpEnd = /(?:^|[\s\-–—]+)(?:(?:a|por|de|custando|valor(?:\s+de)?|=|@)\s+)?(?:r\$\s*)?(\d+(?:[.,]\d{1,2})?)\s*(?:\/|\s+(?:o|por)\s+)(kg|kilo|quilo)\s*$/i.exec(s))) {
+    const c = parseMoneyToken(mpEnd[1]);
+    if (c !== null) { price = c; unit = unit || "kg"; s = s.slice(0, mpEnd.index).trim(); }
+  } else if (price === null && (mpEnd = /(?:^|[\s\-–—]+)(?:a|por|custando|valor(?:\s+de)?|=|@)\s*(?:r\$\s*)?(\d+(?:[.,]\d{1,2})?)(?:\s+(?:cada|un|a\s+unidade))?\s*$/i.exec(s))) {
+    const c = parseMoneyToken(mpEnd[1]);
+    if (c !== null) { price = c; s = s.slice(0, mpEnd.index).trim(); }
+  } else if (price === null && (mpEnd = /\s+[\-–—:]\s*(?:r\$\s*)?(\d+[.,]\d{2})(?:\s+(?:cada|un))?\s*$/i.exec(s))) {
+    const c = parseMoneyToken(mpEnd[1]);
+    if (c !== null) { price = c; s = s.slice(0, mpEnd.index).trim(); }
+  } else if (price === null && (mpEnd = /(?:^|[\s\-–—]+)(?:r\$\s*)(\d+(?:[.,]\d{1,2})?)(?:\s+(?:cada|un))?\s*$/i.exec(s))) {
+    const c = parseMoneyToken(mpEnd[1]);
+    if (c !== null) { price = c; s = s.slice(0, mpEnd.index).trim(); }
+  } else if (price === null && (mpEnd = /\s+(\d+,\d{2})(?:\s+(?:cada|un))?\s*$/.exec(s))) {
+    const c = parseMoneyToken(mpEnd[1]);
+    if (c !== null) { price = c; s = s.slice(0, mpEnd.index).trim(); }
+  }
+
+  // Quantidade + peso no início: "1,5kg de tomate", "500g queijo", "2 litros de leite", "2x arroz 5kg", "2 pacotes de arroz", "6 leite"
+  let mqLead;
+  if (qty === null && (mqLead = /^(\d+(?:[.,]\d+)?)\s*(kg|kilos?|quilos?|g|gr|gramas?)\b\s*(?:de\s+)?(.+)$/i.exec(s))) {
+    const qv = Number(mqLead[1].replace(",", "."));
+    const uRaw = mqLead[2].toLowerCase();
+    if (qv > 0 && mqLead[3].trim()) {
+      if (uRaw === "g" || uRaw === "gr" || uRaw.startsWith("grama")) { unit = "kg"; qty = Math.max(.001, Math.round(qv) / 1000); }
+      else { unit = "kg"; qty = Math.max(.001, Math.round(qv * 1000) / 1000); }
+      s = mqLead[3].trim();
+    }
+  } else if (qty === null && (mqLead = /^(\d{1,3})\s*(?:litros?|lts?)\s+de\s+(.+)$/i.exec(s))) {
+    const qv = parseInt(mqLead[1], 10);
+    if (qv >= 1 && qv <= 999 && mqLead[2].trim()) { unit = "un"; qty = qv; s = mqLead[2].trim(); }
+  } else if (qty === null && (mqLead = /^x\s*(\d{1,3})\s+(.+)$/i.exec(s))) {
+    const qv = parseInt(mqLead[1], 10);
+    if (qv >= 1 && qv <= 999 && mqLead[2].trim()) { unit = "un"; qty = qv; s = mqLead[2].trim(); }
+  } else if (qty === null && (mqLead = /^(\d{1,3})\s*(?:x|un|und|unid|unidades?|pct|pacotes?|cx|caixas?|latas?|garrafas?|gf|bandejas?)?(?:\s+de)?\s+(.+)$/i.exec(s))) {
+    const qv = parseInt(mqLead[1], 10);
+    if (qv >= 1 && qv <= 999 && mqLead[2].trim() && !/^(?:kg|g|ml|l|reais)\b/i.test(mqLead[2])) {
+      unit = unit || "un";
+      qty = qv;
+      s = mqLead[2].trim();
+    }
+  }
+
+  // Quantidade separada no fim: "Banana - 1,5 kg", "Pão (2 un)", "Arroz (2)", "Coca-Cola 2L x2"
+  let mqTrail;
+  if (qty === null && (mqTrail = /(?:[\-–—:]\s*|\(\s*)(\d+(?:[.,]\d+)?)\s*(kg|kilos?|quilos?|g|gr|gramas?|un|und|unid|unidades?|x)?\s*\)?\s*$/i.exec(s))) {
+    const hasUnit = !!mqTrail[2], inParensOrDash = /[\-–—:(]/.test(mqTrail[0]);
+    if (hasUnit || inParensOrDash) {
+      const qv = Number(mqTrail[1].replace(",", "."));
+      const uRaw = (mqTrail[2] || "").toLowerCase();
+      if (qv > 0) {
+        if (uRaw === "g" || uRaw === "gr" || uRaw.startsWith("grama")) { unit = "kg"; qty = Math.max(.001, Math.round(qv) / 1000); }
+        else if (uRaw === "kg" || uRaw.startsWith("kilo") || uRaw.startsWith("quilo")) { unit = "kg"; qty = Math.max(.001, Math.round(qv * 1000) / 1000); }
+        else { unit = "un"; qty = Math.max(1, Math.min(999, Math.round(qv))); }
+        s = s.slice(0, mqTrail.index).trim();
+      }
+    }
+  } else if (qty === null && (mqTrail = /\s+(?:x\s*(\d{1,3})|(\d{1,3})\s*x|(\d{1,3})\s*un(?:id(?:ades?)?)?)\s*$/i.exec(s))) {
+    const qv = parseInt(mqTrail[1] || mqTrail[2] || mqTrail[3], 10);
+    if (qv >= 1 && qv <= 999) {
+      unit = "un"; qty = qv; s = s.slice(0, mqTrail.index).trim();
+    }
+  } else if (qty === null && (mqTrail = /\s+(\d+(?:[.,]\d+)?)\s*(kg|kilos?|quilos?|g|gr|gramas?)\s*$/i.exec(s))) {
+    const base = s.slice(0, mqTrail.index).trim();
+    const isPackaged = /\b(arroz|feijao|acucar|farinha|sabao|cafe|racao|areia|carvao|sal|margarina|requeijao|chocolate)\b/.test(norm(base));
+    if (base && !isPackaged) {
+      const qv = Number(mqTrail[1].replace(",", "."));
+      const uRaw = mqTrail[2].toLowerCase();
+      if (qv > 0) {
+        if (uRaw === "g" || uRaw === "gr" || uRaw.startsWith("grama")) { unit = "kg"; qty = Math.max(.001, Math.round(qv) / 1000); }
+        else { unit = "kg"; qty = Math.max(.001, Math.round(qv * 1000) / 1000); }
+        s = base;
+      }
+    }
+  }
+
+  s = s.replace(/^[\-–—:|]+|[\-–—:|]+$/g, "").trim().slice(0, 120);
+  if (!s) return null;
+  const name = s.charAt(0).toUpperCase() + s.slice(1);
+  const info = inferItemDetails(name, forcedCat || ctxCat);
+  const finalUnit = unit || info.unit || "un";
+  const rawQty = qty !== null ? qty : 1;
+  const finalQty = finalUnit === "kg" ? Math.max(.001, Math.round(rawQty * 1000) / 1000) : Math.max(1, Math.min(999, Math.round(rawQty)));
+  let finalPrice = price !== null ? price : info.price;
+  if (isTotalPrice && price !== null && finalQty > 0) {
+    finalPrice = Math.round(price / finalQty);
+  }
+  return {
+    type: "add",
+    name,
+    qty: finalQty,
+    unit: finalUnit,
+    price: finalPrice || 0,
+    cat: info.cat,
+    done,
+    fromDb: info.fromDb
+  };
+}
+
+function parseAssistantInput(raw) {
+  const segs = splitAssistantSegments(raw);
+  const actions = [];
+  let ctxCat = null;
+  for (const seg of segs) {
+    const hMatch = /^(?:#{1,6}\s*|\*\*)(.+?)(?:\*\*)?:?$/.exec(seg) || /^([A-Za-zÀ-ÿ0-9 &/-]{2,32}):$/.exec(seg);
+    if (hMatch) {
+      const hc = matchCatName(hMatch[1].replace(/[:*#]/g, "").trim());
+      if (hc) { ctxCat = hc; continue; }
+    }
+    const cmd = parseCommandSegment(seg);
+    if (cmd) { actions.push(cmd); continue; }
+    const item = parseItemSegment(seg, ctxCat);
+    if (item) actions.push(item);
+  }
+  return actions;
+}
+
+function cmdPreviewMeta(act) {
+  switch (act.type) {
+    case "newList": return { title: `Criar / abrir lista “${act.name}”`, sub: "Nova lista ativa", badge: "Lista" };
+    case "switchList": return { title: `Trocar para lista “${act.name}”`, sub: "Mudar lista ativa", badge: "Lista" };
+    case "renameList": return { title: `Renomear lista para “${act.name}”`, sub: "Nome da lista atual", badge: "Lista" };
+    case "createCat": return { title: `Criar categoria “${act.name}”`, sub: "Nova categoria personalizada", badge: "Categoria" };
+    case "budget": return { title: act.cents > 0 ? `Definir orçamento: ${brl(act.cents)}` : "Desativar orçamento da lista", sub: "Orçamento da lista", badge: "Orçamento" };
+    case "toggleAll": return { title: act.target ? "Marcar todos os itens" : "Desmarcar todos os itens", sub: "Toda a lista", badge: "Ação" };
+    case "hideDone": return { title: act.value ? "Ocultar itens marcados" : "Mostrar itens marcados", sub: "Visualização", badge: "Filtro" };
+    case "clearList": return { title: "Limpar a lista atual", sub: "Pede confirmação antes de excluir", badge: "Atenção" };
+    case "clearCat": return { title: `Excluir itens de “${act.cat}”`, sub: "Pede confirmação antes de excluir", badge: "Categoria" };
+    case "toggleCat": return { title: `${act.target ? "Marcar" : "Desmarcar"} categoria “${act.cat}”`, sub: "Todos os itens da categoria", badge: "Categoria" };
+    case "toggleItem": return { title: `${act.target ? "Marcar" : "Desmarcar"} “${act.query}”`, sub: "Item da lista atual", badge: "Item" };
+    case "setPrice": return { title: `Preço de “${act.query}” -> ${brl(act.cents)}`, sub: "Atualizar valor na lista", badge: "Preço" };
+    case "setQty": return { title: `Quantidade de “${act.query}” -> ${act.qty}${act.unit ? " " + act.unit : ""}`, sub: "Atualizar na lista", badge: "Qtd" };
+    case "moveCat": return { title: `Mover “${act.query}” -> ${act.cat}`, sub: "Mudar categoria na lista", badge: "Categoria" };
+    case "skipItem": return { title: `${act.skipped ? "Mover para desistência" : "Restaurar"} “${act.query}”`, sub: "Item da lista atual", badge: "Item" };
+    case "delItem": return { title: `Remover “${act.query}”`, sub: "Excluir da lista atual", badge: "Excluir" };
+    case "finish": return { title: "Registrar compra no histórico", sub: "Abre o fluxo de fechamento", badge: "Histórico" };
+    default: return { title: "Comando", sub: "", badge: "" };
+  }
+}
+
+function renderAssistantPreview() {
+  const raw = $("aiIn").value;
+  const actions = parseAssistantInput(raw);
+  const box = $("aiPrev");
+  const btn = $("aiApply");
+  if (!raw.trim()) {
+    box.innerHTML = "";
+    btn.disabled = true;
+    btn.textContent = "Aplicar na lista";
+    return actions;
+  }
+  if (!actions.length) {
+    box.innerHTML = '<div class="ai-prev-warn">Não reconheci itens ou comandos nesse texto. Tente algo como <b>2 arroz 5kg, 1.5kg tomate</b> ou <b>marcar hortifruti</b>.</div>';
+    btn.disabled = true;
+    btn.textContent = "Aplicar na lista";
+    return actions;
+  }
+  const addCnt = actions.filter(a => a.type === "add").length;
+  const cmdCnt = actions.length - addCnt;
+  const hdrTxt = [addCnt ? plural(addCnt, "item", "itens") : "", cmdCnt ? plural(cmdCnt, "comando", "comandos") : ""].filter(Boolean).join(" · ");
+  const curList = L();
+  box.innerHTML = `<div class="ai-prev-hdr"><span>Pré-visualização</span><span>${hdrTxt}</span></div>` +
+    actions.slice(0, 30).map(act => {
+      if (act.type === "add") {
+        const cc = CAT(act.cat);
+        const dup = curList.items.some(i => norm(i.name) === norm(act.name) && i.unit === act.unit);
+        const subParts = [qLabel(act.qty, act.unit), cc.n];
+        if (act.fromDb) subParts.push("do banco");
+        if (act.done) subParts.push("marcado");
+        if (dup) subParts.push("somar ao existente");
+        const pTxt = act.price > 0 ? brl(Math.round(act.qty * act.price)) : "Sem valor";
+        return `<div class="ai-prev-row" style="${sty(cc)}">${catBadge(cc)}<div class="ai-prev-mid"><span class="ai-prev-n">${esc(act.name)}</span><span class="ai-prev-s">${esc(subParts.join(" · "))}</span></div><span class="ai-prev-r">${pTxt}</span></div>`;
+      }
+      const m = cmdPreviewMeta(act);
+      return `<div class="ai-prev-row is-cmd"><span class="cat-ico" style="--h:168">${ico("sparkles")}</span><div class="ai-prev-mid"><span class="ai-prev-n">${esc(m.title)}</span><span class="ai-prev-s">${esc(m.sub)}</span></div><span class="ai-prev-r">${esc(m.badge)}</span></div>`;
+    }).join("") +
+    (actions.length > 30 ? `<div class="ai-prev-warn">+ ${actions.length - 30} itens adicionais serão aplicados normalmente.</div>` : "");
+  btn.disabled = false;
+  btn.textContent = `Aplicar (${actions.length})`;
+  return actions;
+}
+
+async function applyAssistantActions() {
+  const actions = parseAssistantInput($("aiIn").value);
+  if (!actions.length) return;
+  const snapCur = S.cur;
+  const snapHide = S.hideDone;
+  const snapLists = JSON.parse(JSON.stringify(S.lists));
+  const snapCats = JSON.parse(JSON.stringify(S.customCats));
+  let added = 0, merged = 0, cmdRun = 0, needsAsyncClear = false, needsClearCat = null, needsFinish = false;
+
+  for (const act of actions) {
+    const l = L();
+    if (act.type === "newList") {
+      const existing = S.lists.find(x => norm(x.name) === norm(act.name));
+      if (existing) S.cur = existing.id;
+      else { const nl = newList(act.name || "Lista"); S.lists.push(nl); S.cur = nl.id; }
+      cmdRun++;
+    } else if (act.type === "switchList") {
+      const q = norm(act.name);
+      const found = S.lists.find(x => norm(x.name) === q) || S.lists.find(x => norm(x.name).includes(q));
+      if (found) { S.cur = found.id; cmdRun++; }
+    } else if (act.type === "renameList") {
+      if (act.name) { l.name = act.name; cmdRun++; }
+    } else if (act.type === "createCat") {
+      if (act.name && !okc(act.name)) {
+        S.customCats.push({ n: act.name, e: "🏷️", h: Math.floor(Math.random() * 12) * 30, custom: true });
+        cmdRun++;
+      }
+    } else if (act.type === "budget") {
+      l.budget = act.cents;
+      cmdRun++;
+    } else if (act.type === "toggleAll") {
+      activeOf(l.items).forEach(i => { i.done = act.target; });
+      cmdRun++;
+    } else if (act.type === "hideDone") {
+      S.hideDone = act.value;
+      cmdRun++;
+    } else if (act.type === "toggleCat") {
+      activeOf(l.items).filter(i => (i.cat || "Sem categoria") === act.cat).forEach(i => { i.done = act.target; });
+      cmdRun++;
+    } else if (act.type === "toggleItem") {
+      const q = norm(act.query);
+      const hits = activeOf(l.items).filter(i => norm(i.name).includes(q));
+      if (hits.length) { hits.forEach(i => { i.done = act.target; }); cmdRun++; }
+    } else if (act.type === "setPrice") {
+      const q = norm(act.query);
+      const hits = l.items.filter(i => norm(i.name).includes(q));
+      if (hits.length) { hits.forEach(i => { i.price = act.cents; }); cmdRun++; }
+    } else if (act.type === "setQty") {
+      const q = norm(act.query);
+      const hits = l.items.filter(i => norm(i.name).includes(q));
+      if (hits.length) {
+        hits.forEach(i => {
+          if (act.unit) i.unit = act.unit;
+          i.qty = i.unit === "kg" ? Math.max(.001, Math.min(999, Math.round(act.qty * 1000) / 1000)) : Math.max(1, Math.min(999, Math.round(act.qty)));
+        });
+        cmdRun++;
+      }
+    } else if (act.type === "moveCat") {
+      const q = norm(act.query);
+      const hits = l.items.filter(i => norm(i.name).includes(q));
+      if (hits.length) {
+        hits.forEach(i => { i.cat = act.cat; });
+        bump(act.cat, l);
+        cmdRun++;
+      }
+    } else if (act.type === "skipItem") {
+      const q = norm(act.query);
+      const hits = l.items.filter(i => norm(i.name).includes(q));
+      if (hits.length) {
+        hits.forEach(i => { i.skipped = act.skipped; if (act.skipped) i.done = false; });
+        cmdRun++;
+      }
+    } else if (act.type === "delItem") {
+      const q = norm(act.query);
+      const before = l.items.length;
+      l.items = l.items.filter(i => !norm(i.name).includes(q));
+      if (l.items.length < before) cmdRun++;
+    } else if (act.type === "clearList") {
+      needsAsyncClear = true;
+    } else if (act.type === "clearCat") {
+      needsClearCat = act.cat;
+    } else if (act.type === "finish") {
+      needsFinish = true;
+    } else if (act.type === "add") {
+      const k = norm(act.name);
+      const ex = l.items.find(i => norm(i.name) === k && i.unit === act.unit);
+      if (ex) {
+        ex.qty = act.unit === "kg" ? Math.round((ex.qty + act.qty) * 1000) / 1000 : Math.min(999, ex.qty + act.qty);
+        if (act.price > 0) ex.price = act.price;
+        ex.done = !!act.done;
+        ex.skipped = false;
+        lastAddedId = ex.id;
+        bump(ex.cat || "Sem categoria", l);
+        merged++;
+      } else {
+        const h = findProductExact(act.name);
+        const it = { id: uid(), name: act.name, qty: act.qty, price: act.price, unit: act.unit, cat: act.cat, done: !!act.done };
+        if (h && h.u === act.unit && h.p && act.price && h.p !== act.price) it.pp = h.p;
+        bump(act.cat, l);
+        l.items.push(it);
+        lastAddedId = it.id;
+        added++;
+      }
+    }
+  }
+
+  $("ai").close();
+  $("aiIn").value = "";
+  renderAssistantPreview();
+  if (curTab !== "list") setTab("list");
+  else render();
+  vib();
+
+  const summary = [
+    added ? plural(added, "item adicionado", "itens adicionados") : "",
+    merged ? plural(merged, "item somado", "itens somados") : "",
+    cmdRun ? plural(cmdRun, "comando aplicado", "comandos aplicados") : ""
+  ].filter(Boolean).join(" · ");
+  if (summary) {
+    toast(summary, () => { S.lists = snapLists; S.cur = snapCur; S.hideDone = snapHide; S.customCats = snapCats; });
+  }
+  if (needsAsyncClear) await clearAllItems();
+  if (needsClearCat) await clearCatItems(needsClearCat);
+  if (needsFinish) await finishPurchase();
+}
+
+function buildGeminiPrompt() {
+  const cats = getCats().map(c => c.n).join(", ");
+  return `Gere uma lista de compras no formato exato abaixo (1 item por linha, sem texto extra antes ou depois):\nNome do item | Quantidade (un ou kg) | Categoria\n\nUse apenas estas categorias quando possível: ${cats}.\nExemplo:\nArroz 5kg | 2 un | Mercearia\nTomate Italiano | 1,5 kg | Hortifruti\n\nPedido: `;
+}
+
+// Reconhecimento de voz nativo do navegador (Web Speech API) ao lado da caixa do assistente
+let aiSpeech = null, aiRecActive = false;
+function setAiMicUI(on, msg = "", isRec = false) {
+  const b = $("aiMic"), st = $("aiMicSt");
+  if (!b || !st) return;
+  b.classList.toggle("rec", !!isRec);
+  b.setAttribute("aria-pressed", String(!!isRec));
+  st.classList.toggle("rec", !!isRec);
+  st.hidden = !msg;
+  if (msg) st.textContent = msg;
+}
+function stopAiMic() {
+  aiRecActive = false;
+  if (aiSpeech) { try { aiSpeech.stop(); } catch (e) {} }
+  setAiMicUI(false, "", false);
+}
+function toggleAiMic() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) {
+    setAiMicUI(false, "Ditado direto indisponível neste navegador — use o microfone do teclado.", false);
+    $("aiIn").focus();
+    return;
+  }
+  if (aiRecActive) { stopAiMic(); return; }
+  const baseText = $("aiIn").value.trim();
+  let finalChunk = "";
+  const rec = new SR();
+  aiSpeech = rec;
+  aiRecActive = true;
+  rec.lang = "pt-BR";
+  rec.continuous = true;
+  rec.interimResults = true;
+  setAiMicUI(true, "Ouvindo em português… fale os itens ou comandos (toque para parar)", true);
+  rec.onresult = ev => {
+    let interim = "";
+    for (let i = ev.resultIndex; i < ev.results.length; i++) {
+      const tr = (ev.results[i][0] && ev.results[i][0].transcript) || "";
+      if (ev.results[i].isFinal) finalChunk += (finalChunk ? ", " : "") + tr.trim();
+      else interim += (interim ? " " : "") + tr.trim();
+    }
+    const combined = [baseText, finalChunk, interim].filter(Boolean).join(baseText ? "\n" : ", ").replace(/,\s*\n/g, "\n");
+    $("aiIn").value = combined;
+    renderAssistantPreview();
+  };
+  rec.onerror = ev => {
+    const code = ev && ev.error;
+    const msg = code === "not-allowed" || code === "service-not-allowed"
+      ? "Permissão do microfone negada nas configurações do navegador."
+      : (code === "network" ? "Ditado por voz precisa de internet neste aparelho ou use o microfone do teclado." : "");
+    aiRecActive = false;
+    setAiMicUI(false, msg, false);
+  };
+  rec.onend = () => {
+    const wasRec = aiRecActive;
+    aiRecActive = false;
+    if (wasRec) setAiMicUI(false, "", false);
+  };
+  try { rec.start(); } catch (e) { aiRecActive = false; setAiMicUI(false, "Não foi possível iniciar o microfone.", false); }
+}
+
+function openAssistant() {
+  setAiMicUI(false, "", false);
+  openD("ai");
+  renderAssistantPreview();
+  setTimeout(() => { $("aiIn").focus(); }, 60);
+}
+$("aiBtn").onclick = openAssistant;
+$("aiMic").onclick = toggleAiMic;
+$("ai").addEventListener("close", stopAiMic);
+$("aiIn").addEventListener("input", renderAssistantPreview);
+$("aiIn").addEventListener("keydown", e => {
+  if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); }
+  e.stopPropagation();
+});
+$("aiChips").addEventListener("click", e => {
+  const b = e.target.closest("[data-ai-tpl]");
+  if (!b) return;
+  stopAiMic();
+  $("aiIn").value = b.dataset.aiTpl;
+  renderAssistantPreview();
+  $("aiIn").focus();
+});
+$("aiCopyPrompt").onclick = async () => {
+  const p = buildGeminiPrompt();
+  try {
+    await navigator.clipboard.writeText(p);
+    toast("Pedido copiado! Cole no Gemini ou ChatGPT");
+  } catch (e) {
+    $("aiIn").value = p;
+    $("aiIn").select();
+    toast("Copie o texto acima e cole no Gemini");
+  }
+};
+$("aiPaste").onclick = async () => {
+  stopAiMic();
+  try {
+    const t = await navigator.clipboard.readText();
+    if (!t || !t.trim()) { toast("Nada copiado na área de transferência"); return; }
+    $("aiIn").value = t;
+    renderAssistantPreview();
+    toast("Texto colado e analisado");
+  } catch (e) {
+    $("aiIn").focus();
+    toast("Toque e segure na caixa acima para colar");
+  }
+};
+$("aiClear").onclick = () => {
+  stopAiMic();
+  $("aiIn").value = "";
+  renderAssistantPreview();
+  $("aiIn").focus();
+};
+$("aiApply").onclick = () => { stopAiMic(); applyAssistantActions(); };
 
 /* =========================================================
    Início
