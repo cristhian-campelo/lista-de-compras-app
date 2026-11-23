@@ -125,6 +125,8 @@ header{flex:none;background:var(--bg);padding:8px 0 4px;touch-action:none;user-s
 .top-back:active{transform:scale(.97)}
 .top-lbl{flex:1;min-width:0;font-size:13.5px;font-weight:700;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .top-lbl.is-title{font-size:17px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+.top.is-prod-detail{flex-wrap:wrap;gap:6px}
+.top.is-prod-detail .top-lbl.is-title{flex:1 0 100%;text-align:center;font-size:21px;line-height:1.22;padding:4px 8px 2px;white-space:normal;text-wrap:balance;letter-spacing:-.02em}
 .top-r{display:flex;align-items:center;gap:6px;flex:none}
 .help-btn{height:36px;padding:0 12px;border-radius:var(--r-md);border:1px solid var(--line);display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:700;color:var(--accent);background:var(--surface);transition:background-color .18s ease,border-color .18s ease,color .18s ease,transform .15s ease}
 .help-btn svg{width:16px;height:16px;flex:none}
@@ -150,8 +152,8 @@ header{flex:none;background:var(--bg);padding:8px 0 4px;touch-action:none;user-s
 .top-collapse-in,.hdr-collapse-in,.sum-collapse-in,.sum-card-wrap-in{min-height:0;overflow:hidden}
 header.hdr-min{padding-bottom:2px}
 header.hdr-min .nav-row{margin-bottom:4px}
-header.hdr-min:not(.hdr-has-back) .top-collapse,header.hdr-min .hdr-collapse,header.hdr-min .sum-collapse{grid-template-rows:0fr;opacity:0;pointer-events:none}
-header.hdr-min.hdr-has-back .top{margin-bottom:5px}
+header.hdr-min:not(.hdr-has-back):not(.hdr-has-ls) .top-collapse,header.hdr-min .hdr-collapse,header.hdr-min .sum-collapse{grid-template-rows:0fr;opacity:0;pointer-events:none}
+header.hdr-min.hdr-has-back .top,header.hdr-min.hdr-has-ls .top{margin-bottom:5px}
 header.hdr-min:not(.hdr-has-bud) .sum-card-wrap{grid-template-rows:0fr;opacity:0;pointer-events:none}
 header.hdr-min.hdr-has-bud .sum-card{padding:8px 12px}
 header.hdr-min.hdr-has-bud .bud{margin-top:0;padding-top:0;border-top:0}
@@ -557,6 +559,10 @@ dialog label,.fld-lbl{display:block;font-size:13px;font-weight:600;color:var(--m
 .acts .skp.on{color:var(--ok);background:var(--surface-2)}
 .acts .skp.on:hover{background:var(--ok);border-color:var(--ok);color:#fff}
 .menu{display:grid;gap:6px}
+.menu-sep{height:1px;background:var(--line);margin:4px 0}
+.pm-prod-banner{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;padding:10px 14px;margin:0 0 12px;border-radius:var(--r-md);background:var(--surface-2);border:1px solid var(--line)}
+.pm-prod-banner-k{font-size:11.5px;font-weight:700;color:var(--muted)}
+.pm-prod-banner-v{font-size:20px;font-weight:800;color:var(--ink);line-height:1.22;letter-spacing:-.02em;word-break:break-word;text-wrap:balance}
 .menu button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:12px 14px;border-radius:var(--r-md);background:var(--surface-2);border:1px solid var(--line);font-weight:600;transition:background-color .16s ease,border-color .16s ease,color .16s ease}
 .menu button svg{width:17px;height:17px;color:var(--muted);flex:none;transition:color .16s ease}
 .menu button:hover{border-color:var(--accent);color:var(--accent)}
@@ -1005,6 +1011,8 @@ dialog label,.fld-lbl{display:block;font-size:13px;font-weight:600;color:var(--m
     <button id="mAll" class="w"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg><span>Limpar a lista inteira</span></button>
     <button id="mDelAllHist" class="w" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg><span>Excluir todos os registros</span></button>
     <button id="mDelAllProd" class="w" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg><span>Excluir todos os produtos</span></button>
+    <div class="menu-sep" aria-hidden="true"></div>
+    <button type="button" id="mResetApp" class="w"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg><span>Resetar aplicativo (apagar tudo)</span></button>
   </div>
   <div class="acts"><button class="pri rgb-btn" id="mnOk">Pronto</button></div>
 </dialog>
@@ -1190,6 +1198,10 @@ dialog label,.fld-lbl{display:block;font-size:13px;font-weight:600;color:var(--m
     <button type="button" class="dlg-x" data-dlg-close aria-label="Fechar">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
     </button>
+  </div>
+  <div class="pm-prod-banner" id="pmProdBanner" hidden>
+    <span class="pm-prod-banner-k" id="pmProdBannerK">Editando produto</span>
+    <strong class="pm-prod-banner-v" id="pmProdBannerV"></strong>
   </div>
   <div id="pmProdFields">
     <label for="pmName">Nome do produto</label>
@@ -1801,16 +1813,19 @@ addEventListener("popstate", () => {
   if (draftRec) {
     draftRec = null;
     curRecId = null;
+    pendingScroll = scrollMem["hist"] || 0;
     render();
     return;
   }
   if (curRecId) {
     curRecId = null;
+    pendingScroll = scrollMem["hist"] || 0;
     render();
     return;
   }
   if (curProdId) {
     curProdId = null;
+    pendingScroll = scrollMem["prod"] || 0;
     render();
   }
 });
@@ -2093,6 +2108,17 @@ let repCat = "all";       // all | nome da categoria
 let repList = "all";      // all | nome da lista
 let repSelId = null;      // Barra selecionada no gráfico
 let lastAddedId = null;   // ID do último item adicionado para animação de entrada
+const scrollMem = Object.create(null);
+let pendingScroll = null;
+const getMainEl = () => document.querySelector("main");
+const scrollKeyFor = (tab = curTab) => tab === "list" ? `list:${S.cur}` : tab;
+function saveCurrentScroll() {
+  const scEl = getMainEl();
+  if (!scEl) return;
+  if (curTab === "hist" && curRecId) return;
+  if (curTab === "prod" && curProdId) return;
+  scrollMem[scrollKeyFor(curTab)] = scEl.scrollTop;
+}
 
 const ico4 = (name, sw = 2.1) => `<svg viewBox="0 0 24 24" fill="none" stroke="url(#g4c)" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${LUCIDE_PATHS[name] || ""}</svg>`;
 document.addEventListener("click", e => {
@@ -2147,28 +2173,45 @@ document.addEventListener("click", e => {
   hdr.addEventListener("pointerup", endDrag);
   hdr.addEventListener("pointercancel", endDrag);
 })();
-function setTab(t) {
+function setTab(t, opts = {}) {
+  if (!opts.preservePending) saveCurrentScroll();
   curTab = t;
   document.querySelectorAll("#mainNav button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === t));
   $("vList").hidden = t !== "list";
   $("vHist").hidden = t !== "hist";
   $("vProd").hidden = t !== "prod";
   $("vRep").hidden = t !== "rep";
-  const scEl = document.querySelector("main");
-  if (scEl) scEl.scrollTop = 0;
+  if (!opts.preservePending) {
+    pendingScroll = (t === "hist" && curRecId) || (t === "prod" && curProdId) ? 0 : (scrollMem[scrollKeyFor(t)] || 0);
+  }
   render();
 }
 $("mainNav").addEventListener("click", async e => {
   const b = e.target.closest("[data-tab]");
   if (!b) return;
+  const targetTab = b.dataset.tab;
   if (draftRec) {
     const r = await ask("Sair sem salvar?", "As edições feitas nesta compra ainda não foram confirmadas e serão descartadas.", "Descartar", { danger: true });
     if (r !== "ok") return;
     draftRec = null;
   }
+  if (targetTab === curTab) {
+    if (curRecId || curProdId) {
+      curRecId = null;
+      curProdId = null;
+      pendingScroll = scrollMem[scrollKeyFor(targetTab)] || 0;
+      render();
+    } else {
+      const sc = getMainEl();
+      if (sc) sc.scrollTo({ top: 0, behavior: reduced() ? "auto" : "smooth" });
+    }
+    return;
+  }
+  saveCurrentScroll();
   curRecId = null;
   curProdId = null;
-  setTab(b.dataset.tab);
+  pendingScroll = scrollMem[scrollKeyFor(targetTab)] || 0;
+  setTab(targetTab, { preservePending: true });
 });
 
 /* =========================================================
@@ -2470,6 +2513,8 @@ function updateListTotalsUI() {
   $("lsBtn").hidden = false;
   $("topBack").hidden = true;
   $("appHdr").classList.remove("hdr-has-back");
+  $("appHdr").classList.add("hdr-has-ls");
+  $("hdrTop").classList.remove("is-prod-detail");
   $("hdrLabel").hidden = true;
   $("hdrLabel").classList.remove("is-title");
   $("lsName").textContent = l.name;
@@ -2501,7 +2546,8 @@ function updateListTotalsUI() {
 
 function render() {
   const scEl = document.querySelector("main");
-  const prevTop = scEl ? scEl.scrollTop : 0;
+  const prevTop = pendingScroll !== null ? pendingScroll : (scEl ? scEl.scrollTop : 0);
+  pendingScroll = null;
   const restoreScroll = () => {
     if (!scEl) return;
     scEl.scrollTop = prevTop;
@@ -2600,7 +2646,7 @@ async function deleteRecord(rec) {
   const idx = S.records.indexOf(rec);
   if (idx < 0) return;
   S.records.splice(idx, 1);
-  if (curRecId === rec.id) { curRecId = null; draftRec = null; }
+  if (curRecId === rec.id) { curRecId = null; draftRec = null; pendingScroll = scrollMem["hist"] || 0; }
   render();
   toast("Compra excluída do histórico", () => { S.records.splice(Math.min(idx, S.records.length), 0, rec); });
 }
@@ -2624,7 +2670,8 @@ async function deleteAllRecords() {
 }
 
 function renderHist() {
-  $("appHdr").classList.remove("hdr-has-bud");
+  $("appHdr").classList.remove("hdr-has-bud", "hdr-has-ls");
+  $("hdrTop").classList.remove("is-prod-detail");
   $("lsBtn").hidden = true;
   $("bud").hidden = true;
   $("budTrig").hidden = true;
@@ -2826,7 +2873,7 @@ function getFilteredProducts() {
 }
 
 function renderProd() {
-  $("appHdr").classList.remove("hdr-has-bud");
+  $("appHdr").classList.remove("hdr-has-bud", "hdr-has-ls");
   $("lsBtn").hidden = true;
   $("bud").hidden = true;
   $("budTrig").hidden = true;
@@ -2846,6 +2893,7 @@ function renderProd() {
   $("appHdr").classList.toggle("hdr-has-back", !!prod);
 
   if (!prod) {
+    $("hdrTop").classList.remove("is-prod-detail");
     $("topBack").hidden = true;
     $("hdrLabel").hidden = false;
     $("hdrLabel").classList.remove("is-title");
@@ -2962,6 +3010,7 @@ function renderProd() {
   }
 
   // Visualizando o histórico completo de um produto específico
+  $("hdrTop").classList.add("is-prod-detail");
   $("topBack").hidden = false;
   $("topBackTxt").textContent = "Voltar aos produtos";
   $("hdrLabel").hidden = false;
@@ -3078,8 +3127,10 @@ function renderRep() {
     apply();
     requestAnimationFrame(apply);
   };
-  $("appHdr").classList.remove("hdr-has-bud");
-  $("appHdr").classList.remove("hdr-has-back");
+  $("appHdr").classList.remove("hdr-has-bud", "hdr-has-back", "hdr-has-ls");
+  $("hdrTop").classList.remove("is-prod-detail");
+  $("appHdr").classList.add("hdr-has-ls");
+  $("hdrTop").classList.remove("is-prod-detail");
   $("lsBtn").hidden = true;
   $("topBack").hidden = true;
   $("hdrLabel").hidden = false;
@@ -3747,6 +3798,7 @@ $("topBack").onclick = async () => {
       return;
     }
     curProdId = null;
+    pendingScroll = scrollMem["prod"] || 0;
     render();
     return;
   }
@@ -3755,6 +3807,7 @@ $("topBack").onclick = async () => {
     return;
   }
   curRecId = null;
+  pendingScroll = scrollMem["hist"] || 0;
   render();
 };
 function handleDraftInput(e) {
@@ -3799,9 +3852,11 @@ $("vHist").addEventListener("click", async e => {
   }
   const openBtn = e.target.closest("[data-open-rec]");
   if (openBtn) {
+    saveCurrentScroll();
     curRecId = openBtn.dataset.openRec;
     draftRec = null;
     recCols.clear();
+    pendingScroll = 0;
     history.pushState({ rec: curRecId }, "");
     render();
     return;
@@ -3959,10 +4014,12 @@ $("vRep").addEventListener("click", e => {
   if (rc) { repCat = rc.dataset.rcat; render(); return; }
   const jr = e.target.closest("[data-jump-rec]");
   if (jr) {
+    saveCurrentScroll();
     curRecId = jr.dataset.jumpRec;
     draftRec = null;
+    pendingScroll = 0;
     history.pushState({ rec: curRecId }, "");
-    setTab("hist");
+    setTab("hist", { preservePending: true });
   }
 });
 
@@ -3985,7 +4042,12 @@ function openProdModal(mode, prod = null, priceEntry = null, presetCat = "") {
   pmTargetPrice = priceEntry;
   const isPriceOnly = mode === "addPrice" || mode === "editPrice";
   const isEditProd = mode === "editProd";
-  $("pmTitle").textContent = mode === "addProd" ? "Novo produto" : isEditProd ? "Editar produto" : mode === "addPrice" ? `Registrar valor · ${prod ? prod.name : ""}` : `Editar valor · ${prod ? prod.name : ""}`;
+  $("pmTitle").textContent = mode === "addProd" ? "Novo produto" : isEditProd ? "Editar produto" : mode === "addPrice" ? "Registrar valor" : "Editar valor";
+  $("pmProdBanner").hidden = mode === "addProd" || !prod;
+  if (prod && mode !== "addProd") {
+    $("pmProdBannerK").textContent = isEditProd ? "Editando produto" : "Produto selecionado";
+    $("pmProdBannerV").textContent = prod.name;
+  }
   $("pmProdFields").hidden = isPriceOnly;
   $("pmPriceFields").hidden = isEditProd;
   $("pmDateRow").hidden = mode !== "addPrice" && mode !== "editPrice";
@@ -4091,6 +4153,11 @@ function saveProdModal() {
 }
 $("pmSave").onclick = saveProdModal;
 $("pmCancel").onclick = () => $("pm").close();
+$("pmName").addEventListener("input", () => {
+  if (pmMode === "editProd") {
+    $("pmProdBannerV").textContent = $("pmName").value.trim() || (pmTargetProd ? pmTargetProd.name : "");
+  }
+});
 ["pmName", "pmPrice", "pmOrigin"].forEach(id => $(id).addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $(id).blur(); } }));
 
 async function deleteProductWithUndo(prod) {
@@ -4101,7 +4168,7 @@ async function deleteProductWithUndo(prod) {
   if (idx < 0) return;
   S.products.splice(idx, 1);
   prodSelIds.delete(prod.id);
-  if (curProdId === prod.id) curProdId = null;
+  if (curProdId === prod.id) { curProdId = null; pendingScroll = scrollMem["prod"] || 0; }
   render();
   toast(`“${prod.name}” excluído do banco`, () => { S.products.splice(Math.min(idx, S.products.length), 0, prod); });
 }
@@ -4214,7 +4281,9 @@ $("vProd").addEventListener("click", async e => {
   }
   const openP = e.target.closest("[data-open-prod]");
   if (openP) {
+    saveCurrentScroll();
     curProdId = openP.dataset.openProd;
+    pendingScroll = 0;
     history.pushState({ prod: curProdId }, "");
     render();
     return;
@@ -4734,6 +4803,52 @@ $("mBak").onclick = () => {
   $("mn").close();
   openD("bk");
 };
+async function resetAppComplete() {
+  const r1 = await ask(
+    "Resetar todo o aplicativo?",
+    "Todas as suas listas, categorias personalizadas, histórico de compras, banco de produtos e preferências serão apagados permanentemente. Recomendamos salvar um backup antes.",
+    "Continuar",
+    { danger: true }
+  );
+  if (r1 !== "ok") return;
+  const r2 = await ask(
+    "Confirmar reset completo",
+    "Esta ação não pode ser desfeita. Deseja apagar todos os dados e voltar o aplicativo ao estado inicial?",
+    "Apagar tudo",
+    { danger: true }
+  );
+  if (r2 !== "ok") return;
+  try {
+    localStorage.removeItem(KEY);
+    localStorage.removeItem(OLD_KEY);
+    localStorage.removeItem("inst-x");
+  } catch (e) {}
+  S = cleanState({ lists: [] });
+  curRecId = null; draftRec = null; curProdId = null;
+  prodSelIds.clear(); prodCols.clear(); recCols.clear();
+  histQuery = ""; prodQuery = "";
+  histSort = "date-desc"; histFilter = "all";
+  prodSort = "date-desc"; prodListSort = "name-asc"; prodFilter = "all";
+  repPeriod = "30d"; repCat = "all"; repList = "all"; repSelId = null;
+  lastAddedId = null;
+  Object.keys(scrollMem).forEach(k => delete scrollMem[k]);
+  pendingScroll = 0;
+  const hdr = $("appHdr"), hdl = $("hdrHandle");
+  if (hdr) hdr.classList.remove("hdr-min");
+  if (hdl) {
+    hdl.setAttribute("aria-expanded", "true");
+    hdl.setAttribute("aria-label", "Minimizar painel do topo");
+  }
+  save();
+  applyTheme();
+  instUI();
+  setTab("list", { preservePending: true });
+  toast("Aplicativo resetado para o padrão inicial");
+}
+$("mResetApp").onclick = () => {
+  $("mn").close();
+  resetAppComplete();
+};
 
 /* =========================================================
    Minhas listas (modelos / listas ativas)
@@ -4795,7 +4910,10 @@ $("lsl").addEventListener("click", async e => {
     return;
   }
   const b = e.target.closest("[data-l]"); if (!b) return;
-  S.cur = b.dataset.l; S.cat = ""; paint($("cat"), ""); $("ls").close(); render();
+  saveCurrentScroll();
+  S.cur = b.dataset.l; S.cat = ""; paint($("cat"), "");
+  pendingScroll = scrollMem[`list:${S.cur}`] || 0;
+  $("ls").close(); render();
 });
 $("lNew").onclick = async () => {
   const n = await askName("Nova lista", ""); if (!n) return;
