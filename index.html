@@ -844,7 +844,7 @@ body.is-minimal .sum-card{padding:10px 12px}
 .min-row .name::after{content:"";position:absolute;left:0;right:0;top:52%;height:2px;margin-top:-1px;border-radius:2px;background:currentColor;transform:scaleX(0);transform-origin:left center;transition:transform .4s cubic-bezier(.65,0,.35,1);pointer-events:none}
 .min-row.done .name,.min-card.skip-card .min-row .name{color:var(--muted)}
 .min-row.done .name::after,.min-card.skip-card .min-row .name::after{transform:scaleX(1)}
-.min-row .min-right{display:grid;grid-template-columns:118px 76px;align-items:center;gap:5px;flex:none;font-variant-numeric:tabular-nums}
+.min-row .min-right{display:grid;grid-template-columns:118px minmax(84px,auto);align-items:center;gap:6px;flex:none;font-variant-numeric:tabular-nums}
 .min-row .p-qty.qs{width:78px;justify-self:end;justify-content:space-between;padding:2px 3px;gap:2px;font-size:11.5px;border-radius:var(--r-sm)}
 .min-row .p-qty.qs.is-kg{width:100%}
 .min-row .qb{width:22px;height:22px;flex:none}
@@ -865,7 +865,7 @@ body.is-minimal .sum-card{padding:10px 12px}
 /* ---------- Ajustes de tela ---------- */
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 @media (min-width:700px){.total,.bud-trig-v{font-size:36px}}
-@media (max-width:370px){.wrap{padding:0 12px}.nav-row{gap:6px}.nav{padding:0 6px}.total,.bud-trig-v{font-size:24px}.add{padding:0 14px}.row{gap:5px}.row.list-row{padding:8px 6px 8px 4px;gap:4px}.min-card .row.min-row{padding:6px 6px 6px 2px;gap:3px}.min-row .chk{width:32px;height:36px}.min-row .min-main{gap:4px}.min-row .min-right{grid-template-columns:104px 66px;gap:4px}.min-row .p-qty.qs{width:68px}.min-row .p-qty.qs.is-kg{width:100%}.min-row .name{font-size:13.5px}.min-row .qb{width:20px;height:20px}.min-row .qs output{font-size:11px}.min-row .line{font-size:12.5px;padding:0 4px}.sw-act{width:48px}.sw[data-sw="2"]{--sw-w:111px}.sw[data-sw="3"]{--sw-w:164px}.line.line-lg{font-size:13.5px;height:30px;min-height:30px;padding:0 8px}.hacts{gap:6px}.hacts button{font-size:12.5px;padding:0 7px}.hacts.prod-acts .del{width:40px}.qw>*{width:100px}.step button{width:34px}}
+@media (max-width:370px){.wrap{padding:0 12px}.nav-row{gap:6px}.nav{padding:0 6px}.total,.bud-trig-v{font-size:24px}.add{padding:0 14px}.row{gap:5px}.row.list-row{padding:8px 6px 8px 4px;gap:4px}.min-card .row.min-row{padding:6px 6px 6px 2px;gap:3px}.min-row .chk{width:32px;height:36px}.min-row .min-main{gap:4px}.min-row .min-right{grid-template-columns:104px minmax(74px,auto);gap:4px}.min-row .p-qty.qs{width:68px}.min-row .p-qty.qs.is-kg{width:100%}.min-row .name{font-size:13.5px}.min-row .qb{width:20px;height:20px}.min-row .qs output{font-size:11px}.min-row .line{font-size:12.5px;padding:0 4px}.sw-act{width:48px}.sw[data-sw="2"]{--sw-w:111px}.sw[data-sw="3"]{--sw-w:164px}.line.line-lg{font-size:13.5px;height:30px;min-height:30px;padding:0 8px}.hacts{gap:6px}.hacts button{font-size:12.5px;padding:0 7px}.hacts.prod-acts .del{width:40px}.qw>*{width:100px}.step button{width:34px}}
 /* teclado aberto ou tela baixa: cabeçalho compacto para sobrar espaço para a lista */
 @media (max-height:520px){header{padding:4px 0}.nav{height:36px}.nav-menu-btn{width:36px;height:36px}.nav-row{margin-bottom:4px}.top{margin-bottom:3px}.lsb{height:28px}.sum-card{padding:6px 10px}.total,.bud-trig-v{font-size:22px}.sum-grid,.sum-foot,.inst,.bud .bud-txt{display:none}.bud{margin-top:4px;padding-top:4px}.grp{margin-top:10px}}
 </style>
